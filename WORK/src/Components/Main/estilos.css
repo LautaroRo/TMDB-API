@@ -1,0 +1,143 @@
+main{
+    height: 100vh;
+    margin: 0;
+}
+
+.sectiondiv{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: relative;
+    width: 95%;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+.containerMoviesTodas{
+    width: 90%;
+    margin: 100px auto;
+}
+
+.MoviesTodas{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.img{
+    width: 12em;
+    height: 100%;
+    background-size: cover;
+}
+
+
+.img:hover{
+    border-radius: 10px;
+    transform: scale(1.2);
+    background-color: aqua;
+    opacity: -1;
+}
+
+.img:hover .p p{
+    opacity: 2;
+}
+
+button{
+    position: absolute;
+    border: none;
+    background: rgba(27, 23, 23, 0.644);
+    font-size: 40px;
+    height: 30.2%;
+    top: calc(50% - -67.7%);
+    line-height: 40px;
+    width: 5%;
+    color: #fff;
+    cursor: pointer;
+    z-index: 500;
+    transition: .2s ease all;
+}
+
+
+button:hover{
+    background: rgba(99, 96, 96, 0.363);
+    color: white;
+}
+
+.mas{
+    right: 0px;
+}
+.menos{
+    left: 0px;
+}
+.divInside{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.p{
+    position: relative;
+    color: white;
+    opacity: 1;
+    right: 110px;
+}
+
+.ContainerCards,
+.ContainerActive{
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.ContainerActive{
+    background: linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%);
+    border-radius: 10px;
+    transition: all .5s;
+}
+
+.ContainerActive img{
+
+    width: 12em;
+    height: 100%;
+
+}
+.Show{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 10em;
+    font-size: .8em;
+    transition: all .5s;
+    z-index: 3000000;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    animation: show linear .5s;
+    text-align: center;
+}
+
+@keyframes show{
+    0%{
+        width: 0em;
+    }
+    50%{
+        width: 5em;
+    }
+    100%{
+        width: 10em;
+    }
+
+
+}
+
+
+
+@keyframes mostar{
+    0%{
+        opacity: -1;
+    }
+    100%{
+        opacity: 100%;
+    }
+}
+
+

@@ -1,0 +1,56 @@
+.divBox {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: end;
+    align-items: center;
+}
+
+.box {
+    height: 30px;
+    width: 30px;
+    background-color: black;
+    border: 1px solid white;
+    margin: 10px;
+}
+
+.activo {
+    background-color: white;
+    border: 1px solid black;
+}
+.DivName {
+    position: absolute;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
+    left: 0;
+}
+
+@keyframes fade {
+    0% {
+        opacity: -1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade2 {
+    0% {
+        opacity: -1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fade-in{
+    animation: fade 1s linear;
+}
+
+.fade-out {
+    animation: fade2 1s linear;
+}
+
+
+
