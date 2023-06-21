@@ -21,9 +21,36 @@
     position: absolute;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: white;
-    left: 0;
+    left: 100px;
+    width: 90%;
+}
+.DivName h1{
+    font-weight: 600;
+    font-size:3.12em;
+    margin-bottom: 0.4em;
 }
 
+.DivName p{
+    font-weight: normal;
+    font-size: 1em;
+    line-height: 1.75em;
+    max-width: 50%;
+    margin-bottom: 1.25em;
+}
+
+.DivName a{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .8em .3em;
+    background-color: white;
+}
+
+.DivName a img{
+    width: 20%;
+    height: 20%;
+}
 @keyframes fade {
     0% {
         opacity: -1;

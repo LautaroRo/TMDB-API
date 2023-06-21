@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./estilos.css"
-
+import play from "./../../Assets/play.png"
 
 const Header = () => {
 
@@ -20,13 +20,14 @@ const Header = () => {
         let url = `${API}/movie/popular?api_key=${API_KEY}&page=1`;
         const response = await fetch(url);
         const data = await response.json();
-
+        console.log(data)
         for (let j = 0; j < 11; j++) {
             let imgPath = data.results[j].backdrop_path;
 
             if (imgPath) {
                 let name = data.results[j].title;
                 let id = data.results[j].id;
+                let desc = data.results[j]. overview
 
                 let img = `https://image.tmdb.org/t/p/original${imgPath}`; // Construye la URL completa de la imagen
 
@@ -34,6 +35,7 @@ const Header = () => {
                     name: name,
                     id: id,
                     img: img,
+                    desc:desc
                 };
 
                 peliculas.push(info);
@@ -111,12 +113,14 @@ const Header = () => {
                 justifyContent: "end",
                 alignItems: "center",
                 height: "100vh",
-                background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${Pelicula?.img}) center top / cover no-repeat`,
+                background: `linear-gradient(rgba(0,0,0, 0.50) 0%, rgba(0,0,0, 0.80) 100%), url(${Pelicula?.img}) center top / cover no-repeat`,
                 scrollBehavior: "smooth"
             }}>
 
             <div className='DivName'>
                 <h1>{Pelicula?.name}</h1>
+                <p>{Pelicula?.desc}</p>
+                <a><img src={play} alt="" /></a>
             </div>
 
             <div className="divBox">
