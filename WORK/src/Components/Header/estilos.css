@@ -22,10 +22,11 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: white;
     left: 100px;
-    width: 90%;
+    width: 80%;
 }
 .DivName h1{
     font-weight: 600;
+    width: 80%;
     font-size:3.12em;
     margin-bottom: 0.4em;
 }
@@ -79,5 +80,21 @@
     animation: fade2 1s linear;
 }
 
+
+@media screen and (max-width:750px){
+    .DivName{
+        left: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .divBox{
+        display: none;
+    }
+}
 
 

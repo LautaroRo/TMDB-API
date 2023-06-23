@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./estilos.css"
-import play from "./../../Assets/play.png"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPlay} from '@fortawesome/free-solid-svg-icons'
 
 const Header = () => {
 
@@ -120,7 +121,7 @@ const Header = () => {
             <div className='DivName'>
                 <h1>{Pelicula?.name}</h1>
                 <p>{Pelicula?.desc}</p>
-                <a><img src={play} alt="" /></a>
+                <a><FontAwesomeIcon className='icono' icon={faPlay}/></a>
             </div>
 
             <div className="divBox">

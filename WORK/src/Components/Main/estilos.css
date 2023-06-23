@@ -56,7 +56,7 @@ button:hover{
     background: rgba(27, 23, 23, 0.644);
     font-size: 40px;
     height: 30%;
-    top: calc(50% - -67.6%);
+    top: 1140px;
     line-height: 40px;
     width: 4.74%;
     color: #fff;
@@ -73,7 +73,7 @@ button:hover{
     background: rgba(27, 23, 23, 0.644);
     font-size: 40px;
     height: 30%;
-    top: calc(50% - -67.6%);
+    top: 1140px;
     line-height: 40px;
     width: 4.74%;
     color: #fff;
@@ -148,9 +148,10 @@ button:hover{
 
 .Show span{
     width: 50%;
+    position: relative;right: 10px;
 }
 .Show img{
-    width: 90%;
+    width: 70%;
     height: 90%;
 }
 
@@ -164,6 +165,10 @@ button:hover{
     padding: .5em 3em;
     background-color: white;
     cursor: pointer;
+}
+
+.icono{
+    color: black;
 }
 
 .Show a img{
@@ -214,3 +219,9 @@ button:hover{
     display: block;
 }
 
+@media screen and (max-width:650px){
+    .mas2,.mas,.menos2,.menos{
+        width: 1em;
+        background-color: black;
+    }
+}

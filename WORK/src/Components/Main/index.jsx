@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react'
 import pop from "./../../Assets/pop.png"
 import play from "./../../Assets/play.png"
 import "./estilos.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPlay} from '@fortawesome/free-solid-svg-icons'
+import Header from '../Header'
+import NavBar from '../NavBar'
 const Main = () => {
 
     const [Movies, setMovies] = useState([])
@@ -61,7 +65,8 @@ const Main = () => {
                     const Imagenes = `https://image.tmdb.org/t/p/original${img}`;
                     const Imagenes2 = `https://image.tmdb.org/t/p/original${img2}`;
                     const name = dataMejoresPeliculas.results[j].title
-                    let id = dataMejoresPeliculas.results[j].id + 3321321321;
+                    let id = dataMejoresPeliculas.results[j].id;
+
                     const critic = dataMejoresPeliculas.results[j].vote_average;
                     let info = {
                         name: name,
@@ -146,6 +151,9 @@ const Main = () => {
     };
 
     return (
+        <>
+        <NavBar/>
+        <Header/>
         <main>
             <section>
                 <div className='divTitlePeliculas'>
@@ -189,7 +197,7 @@ const Main = () => {
                                                         <p>{pelis.critic}/10</p>
                                                     </div>
                                                     <a>
-                                                        <img src={play} alt="Play" />
+                                                        <FontAwesomeIcon className='icono' icon={faPlay}/>
                                                     </a>
                                                 </div>
                                             )}
@@ -205,6 +213,8 @@ const Main = () => {
                 <button className='mas' onClick={mas}>
                     +
                 </button>
+
+
             </section>
 
 
@@ -214,7 +224,7 @@ const Main = () => {
 
             <section>
                 <div className='divTitlePeliculas'>
-                    <h2 className='titlePeliculas'>Peliculas mas populares del momento</h2>
+                    <h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
                 </div>
                 <button className='menos2' onClick={menos2}>
                     -
@@ -272,6 +282,7 @@ const Main = () => {
                 </button>
             </section>
         </main>
+        </>
     )
 
 }

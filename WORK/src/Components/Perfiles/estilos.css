@@ -1,0 +1,46 @@
+.containerPerfiles {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Perfiles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 30em;
+}
+
+.cardPelis {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 2em;
+}
+
+.perfil {
+    width: 12em;
+    height: 12em;
+    background-color: aqua;
+    color: black;
+}
+
+.divCreatePerfil {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.CreatePerfil {
+    position: relative;
+    top: 15.3px;
+    width: 12em;
+    height: 12em;
+    background-color: aquamarine;
+}

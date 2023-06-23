@@ -1,0 +1,270 @@
+.Inicio{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+}
+
+
+
+.IniciarSecion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 36%;
+    background-color: rgb(6, 27, 10);
+}
+
+.IniciarSecion h1{
+    position: relative;
+    color: white;
+}
+
+.Btons{
+    display: flex;
+    gap: 4em;
+}
+
+
+.Btons button{
+    padding: .9em 1.7em;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.fondo{
+    background: linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 100%),url("https://www.notebookcheck.org/fileadmin/Notebooks/News/_nc3/netflixteaser.png");
+    background-position: center;
+    background-size: cover;
+    width: 64%;
+}
+
+
+
+
+
+
+.divIniciarSesion{
+    background: linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 100%),url("https://www.notebookcheck.org/fileadmin/Notebooks/News/_nc3/netflixteaser.png");
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.insideDivIniciar{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    flex-direction: column;
+    padding: 0px 0px 0px 0px;
+    height: 60%;
+    border-radius: 20px;
+    max-width: 40em;
+    width: 50%;
+    background-color: rgba(37, 39, 39, 0.884);
+}
+
+
+.insideDivIniciar h2{
+    position: relative;
+    top: 30px;
+    margin-bottom: 10%;
+}
+
+.divIniciarSesion .insideDivIniciar form{
+padding: 0 40px;
+box-sizing: border-box;
+width: 100%;
+}
+
+
+.divIniciarSesion .insideDivIniciar form{
+    border-top: 1px solid white;
+}
+
+.divIniciarSesion .insideDivIniciar form .username,
+.divIniciarSesion .insideDivIniciar form .lastname{
+    position: relative;
+    border-bottom: 2px solid #adadad;
+    margin: 5em 0;
+
+}
+
+
+.divIniciarSesion .insideDivIniciar form .username input,
+.divIniciarSesion .insideDivIniciar form .lastname input{
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 1.4em;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.divIniciarSesion .insideDivIniciar form .username label,
+.divIniciarSesion .insideDivIniciar form .lastname label{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: #adadad;
+    transform: translatey(50%);
+    font-size: 1em;
+    pointer-events: none;
+    transition: all .5s;
+}
+
+
+.divIniciarSesion .insideDivIniciar form .username input:focus ~ label,
+.divIniciarSesion .insideDivIniciar form .lastname input:focus  ~ label{
+    top:-50px;
+}
+
+
+.posicionBton{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: -30px;
+}
+
+
+.posicionBton .button{
+    margin-top: 6%;
+    padding: 1em 6em;
+    border-radius: 10px;
+    background-color: white;
+    text-decoration: none;
+    position: relative;
+    top: -10px;
+    outline: none;
+    border: none;
+}
+
+.opcionContraseña{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    position: relative;
+    left: 0;
+    top: -50px;
+}
+
+.opcionRegistrarte{
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    position: relative;
+    top: -73px;
+}
+
+.opcionRegistrarte span,
+.opcionContraseña span{
+    cursor: pointer;
+}
+
+
+
+
+
+
+/*--registrarte--*/
+
+.containerformRegis{
+    display: flex;
+    background-color: rgba(37, 39, 39, 0.884);
+    width: 50em;
+    height: 45%;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.containerformRegis form{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.containerformRegis form .IngresarUser,
+.containerformRegis form .ingresarContra,
+.containerformRegis form .email{
+    position: relative;
+    border-bottom: 2px solid #adadad;
+    margin: 0 2em;
+}
+
+
+.containerformRegis form .IngresarUser input,
+.containerformRegis form .ingresarContra input,
+.containerformRegis form .email input{
+    width: 50%;
+    padding: 0 5px;
+    height: 30px;
+    font-size: 1.4em;
+    border: none;
+    background: none;
+    outline: none;
+    color: white;
+}
+
+.containerformRegis form .email{
+    width: 80%;
+    position: relative;
+    top: -20px;
+}
+
+.containerformRegis form .email input{
+    width: 100%;
+}
+
+
+.containerformRegis form .IngresarUser label,
+.containerformRegis form .ingresarContra label,
+.containerformRegis form .email label{
+    position: absolute;
+    top: -30px;
+    left: 0px;
+    color: #adadad;
+    font-size: 1em;
+    pointer-events: none;
+    transition: all .5s;
+}
+
+
+
+.containerformRegis form .IngresarUser input:focus ~ label,
+.containerformRegis form .ingresarContra input:focus ~ label,
+.containerformRegis form .email input:focus ~ label{
+    top:-30px;
+}
+
+.containerformRegis form .irAPerfiles{
+    width: 30%;
+    position: relative;
+    top: -50px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 1em 2em;
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
