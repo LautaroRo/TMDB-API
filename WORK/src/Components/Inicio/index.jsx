@@ -14,15 +14,52 @@ import foto10 from "./../../Assets/foto10.jpeg"
 import foto11 from "./../../Assets/foto11.jpeg"
 import foto12 from "./../../Assets/foto12.jpeg"
 import { ProfileCreation } from '../../Context/Profile'
+import { guardarLocal } from '../Helper'
 const Inicio = () => {
 
-    const { profile, setProfile } = useContext(ProfileCreation)
+    const { profile, setProfile} = useContext(ProfileCreation)
+
+
     const [Estado, setEstado] = useState(0)
     const [fotos, setFotos] = useState([])
     const [cont, setCont] = useState(0)
     const [ProfileCreate, setProfileCreate] = useState(false)
+    const [IniciarSesion, setIniciarSesion] = useState(false)
+    const [nameInicio, setNameInicio] = useState()
+    const { name } = useParams()
 
-    const {name} = useParams()
+    const iniciarSesion = (e) => {
+        e.preventDefault()
+        const perfileExistenteBorrar = localStorage.getItem("nombres")
+        if(perfileExistenteBorrar){
+            localStorage.removeItem("nombres")
+        }else{
+            console.log("no habia")
+        }
+        const nombre = e.target.username.value
+        guardarLocal("nombres",nombre)
+        const contra = e.target.password.value
+
+
+        const nombreGuardado = JSON.parse(localStorage.getItem(` Ruta${nombre}`))
+        if(nombreGuardado){
+            const perfileExistente = nombreGuardado?.filter((element) => element.name === nombre && element.password === contra)
+            if (perfileExistente && perfileExistente.length > 0) {
+                setNameInicio(perfileExistente[0]?.name)
+                setIniciarSesion(true)
+                console.log(perfileExistente)
+                console.log("si existe")
+            } else {
+                setIniciarSesion(false)
+                console.log("no existe")
+                console.log(perfileExistente)
+    
+            }
+        }else{
+            console.log("errir")
+        }
+
+    }
 
     const crearPerfil = (e) => {
         e.preventDefault()
@@ -35,6 +72,7 @@ const Inicio = () => {
             password: password,
             email: email
         }
+
         setProfile(info)
         let nombreNull = e.target.user
         let passwordNull = e.target.pas
@@ -45,10 +83,21 @@ const Inicio = () => {
         emailNull.value = ""
 
 
-        setProfileCreate(true)
+
+        const nombreGuardado = JSON.parse(localStorage.getItem(nombre)) || []
+        const perfileExistente = nombreGuardado.filter((element) => element.name === nombre)
+        const emailExistente = JSON.parse(localStorage.getItem("emails"))
+
+        
+        if (perfileExistente.length > 0 || emailExistente?.includes(email)) {
+            console.log("god")
+        } else {
+            console.log("error")
+            guardarLocal(` Ruta${nombre}` , info)
+            setProfileCreate(true)
+            guardarLocal("emails", email)
+        }
     }
-
-
     useEffect(() => {
         setFotos([
             foto1,
@@ -110,26 +159,36 @@ const Inicio = () => {
                     ?
                     <div className='divIniciarSesion'>
                         <div className='insideDivIniciar'>
-                            <h2>Iniciar sesion</h2>
-                            <form>
-                                <div className='username'>
-                                    <input></input>
-                                    <label>Nombre del usuario</label>
-                                </div>
-                                <div className="lastname">
-                                    <input type='password'></input>
-                                    <label>Contraseña</label>
-                                </div>
-                                <div className="opcionContraseña">
-                                    <span>Olvidaste tu contraseña??</span>
-                                </div>
-                                <div className="opcionRegistrarte">
-                                    <span onClick={() => setEstado(2)}>Registarte aqui</span>
-                                </div>
-                                <div className="posicionBton">
-                                    <NavLink className="button">Iniciar</NavLink>
-                                </div>
-                            </form>
+                            {
+                                IniciarSesion === false
+
+                                    ?
+                                    <>
+                                        <h2>Iniciar sesion</h2>
+                                        <form onSubmit={iniciarSesion}>
+                                            <div className='username'>
+                                                <input name='username'></input>
+                                                <label>Nombre del usuario</label>
+                                            </div>
+                                            <div className="lastname">
+                                                <input name='password' type='password'></input>
+                                                <label>Contraseña</label>
+                                            </div>
+                                            <div className="opcionContraseña">
+                                                <span>Olvidaste tu contraseña??</span>
+                                            </div>
+                                            <div className="opcionRegistrarte">
+                                                <span onClick={() => setEstado(2)}>Registarte aqui</span>
+                                            </div>
+                                            <div className="posicionBton">
+                                                <button type='submit' className="button">Iniciar</button>
+                                            </div>
+                                        </form>
+                                    </>
+                                    :
+                                    <NavLink to={`/ruta/${nameInicio}`} className="irAPerfiles" type="submit">Iniciar</NavLink>
+
+                            }
                         </div>
                     </div>
                     :
