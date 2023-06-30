@@ -15,6 +15,8 @@ import foto11 from "./../../Assets/foto11.jpeg"
 import foto12 from "./../../Assets/foto12.jpeg"
 import { ProfileCreation } from '../../Context/Profile'
 import { guardarLocal } from '../Helper'
+
+
 const Inicio = () => {
 
     const { profile, setProfile} = useContext(ProfileCreation)
@@ -84,18 +86,15 @@ const Inicio = () => {
 
 
 
-        const nombreGuardado = JSON.parse(localStorage.getItem(nombre)) || []
-        const perfileExistente = nombreGuardado.filter((element) => element.name === nombre)
-        const emailExistente = JSON.parse(localStorage.getItem("emails"))
+        const nombreGuardado = JSON.parse(localStorage.getItem(` Ruta${nombre}`)) || []
 
-        
-        if (perfileExistente.length > 0 || emailExistente?.includes(email)) {
+
+        if (nombreGuardado?.length > 0 || nombreGuardado[0]?.email === email || nombreGuardado[0]?.nombre) {
             console.log("god")
         } else {
             console.log("error")
             guardarLocal(` Ruta${nombre}` , info)
             setProfileCreate(true)
-            guardarLocal("emails", email)
         }
     }
     useEffect(() => {
