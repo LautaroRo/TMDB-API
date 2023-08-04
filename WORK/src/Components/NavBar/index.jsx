@@ -3,7 +3,14 @@ import "./estilos.css"
 const NavBar = () => {
 
     const [scrolled, setScrolled] = useState(false);
-
+    const [Perfil,setPerfil] = useState([])
+    useEffect(()=>{
+        const buscarPerfil = JSON.parse(localStorage.getItem("Perfil-Iniciado"));
+        setPerfil(buscarPerfil)
+    },[])
+    useEffect(()=>{
+        console.log(Perfil[0])
+    },[Perfil])
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 0) {

@@ -3,7 +3,7 @@ import "./estilos.css"
 import { ProfileCreation } from '../../Context/Profile'
 import { guardarLocal } from '../Helper'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faPencil, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faPencil, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 import foto1 from "./../../AssetsP/Fotoperfil1.jpeg"
 import foto2 from "./../../AssetsP/Fotoperfil2.jpeg"
 import foto3 from "./../../AssetsP/Fotoperfil3.jpeg"
@@ -20,6 +20,8 @@ import foto13 from "./../../AssetsP/Fotoperfil13.jpeg"
 import foto14 from "./../../AssetsP/Fotoperfil14.jpeg"
 import foto15 from "./../../AssetsP/Fotoperfil15.jpeg"
 import foto16 from "./../../AssetsP/Fotoperfil16.jpeg"
+import fotoMar from "./../../Assets/gifMar.gif"
+import { NavLink } from 'react-router-dom'
 
 const Perfiles = () => {
     const { profile } = useContext(ProfileCreation)
@@ -31,26 +33,37 @@ const Perfiles = () => {
     const [ShowForm, setShowForm] = useState(false)
     const [NombreEditar, setNombreEditar] = useState()
     const [showFotos, setShowFotos] = useState(false)
+    const [Background, setBackground] = useState()
 
     const Editar = (e) => {
         e.preventDefault()
         const urlNombre = JSON.parse(localStorage.getItem("nombres"));
         const perfilesCreados = JSON.parse(localStorage.getItem(`Perfiles${urlNombre}`));
-        console.log(NombreEditar)
         const perfiles = []
-        const fotos = Foto[ElegirFoto]
         for (let i = 0; perfilesCreados.length > i; i++) {
 
             if (perfilesCreados[i].nombre !== NombreEditar.nombre) {
                 perfiles.push({ nombre: perfilesCreados[i].nombre, imagen: perfilesCreados[i].imagen })
             } else {
-                perfiles.push({ nombre: e.target.nombre.value, imagen: fotos })
+                perfiles.push({ nombre: e.target.nombre.value || NombreEditar.nombre, imagen: NombreEditar.imagen })
             }
         }
         localStorage.setItem(`Perfiles${urlNombre}`, JSON.stringify(perfiles))
         setPerfil(perfiles)
         setShowForm(false)
     }
+
+    const mostrarFotos = (e) => {
+        const fotos = Foto[e.target.id];
+        let info = {
+            nombre: NombreEditar.nombre,
+            imagen: fotos
+        };
+        setShowFotos(false);
+        setNombreEditar(info);
+        setBackground(info)
+    }
+
 
     const showFormulario = (nombre) => {
         setNombreEditar(nombre)
@@ -59,6 +72,7 @@ const Perfiles = () => {
 
 
     const Delete = (e) => {
+        console.log(e.target.id)
         const urlNombre = JSON.parse(localStorage.getItem("nombres"));
         const perfilesCreados = JSON.parse(localStorage.getItem(`Perfiles${urlNombre}`));
 
@@ -78,6 +92,8 @@ const Perfiles = () => {
         setPerfil(perfiles)
         localStorage.setItem(`Perfiles${urlNombre}`, JSON.stringify(perfiles))
     };
+
+
 
 
     useEffect(() => {
@@ -138,29 +154,20 @@ const Perfiles = () => {
         }
     };
 
+    const SubirPerfil  = (e) => {
+        const urlNombre = JSON.parse(localStorage.getItem("nombres"));
+        const perfilesCreados = JSON.parse(localStorage.getItem(`Perfiles${urlNombre}`));
 
-
-    const mas = (e) => {
-        e.preventDefault()
-        const scroll = document.querySelector(".ContainerFotos")
-
-        try {
-            scroll.scrollLeft += 300
-        } catch {
-            scroll.scrollLeft += 300
-        }
+        const buscarPerfil = perfilesCreados.filter(element => element.nombre === e.target.id)
+        localStorage.setItem("Perfil-Iniciado", JSON.stringify(buscarPerfil))
     }
 
-
-    const menos = (e) => {
-        e.preventDefault()
-        const scroll = document.querySelector(".ContainerFotos")
-
-        try {
-            scroll.scrollLeft -= 300
-        } catch {
-            scroll.scrollLeft -= 300
-        }
+    const cambiarImagen = (e) => {
+        e.preventDefault();
+        const fotoAnterior = document.querySelector(".activoFoto");
+        fotoAnterior?.classList?.remove("activoFoto");
+        e?.target?.classList?.add("activoFoto");
+        setElegirFoto(e.target.id);
     }
 
     return (
@@ -177,7 +184,7 @@ const Perfiles = () => {
                                     ?
 
                                     <div className={Estado === false ? 'cardPelis' : 'FalsecardPelis'}>
-                                        <div className="perfil" onClick={Delete} id={perfil.nombre} style={{
+                                        <NavLink onClick={SubirPerfil}  to={`/inicio`} className="perfil" id={perfil.nombre} style={{
                                             background: `url(${perfil?.imagen}) center/ cover no-repeat`,
                                             width: "12em",
                                             height: "12em",
@@ -185,14 +192,14 @@ const Perfiles = () => {
                                             borderRadius: "100px",
                                             justifyContent: "center",
                                             alignItems: "center"
-                                        }}></div>
+                                        }}></NavLink>
                                         {perfil.nombre}
                                     </div>
 
                                     :
 
                                     <div className={Estado === false ? 'cardPelis' : 'FalsecardPelis'}>
-                                        <div className="perfil" onClick={Delete} id={perfil.nombre} style={{
+                                        <div className="perfil"id={perfil.nombre} style={{
                                             background: `url(${perfil?.imagen}) center/ cover no-repeat`,
                                             width: "12em",
                                             height: "12em",
@@ -201,6 +208,7 @@ const Perfiles = () => {
                                             justifyContent: "center",
                                             alignItems: "center"
                                         }}>
+                                            <button className='btonCardX'id={perfil.nombre} onClick={Delete}><FontAwesomeIcon className='iconX' icon={faX} /></button>
                                             <button className='btonCard' onClick={() => showFormulario(perfil)}><FontAwesomeIcon className='iconPencil' icon={faPencil} /></button>
                                         </div>
                                         {perfil.nombre}
@@ -210,16 +218,25 @@ const Perfiles = () => {
                     )
                 })}
 
+
+
+
+
                 {
                     ShowForm === true
                         ?
                         <>
 
-                            <div className='divContainerEditar'>
+                            <div className='divContainerEditar' style={{
+                                background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${Background?.imagen}) center top / cover no-repeat`,
+                                width: "100%",
+                                height: "105vh"
+                            }}>
                                 <h2>Editar Perfil</h2>
                                 <form onSubmit={Editar}>
                                     <div className='divPerfil'>
-                                        <img onClick={() => setShowFotos(!showFotos)} src={NombreEditar.imagen} />
+                                        <img onClick={() => setShowFotos(true)}
+                                            src={NombreEditar?.imagen} />
                                         <div className='inputNombre'>
                                             <input name='nombre' type="text" placeholder={NombreEditar.nombre} />
                                             <label>Ingresar Nombre</label>
@@ -227,121 +244,203 @@ const Perfiles = () => {
                                         <button type='submit'>Subir</button>
                                     </div>
                                 </form>
-                            </div>
-                            {showFotos === true
-
-                                ?
                                 <div className='changeFoto'>
-                                    <img onClick={() => setElegirFoto(0)} src={foto1} />
-                                    <img onClick={() => setElegirFoto(1)} src={foto2} />
-                                    <img onClick={() => setElegirFoto(2)} src={foto3} />
-                                    <img onClick={() => setElegirFoto(3)} src={foto4} />
-                                    <img onClick={() => setElegirFoto(4)} src={foto5} />
-                                    <img onClick={() => setElegirFoto(5)} src={foto6} />
-                                    <img onClick={() => setElegirFoto(6)} src={foto7} />
-                                    <img onClick={() => setElegirFoto(7)} src={foto8} />
-                                    <img onClick={() => setElegirFoto(8)} src={foto9} />
-                                    <img onClick={() => setElegirFoto(9)} src={foto10} />
-                                    <img onClick={() => setElegirFoto(10)} src={foto11} />
-                                    <img onClick={() => setElegirFoto(11)} src={foto12} />
-                                    <img onClick={() => setElegirFoto(12)} src={foto13} />
-                                    <img onClick={() => setElegirFoto(13)} src={foto14} />
-                                    <img onClick={() => setElegirFoto(14)} src={foto15} />
-                                    <img onClick={() => setElegirFoto(15)} src={foto16} />
+                                    <img id="0" onClick={mostrarFotos} src={foto1} />
+                                    <img id="1" onClick={mostrarFotos} src={foto2} />
+                                    <img id="2" onClick={mostrarFotos} src={foto3} />
+                                    <img id="3" onClick={mostrarFotos} src={foto4} />
+                                    <img id="4" onClick={mostrarFotos} src={foto5} />
+                                    <img id="5" onClick={mostrarFotos} src={foto6} />
+                                    <img id="6" onClick={mostrarFotos} src={foto7} />
+                                    <img id="7" onClick={mostrarFotos} src={foto8} />
+                                    <img id="8" onClick={mostrarFotos} src={foto9} />
+                                    <img id="9" onClick={mostrarFotos} src={foto10} />
+                                    <img id="10" onClick={mostrarFotos} src={foto11} />
+                                    <img id="11" onClick={mostrarFotos} src={foto12} />
+                                    <img id="12" onClick={mostrarFotos} src={foto13} />
+                                    <img id="13" onClick={mostrarFotos} src={foto14} />
+                                    <img id="14" onClick={mostrarFotos} src={foto15} />
+                                    <img id="15" onClick={mostrarFotos} src={foto16} />
                                 </div>
-
-                                :
-                                null
-                            }
+                            </div>
                         </>
                         :
                         null
 
                 }
+            </div>
 
+            {
+                Estado === false
+                    ?
+                    <div className="btonsdiv">
+                        {
+                            EstadoMain === false
 
-                {Estado === false ? (
-                    <div className="divCreatePerfil">
-                        <div onClick={() => setEstado(true)} className="CreatePerfil">
-                            <button><FontAwesomeIcon className='icon' icon={faPlus} /></button>
-                        </div>
+                                ?
+                                <>
+                            <button className='administrarPerfiles' onClick={() => setEstadoMain(true)}>Administrar Perfiles</button>
+                                <div className="divCreatePerfil">
+                                <div onClick={() => setEstado(true)} className="CreatePerfil">
+                                    <button><FontAwesomeIcon className='icon' icon={faPlus} /></button>
+                                </div>
+                            </div>
+
+                                </>
+                                :
+
+                                <button onClick={() => setEstadoMain(false)} ><FontAwesomeIcon icon={faCheck} /></button>
+                        }
+
                     </div>
-                ) : (
-                    <div className="formCreate">
+                    :
+                    <div className="formCreate" style={{
+                        background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${fotoMar}) center / cover no-repeat`,
+                        width: "100%",
+                        height: "105vh"
+                    }}>
                         <form className='Formulario' onSubmit={crearPerfil}>
                             <div className="inputNombre">
-                                <input name='nombre' type="text" />
+                                <input name='nombre' type="text" required minLength={4} />
                                 <label>Ingresar Nombre</label>
                             </div>
-                            <button onClick={mas}>+</button>
                             <div className="ContainerFotos">
-                                <img onClick={() => setElegirFoto(0)} src={foto1} />
-                                <img onClick={() => setElegirFoto(1)} src={foto2} />
-                                <img onClick={() => setElegirFoto(2)} src={foto3} />
-                                <img onClick={() => setElegirFoto(3)} src={foto4} />
-                                <img onClick={() => setElegirFoto(4)} src={foto5} />
-                                <img onClick={() => setElegirFoto(5)} src={foto6} />
-                                <img onClick={() => setElegirFoto(6)} src={foto7} />
-                                <img onClick={() => setElegirFoto(7)} src={foto8} />
-                                <img onClick={() => setElegirFoto(8)} src={foto9} />
-                                <img onClick={() => setElegirFoto(9)} src={foto10} />
-                                <img onClick={() => setElegirFoto(10)} src={foto11} />
-                                <img onClick={() => setElegirFoto(11)} src={foto12} />
-                                <img onClick={() => setElegirFoto(12)} src={foto13} />
-                                <img onClick={() => setElegirFoto(13)} src={foto14} />
-                                <img onClick={() => setElegirFoto(14)} src={foto15} />
-                                <img onClick={() => setElegirFoto(15)} src={foto16} />
+                                <div id="0" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: `url(${foto1}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="1" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: `url(${foto2}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer"
+                                }} />
+                                <div id="2" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: `url(${foto3}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="3" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: `url(${foto4}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="4" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: `url(${foto5}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="5" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: `url(${foto6}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="6" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: `url(${foto7}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="7" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: `url(${foto8}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="8" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: ` url(${foto9}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="9" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: `url(${foto10}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="10" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: ` url(${foto11}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="11" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: ` url(${foto12}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="12" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: ` url(${foto13}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="13" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: `url(${foto14}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="14" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: ` url(${foto15}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
+                                <div id="15" className='imgCrear' onClick={cambiarImagen} style={{
+                                    background: ` url(${foto16}) center / cover no-repeat`,
+                                    width: "10em",
+                                    height: "10em",
+                                    margin: "1em",
+                                    cursor: "pointer",
+                                    borderRadius: "10px"
+                                }} />
                             </div>
-                            <button onClick={menos}>-</button>
                             <button type='submit'>Subir</button>
                         </form>
                     </div>
-                )}
-            </div>
-            <div className="btonsdiv">
-                {
-                    EstadoMain === false
 
-                        ?
+            }
 
-                        <button onClick={() => setEstadoMain(true)}>Administrar Perfiles</button>
-
-                        :
-                        <button><FontAwesomeIcon icon={faCheck} /></button>
-                }
-
-            </div>
         </div>
     )
 }
 export default Perfiles
 
-
-/*--
-                            {showFotos === true
-
-                                ?
-                                <div className='changeFoto'>
-                                    <img onClick={() => setElegirFoto(0)} src={foto1} />
-                                    <img onClick={() => setElegirFoto(1)} src={foto2} />
-                                    <img onClick={() => setElegirFoto(2)} src={foto3} />
-                                    <img onClick={() => setElegirFoto(3)} src={foto4} />
-                                    <img onClick={() => setElegirFoto(4)} src={foto5} />
-                                    <img onClick={() => setElegirFoto(5)} src={foto6} />
-                                    <img onClick={() => setElegirFoto(6)} src={foto7} />
-                                    <img onClick={() => setElegirFoto(7)} src={foto8} />
-                                    <img onClick={() => setElegirFoto(8)} src={foto9} />
-                                    <img onClick={() => setElegirFoto(9)} src={foto10} />
-                                    <img onClick={() => setElegirFoto(10)} src={foto11} />
-                                    <img onClick={() => setElegirFoto(11)} src={foto12} />
-                                    <img onClick={() => setElegirFoto(12)} src={foto13} />
-                                    <img onClick={() => setElegirFoto(13)} src={foto14} />
-                                    <img onClick={() => setElegirFoto(14)} src={foto15} />
-                                    <img onClick={() => setElegirFoto(15)} src={foto16} />
-                                </div>
-
-                                :
-                                null
-                            }
-
---*/
