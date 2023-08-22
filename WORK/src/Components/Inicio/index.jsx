@@ -13,13 +13,10 @@ import foto9 from "./../../Assets/foto9.jpeg"
 import foto10 from "./../../Assets/foto10.jpeg"
 import foto11 from "./../../Assets/foto11.jpeg"
 import foto12 from "./../../Assets/foto12.jpeg"
-import { ProfileCreation } from '../../Context/Profile'
 import { guardarLocal } from '../Helper'
 
 
 const Inicio = () => {
-
-    const { profile, setProfile} = useContext(ProfileCreation)
 
 
     const [Estado, setEstado] = useState(0)
@@ -28,6 +25,7 @@ const Inicio = () => {
     const [ProfileCreate, setProfileCreate] = useState(false)
     const [IniciarSesion, setIniciarSesion] = useState(false)
     const [nameInicio, setNameInicio] = useState()
+    const [setProfile, profile] = useState([])
     const { name } = useParams()
 
     const iniciarSesion = (e) => {
@@ -74,8 +72,7 @@ const Inicio = () => {
             password: password,
             email: email
         }
-
-        setProfile(info)
+setProfile(info)
         let nombreNull = e.target.user
         let passwordNull = e.target.pas
         let emailNull = e.target.email

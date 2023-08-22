@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { NavLink, json, useParams } from 'react-router-dom'
 import pop from "./../../Assets/pop.png"
-import play from "./../../Assets/play.png"
 import "./estilos.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPlay} from '@fortawesome/free-solid-svg-icons'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import Header from '../Header'
 import NavBar from '../NavBar'
+import { Use } from '../../Context/Perfil'
 const Main = () => {
-
+    const { PeliBuscar } = useContext(Use)
     const [Movies, setMovies] = useState([])
     const [Movies2, setMovies2] = useState([])
+    const [Series, setSeries] = useState([])
+    const [Series2, setSeries2] = useState([])
     const [show, setShow] = useState(null)
     const API = "https://api.themoviedb.org/3";
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
 
+    const { name } = useParams()
     const traerTodasPeliculas = async () => {
         try {
 
@@ -89,37 +93,154 @@ const Main = () => {
         }
     }
 
+    const traerTodaslasSeries = async () => {
+        try {
+            let info = []
+            let info2 = []
+            for (let j = 0; 5 > j; j++) {
+                let url = `${API}/tv/popular?api_key=${API_KEY}&page=${j}`
+                const urlFetch = await fetch(url)
+                const urlJson = await urlFetch.json()
 
+
+                for (let i = 0; urlJson?.results?.length > i; i++) {
+                    let img = urlJson?.results[i].poster_path
+                    let img2 = urlJson?.results[i].backdrop_path
+
+                    const Imagenes = `https://image.tmdb.org/t/p/original${img}`;
+                    const Imagenes2 = `https://image.tmdb.org/t/p/original${img2}`;
+                    const critic = urlJson?.results[i]?.vote_average;
+                    let infoGuardad = {
+                        name: urlJson?.results[i].name,
+                        img: Imagenes,
+                        img2: Imagenes2,
+                        id: urlJson?.results[i].id,
+                        critic: critic
+                    }
+                    info.push(infoGuardad)
+                }
+            }
+
+            for (let j = 0; 5 > j; j++) {
+                let url = `${API}/tv/top_rated?api_key=${API_KEY}&page=${j}`
+                const urlFetch = await fetch(url)
+                const urlJson = await urlFetch.json()
+
+
+                for (let i = 0; urlJson?.results?.length > i; i++) {
+                    let img = urlJson?.results[i].poster_path
+                    let img2 = urlJson?.results[i].backdrop_path
+
+                    const Imagenes = `https://image.tmdb.org/t/p/original${img}`;
+                    const Imagenes2 = `https://image.tmdb.org/t/p/original${img2}`;
+                    const critic = urlJson?.results[i]?.vote_average;
+                    let infoGuardad = {
+                        name: urlJson?.results[i].name,
+                        img: Imagenes,
+                        img2: Imagenes2,
+                        id: urlJson?.results[i].id,
+                        critic: critic
+                    }
+                    info2.push(infoGuardad)
+                }
+            }
+
+            setSeries([...Series, ...info])
+            setSeries2([...Series2, ...info2])
+        } catch {
+            console.log("error")
+        }
+    }
 
     useEffect(() => {
         traerTodasPeliculas()
-
+        traerTodaslasSeries()
+        console.log(PeliBuscar)
     }, [])
 
 
     const mas = (e) => {
         e.preventDefault()
-        const divScroll = document.querySelector(".sectiondiv")
 
-        try {
-            divScroll.scrollLeft += 300
+        if (e?.target?.className === "mas") {
+            const divScroll = document.querySelector(".sectiondiv")
+
+            try {
+                divScroll.scrollLeft += 300
+            }
+            catch {
+                divScroll.scrollLeft += 300
+            }
+
+        } else if (e?.target?.className === "mas2") {
+            const divScroll = document.querySelector(".sectiondiv2")
+
+            try {
+                divScroll.scrollLeft += 300
+            }
+            catch {
+                divScroll.scrollLeft += 300
+            }
+        } else if (e?.target?.className === "mas3") {
+            const divScroll = document.querySelector(".sectiondiv3")
+
+            try {
+                divScroll.scrollLeft += 300
+            }
+            catch {
+                divScroll.scrollLeft += 300
+            }
+        } else if (e?.target?.className === "mas4") {
+            const divScroll = document.querySelector(".sectiondiv4")
+
+            try {
+                divScroll.scrollLeft += 300
+            }
+            catch {
+                divScroll.scrollLeft += 300
+            }
         }
-        catch {
-            divScroll.scrollLeft += 300
-        }
-
-
-
     }
+
     const menos = (e) => {
         e.preventDefault()
-        const divScroll = document.querySelector(".sectiondiv")
+        if (e?.target?.className === "menos") {
+            const divScroll = document.querySelector(".sectiondiv")
 
-        try {
-            divScroll.scrollLeft -= 300
-        }
-        catch {
-            divScroll.scrollLeft -= 300
+            try {
+                divScroll.scrollLeft -= 300
+            }
+            catch {
+                divScroll.scrollLeft -= 300
+            }
+
+        } else if (e?.target?.className === "menos2") {
+            const divScroll = document.querySelector(".sectiondiv2")
+
+            try {
+                divScroll.scrollLeft -= 300
+            }
+            catch {
+                divScroll.scrollLeft -= 300
+            }
+        } else if (e?.target?.className === "menos3") {
+            const divScroll = document.querySelector(".sectiondiv3")
+
+            try {
+                divScroll.scrollLeft -= 300
+            }
+            catch {
+                divScroll.scrollLeft -= 300
+            }
+        } else if (e?.target?.className === "menos4") {
+            const divScroll = document.querySelector(".sectiondiv4")
+
+            try {
+                divScroll.scrollLeft -= 300
+            }
+            catch {
+                divScroll.scrollLeft -= 300
+            }
         }
 
 
@@ -127,161 +248,290 @@ const Main = () => {
     }
 
 
-    const mas2 = (e) => {
-        e.preventDefault();
-        const divScroll2 = document.querySelector(".sectiondiv2")
-        try {
-            divScroll2.scrollLeft += 300;
-        } catch {
-            divScroll2.scrollLeft += 300;
+
+    const guardarInfo = (e) => {
+
+        const nombre = e.target.id
+
+        if (nombre.length < 1) {
+            console.log("error")
+            e.preventDefault()
+        } else {
+            localStorage.setItem("Pelicula-Seleccionada", JSON.stringify(nombre))
         }
-    };
-
-    const menos2 = (e) => {
-        e.preventDefault();
-
-
-        const divScroll2 = document.querySelector(".sectiondiv2")
-        try {
-            divScroll2.scrollLeft -= 300;
-        } catch {
-            divScroll2.scrollLeft -= 300;
-        }
-
-    };
+    }
 
     return (
         <>
-        <NavBar/>
-        <Header/>
-        <main>
-            <section>
-                <div className='divTitlePeliculas'>
-                    <h2 className='titlePeliculas'>Peliculas mas populares del momento</h2>
-                </div>
-                <button className='menos' onClick={menos}>
-                    -
-                </button>
-                <div className='sectiondiv'>
-                    <div className="containerMoviesTodas">
-                        <div className='MoviesTodas'>
+            <NavBar />
+            {
+                PeliBuscar.length < 1
+                    ?
+                    <>
+                        <Header />
+                        <main>
+                            <section>
+                                <div className='divTitlePeliculas'>
+                                    <h2 className='titlePeliculas'>Peliculas mas populares del momento</h2>
+                                </div>
+                                <button className='menos' onClick={menos}>
+                                    -
+                                </button>
+                                <div className='sectiondiv'>
+                                    <div className="containerMoviesTodas">
+                                        <div className='MoviesTodas'>
 
-                            {Movies.map((pelis) => {
-                                return (
-                                    <div
-                                        className={show === null ? "ContainerCards" : "ContainerActive"}
-                                        key={pelis.id}
-                                        onMouseLeave={() => setShow(null)}
-                                        style={{
-                                            background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${pelis?.img2}) center top / cover no-repeat`,
-                                            width: "100%",
-                                            height: "100%"
-                                        }}
-                                    >
-                                        <div className="divInside">
-                                            <img
-                                                className={show === pelis.id ? "imgactive" : "img"}
-                                                src={pelis.img}
-                                                onMouseEnter={() => setShow(pelis.id)}
-                                                alt={pelis.name}
-                                            />
-                                        </div>
-                                        <div className="p">
-                                            {show === pelis.id && (
-                                                <div className="Show">
-                                                    <h2>{pelis.name}</h2>
-                                                    <div className="showdiv">
-                                                        <span>
-                                                            <img src={pop} alt="Popularity" />
-                                                        </span>
-                                                        <p>{pelis.critic}/10</p>
+                                            {Movies.map((pelis) => {
+                                                return (
+                                                    <div
+                                                        className={show === null ? "ContainerCards" : "ContainerActive"}
+                                                        key={pelis.id}
+                                                        onMouseLeave={() => setShow(null)}
+                                                        style={{
+                                                            background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${pelis?.img2}) center top / cover no-repeat`,
+                                                            width: "100%",
+                                                            height: "100%"
+                                                        }}
+                                                    >
+                                                        <div className="divInside">
+                                                            <img
+                                                                className={show === pelis.id ? "imgactive" : "img"}
+                                                                src={pelis.img}
+                                                                onMouseEnter={() => setShow(pelis.id)}
+                                                                alt={pelis.name}
+                                                            />
+                                                        </div>
+                                                        <div className="p">
+                                                            {show === pelis.id && (
+                                                                <div className="Show" key={pelis}>
+                                                                    <h2>{pelis.name}</h2>
+                                                                    <div className="showdiv">
+                                                                        <span>
+                                                                            <img src={pop} alt="Popularity" />
+                                                                        </span>
+                                                                        <p>{pelis.critic}/10</p>
+                                                                    </div>
+                                                                    <NavLink id={pelis.id} onClick={guardarInfo} to={`/Pelicula/${pelis.name}`}>
+                                                                        <FontAwesomeIcon id={pelis.id} onClick={guardarInfo} className='icono' icon={faPlay} />
+                                                                    </NavLink>
+                                                                </div>
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                    <a>
-                                                        <FontAwesomeIcon className='icono' icon={faPlay}/>
-                                                    </a>
-                                                </div>
-                                            )}
+
+                                                )
+                                            })}
+
                                         </div>
                                     </div>
-
-                                )
-                            })}
-
-                        </div>
-                    </div>
-                </div>
-                <button className='mas' onClick={mas}>
-                    +
-                </button>
+                                </div>
+                                <button className='mas' onClick={mas}>
+                                    +
+                                </button>
 
 
-            </section>
+                            </section>
 
 
 
 
 
 
-            <section>
-                <div className='divTitlePeliculas'>
-                    <h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
-                </div>
-                <button className='menos2' onClick={menos2}>
-                    -
-                </button>
-                <div className='sectiondiv2'>
-                    <div className="containerMoviesTodas">
-                        <div className='MoviesTodas'>
+                            <section>
+                                <div className='divTitlePeliculas'>
+                                    <h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                </div>
+                                <button className='menos2' onClick={menos}>
+                                    -
+                                </button>
+                                <div className='sectiondiv2'>
+                                    <div className="containerMoviesTodas">
+                                        <div className='MoviesTodas'>
 
-                            {Movies2.map((pelis) => {
-                                return (
-                                    <div
-                                        className={show === null ? "ContainerCards" : "ContainerActive"}
-                                        key={pelis.id}
-                                        onMouseLeave={() => setShow(null)}
-                                        style={{
-                                            background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${pelis?.img2}) center top / cover no-repeat`,
-                                            width: "100%",
-                                            height: "100%"
-                                        }}
-                                    >
-                                        <div className="divInside">
-                                            <img
-                                                className={show === pelis.id ? "imgactive" : "img"}
-                                                src={pelis.img}
-                                                onMouseEnter={() => setShow(pelis.id)}
-                                                alt={pelis.name}
-                                            />
-                                        </div>
-                                        <div className="p">
-                                            {show === pelis.id && (
-                                                <div className="Show">
-                                                    <h2>{pelis.name}</h2>
-                                                    <div className="showdiv">
-                                                        <span>
-                                                            <img src={pop} alt="Popularity" />
-                                                        </span>
-                                                        <p>{pelis.critic}/10</p>
+                                            {Movies2.map((pelis) => {
+                                                return (
+                                                    <div
+                                                        className={show === null ? "ContainerCards" : "ContainerActive"}
+                                                        key={pelis.id}
+                                                        onMouseLeave={() => setShow(null)}
+                                                        style={{
+                                                            background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${pelis?.img2}) center top / cover no-repeat`,
+                                                            width: "100%",
+                                                            height: "100%"
+                                                        }}
+                                                    >
+                                                        <div className="divInside">
+                                                            <img
+                                                                className={show === pelis.id ? "imgactive" : "img"}
+                                                                src={pelis.img}
+                                                                onMouseEnter={() => setShow(pelis.id)}
+                                                                alt={pelis.name}
+                                                            />
+                                                        </div>
+                                                        <div className="p">
+                                                            {show === pelis.id && (
+                                                                <div className="Show">
+                                                                    <h2>{pelis.name}</h2>
+                                                                    <div className="showdiv">
+                                                                        <span>
+                                                                            <img src={pop} alt="Popularity" />
+                                                                        </span>
+                                                                        <p>{pelis.critic}/10</p>
+                                                                    </div>
+                                                                    <NavLink id={pelis.id} onClick={guardarInfo} to={`/Pelicula/${pelis.name}`}>
+                                                                        <FontAwesomeIcon id={pelis.id} onClick={guardarInfo} className='icono' icon={faPlay} />
+                                                                    </NavLink>
+                                                                </div>
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                    <a>
-                                                        <img src={play} alt="Play" />
-                                                    </a>
-                                                </div>
-                                            )}
+
+                                                )
+                                            })}
+
                                         </div>
                                     </div>
+                                </div>
+                                <button className='mas2' onClick={mas}>
+                                    +
+                                </button>
+                            </section>
 
-                                )
-                            })}
 
-                        </div>
+                            <section>
+                                <div className='divTitlePeliculas'>
+                                    <h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                </div>
+                                <button className='menos3' onClick={menos}>
+                                    -
+                                </button>
+                                <div className='sectiondiv3'>
+                                    <div className="containerMoviesTodas">
+                                        <div className='MoviesTodas'>
+
+                                            {Series.map((serie) => {
+                                                return (
+                                                    <div
+                                                        className={show === null ? "ContainerCards" : "ContainerActive"}
+                                                        key={serie.id}
+                                                        onMouseLeave={() => setShow(null)}
+                                                        style={{
+                                                            background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${serie?.img2}) center top / cover no-repeat`,
+                                                            width: "100%",
+                                                            height: "100%"
+                                                        }}
+                                                    >
+                                                        <div className="divInside">
+                                                            <img
+                                                                className={show === serie.id ? "imgactive" : "img"}
+                                                                src={serie.img}
+                                                                onMouseEnter={() => setShow(serie.id)}
+                                                                alt={serie.name}
+                                                            />
+                                                        </div>
+                                                        <div className="p">
+                                                            {show === serie.id && (
+                                                                <div className="Show">
+                                                                    <h2>{serie.name}</h2>
+                                                                    <div className="showdiv">
+                                                                        <span>
+                                                                            <img src={pop} alt="Popularity" />
+                                                                        </span>
+                                                                        <p>{serie.critic}/10</p>
+                                                                    </div>
+                                                                    <NavLink id={serie.id} onClick={guardarInfo} to={`/Pelicula/${serie.name}`}>
+                                                                        <FontAwesomeIcon id={serie.id} onClick={guardarInfo} className='icono' icon={faPlay} />
+                                                                    </NavLink>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+
+                                                )
+                                            })}
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className='mas3' onClick={mas}>
+                                    +
+                                </button>
+                            </section>
+
+
+                            <section>
+                                <div className='divTitlePeliculas'>
+                                    <h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                </div>
+                                <button className='menos4' onClick={menos}>
+                                    -
+                                </button>
+                                <div className='sectiondiv4'>
+                                    <div className="containerMoviesTodas">
+                                        <div className='MoviesTodas'>
+
+                                            {Series2.map((serie) => {
+                                                return (
+                                                    <div
+                                                        className={show === null ? "ContainerCards" : "ContainerActive"}
+                                                        key={serie.id}
+                                                        onMouseLeave={() => setShow(null)}
+                                                        style={{
+                                                            background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${serie?.img2}) center top / cover no-repeat`,
+                                                            width: "100%",
+                                                            height: "100%"
+                                                        }}
+                                                    >
+                                                        <div className="divInside">
+                                                            <img
+                                                                className={show === serie.id ? "imgactive" : "img"}
+                                                                src={serie.img}
+                                                                onMouseEnter={() => setShow(serie.id)}
+                                                                alt={serie.name}
+                                                            />
+                                                        </div>
+                                                        <div className="p">
+                                                            {show === serie.id && (
+                                                                <div className="Show">
+                                                                    <h2>{serie.name}</h2>
+                                                                    <div className="showdiv">
+                                                                        <span>
+                                                                            <img src={pop} alt="Popularity" />
+                                                                        </span>
+                                                                        <p>{serie.critic}/10</p>
+                                                                    </div>
+                                                                    <NavLink id={serie.id} onClick={guardarInfo} to={`/Pelicula/${serie.name}`}>
+                                                                        <FontAwesomeIcon id={serie.id} onClick={guardarInfo} className='icono' icon={faPlay} />
+                                                                    </NavLink>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+
+                                                )
+                                            })}
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className='mas4' onClick={mas}>
+                                    +
+                                </button>
+                            </section>
+                        </main>
+                    </>
+                    :
+                    <div className='container_pelisBuscadas'>
+                        {PeliBuscar.map((pelis)=>{
+                            return(
+                                <div className='pelisBuscadas' style={{background: `url(${pelis?.imagen})`}}>
+                                    <h1>{pelis.name}</h1>
+                                </div>
+                            )
+                        })}
                     </div>
-                </div>
-                <button className='mas2' onClick={mas2}>
-                    +
-                </button>
-            </section>
-        </main>
+            }
+
         </>
     )
 

@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
 import "./estilos.css"
-import { ProfileCreation } from '../../Context/Profile'
 import { guardarLocal } from '../Helper'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faPencil, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
@@ -24,7 +23,6 @@ import fotoMar from "./../../Assets/gifMar.gif"
 import { NavLink } from 'react-router-dom'
 
 const Perfiles = () => {
-    const { profile } = useContext(ProfileCreation)
     const [Estado, setEstado] = useState(false)
     const [Perfil, setPerfil] = useState([])
     const [Foto, setFoto] = useState([])

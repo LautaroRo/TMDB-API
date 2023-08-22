@@ -14,14 +14,13 @@
 
 nav {
     display: flex;
-    justify-content: space-between;
+    margin: 0.5em 4em;
     align-items: center;
 }
 
 nav h2{
     color: white;
     position: relative;
-    left: 80px;
 }
 
 ul {
@@ -29,11 +28,17 @@ ul {
     margin: 0;
     padding: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-ul img{
-    width: 10%;
-    height: 10%;
+.imagenPerfil{
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    margin: 0 1em;
+    cursor: pointer;
+
 }
 li {
     margin: 0 1.5em;
@@ -66,3 +71,41 @@ li {
 
 
 
+.iconoSearch{
+    color: white;
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 1.1em;
+}
+
+.divRight{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    margin: 2em;
+}
+
+
+input{
+    border: 1px solid white;
+    background-color:black;
+    outline: none;
+    border-radius: 10px;
+    padding: 1em 2em;
+    font-size: 1em;
+    color: white;
+    animation: input linear 1.5s;
+    transition: all .5s;
+}
+
+
+@keyframes input{
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 100%;
+    }
+}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import "./estilos.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPlay} from '@fortawesome/free-solid-svg-icons'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
+import { NavLink } from 'react-router-dom'
 
 const Header = () => {
 
@@ -14,6 +15,18 @@ const Header = () => {
 
     const first = document.getElementById("0")
     const id = document.getElementById(contador.toString())
+
+    const guardarInfo = (e) => {
+
+        const nombre = e.target.id
+
+        if(nombre.length < 1){
+            console.log("error")
+            e.preventDefault()
+        }else{
+            localStorage.setItem("Pelicula-Seleccionada", JSON.stringify(nombre))
+        }
+    }
 
     const PeliculasHeader = async () => {
         let peliculas = [];
@@ -28,7 +41,7 @@ const Header = () => {
             if (imgPath) {
                 let name = data.results[j].title;
                 let id = data.results[j].id;
-                let desc = data.results[j]. overview
+                let desc = data.results[j].overview
 
                 let img = `https://image.tmdb.org/t/p/original${imgPath}`; // Construye la URL completa de la imagen
 
@@ -36,7 +49,7 @@ const Header = () => {
                     name: name,
                     id: id,
                     img: img,
-                    desc:desc
+                    desc: desc
                 };
 
                 peliculas.push(info);
@@ -62,18 +75,18 @@ const Header = () => {
         }
     };
 
-    
+
     useEffect(() => {
         const element = document.querySelector(".fade-out");
         const element2 = document.querySelector(".fade-in");
 
-        if(element){
+        if (element) {
             element?.classList?.remove("fade-out");
             element?.classList?.add("fade-in");
         }
 
 
-        if(element2){
+        if (element2) {
             element2?.classList?.remove("fade-in")
             element2?.classList?.add("fade-out")
         }
@@ -106,38 +119,40 @@ const Header = () => {
 
     const Pelicula = Obtener[contador];
     return (
-    <>
-        <div
-        className='fade-out'
-            style={{
-                display: "flex",
-                justifyContent: "end",
-                alignItems: "center",
-                height: "100vh",
-                background: `linear-gradient(rgba(0,0,0, 0.50) 0%, rgba(0,0,0, 0.80) 100%), url(${Pelicula?.img}) center top / cover no-repeat`,
-                scrollBehavior: "smooth"
-            }}>
+        <>
+            <div
+                className='fade-out'
+                style={{
+                    display: "flex",
+                    justifyContent: "end",
+                    alignItems: "center",
+                    height: "100vh",
+                    background: `linear-gradient(rgba(0,0,0, 0.50) 0%, rgba(0,0,0, 0.80) 100%), url(${Pelicula?.img}) center top / cover no-repeat`,
+                    scrollBehavior: "smooth"
+                }}>
 
-            <div className='DivName'>
-                <h1>{Pelicula?.name}</h1>
-                <p>{Pelicula?.desc}</p>
-                <a><FontAwesomeIcon className='icono' icon={faPlay}/></a>
-            </div>
+                <div className='DivName'>
+                    <h1>{Pelicula?.name}</h1>
+                    <p>{Pelicula?.desc}</p>
+                    <NavLink id={Pelicula?.id} onClick={guardarInfo} to={`/Pelicula/${Pelicula?.name}`}>
+                        <FontAwesomeIcon id={Pelicula?.id} onClick={guardarInfo} className='icono' icon={faPlay} />
+                    </NavLink>
+                </div>
 
-            <div className="divBox">
-                <div className="box activo" onClick={handleSubmit} id="0"></div>
-                <div className="box" onClick={handleSubmit} id="1"></div>
-                <div className="box" onClick={handleSubmit} id="2"></div>
-                <div className="box" onClick={handleSubmit} id="3"></div>
-                <div className="box" onClick={handleSubmit} id="4"></div>
-                <div className="box" onClick={handleSubmit} id="5"></div>
-                <div className="box" onClick={handleSubmit} id="6"></div>
-                <div className="box" onClick={handleSubmit} id="7"></div>
-                <div className="box" onClick={handleSubmit} id="8"></div>
-                <div className="box" onClick={handleSubmit} id="9"></div>
-                <div className="box" onClick={handleSubmit} id="10"></div>
+                <div className="divBox">
+                    <div className="box activo" onClick={handleSubmit} id="0"></div>
+                    <div className="box" onClick={handleSubmit} id="1"></div>
+                    <div className="box" onClick={handleSubmit} id="2"></div>
+                    <div className="box" onClick={handleSubmit} id="3"></div>
+                    <div className="box" onClick={handleSubmit} id="4"></div>
+                    <div className="box" onClick={handleSubmit} id="5"></div>
+                    <div className="box" onClick={handleSubmit} id="6"></div>
+                    <div className="box" onClick={handleSubmit} id="7"></div>
+                    <div className="box" onClick={handleSubmit} id="8"></div>
+                    <div className="box" onClick={handleSubmit} id="9"></div>
+                    <div className="box" onClick={handleSubmit} id="10"></div>
+                </div>
             </div>
-        </div>
         </>
     );
 
