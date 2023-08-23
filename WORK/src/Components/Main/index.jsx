@@ -8,12 +8,13 @@ import Header from '../Header'
 import NavBar from '../NavBar'
 import { Use } from '../../Context/Perfil'
 const Main = () => {
-    const { PeliBuscar } = useContext(Use)
+    const { PeliBuscar, change } = useContext(Use)
     const [Movies, setMovies] = useState([])
     const [Movies2, setMovies2] = useState([])
     const [Series, setSeries] = useState([])
     const [Series2, setSeries2] = useState([])
     const [show, setShow] = useState(null)
+    const [Estado, setEstado] = useState(null)
     const API = "https://api.themoviedb.org/3";
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
 
@@ -521,14 +522,34 @@ const Main = () => {
                         </main>
                     </>
                     :
-                    <div className='container_pelisBuscadas'>
-                        {PeliBuscar.map((pelis)=>{
-                            return(
-                                <div className='pelisBuscadas' style={{background: `url(${pelis?.imagen})`}}>
-                                    <h1>{pelis.name}</h1>
-                                </div>
-                            )
-                        })}
+                    <div className='container_Buscador'>
+                        <h1>{change}</h1>
+                        <div className='container_pelisBuscadas'>
+                            {PeliBuscar.map((pelis) => {
+                                return (
+                                    <>
+                                        <div onMouseEnter={() => setEstado(pelis.id)} className='pelisBuscadas' style={{
+                                            background: `url(${pelis?.imagen}) center / cover no-repeat`,
+                                            margin: "10px",
+                                            position:"relative",
+                                            zIndex:"1"
+                                        }}>
+
+                                            {Estado === pelis.id
+
+                                                ?
+                                                <div onMouseLeave={() => setEstado(null)} className='pelisBuscadasEnter' style={{ background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%),url(${pelis?.imagen}) center / cover no-repeat` }}>
+                                                    <h1>{pelis.name}</h1>
+                                                </div>
+                                                :
+                                                null
+                                            }
+
+                                        </div>
+                                    </>
+                                )
+                            })}
+                        </div>
                     </div>
             }
 

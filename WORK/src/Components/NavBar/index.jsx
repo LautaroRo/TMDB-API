@@ -5,7 +5,7 @@ import "./estilos.css"
 import { Use } from '../../Context/Perfil'
 const NavBar = () => {
 
-    const {PeliBuscar, setPeliBuscar} = useContext(Use)
+    const {setPeliBuscar,setChange} = useContext(Use)
     const [scrolled, setScrolled] = useState(false);
     const [Perfil, setPerfil] = useState([])
     const [Estado, setEstado] = useState(false)
@@ -36,13 +36,27 @@ const NavBar = () => {
             const data = await response.json();
             let informacion = []
             for(let i = 0; data.results.length > i; i++){
-                if(data.results[i].original_language === "en"){
+                if(data.results[i].original_language === "en" && data.results[i].poster_path !== undefined && data.results[i].poster_path !== null){
                     let info = {
                         name:data?.results[i]?.title,
-                        imagen:`https://image.tmdb.org/t/p/w500/${data?.results[i]?.poster_path}`
+                        imagen:`https://image.tmdb.org/t/p/w500/${data?.results[i]?.poster_path}`,
+                        id:data?.results[i]?.id
                     }
                     informacion.push(info)
-                    console.log(data.results)
+                }
+            }
+            const urlSerie = `${API}/search/tv?api_key=${API_KEY}&query=${pelicula}`;
+            const responseSerie = await fetch(urlSerie);
+            const dataSerie = await responseSerie.json();
+            console.log(dataSerie, "hola")
+            for(let i = 0; dataSerie?.results?.length > i; i++){
+                if(dataSerie.results[i].original_language === "en" && dataSerie.results[i].poster_path !== undefined && dataSerie.results[i].poster_path !== null){
+                    let info = {
+                        name:dataSerie?.results[i]?.title,
+                        imagen:`https://image.tmdb.org/t/p/w500/${dataSerie?.results[i]?.poster_path}`,
+                        id:dataSerie?.results[i]?.id
+                    }
+                    informacion.push(info)
                 }
             }
             setPeliBuscar(informacion)
@@ -56,6 +70,7 @@ const NavBar = () => {
         e.preventDefault()
         if(e.target.value.length > 2){
             traerPeloiculas(e.target.value)
+            setChange(e.target.value)
         }else{
             setPeliBuscar([])
         }
