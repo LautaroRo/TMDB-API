@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState, } from 'react'
+import React, {useEffect, useState, } from 'react'
 import "./estilos.css"
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink,useParams } from 'react-router-dom'
 import foto1 from "./../../Assets/foto1.jpeg"
 import foto2 from "./../../Assets/foto2.jpeg"
 import foto3 from "./../../Assets/foto3.jpeg"
@@ -25,11 +25,12 @@ const Inicio = () => {
     const [ProfileCreate, setProfileCreate] = useState(false)
     const [IniciarSesion, setIniciarSesion] = useState(false)
     const [nameInicio, setNameInicio] = useState()
-    const [setProfile, profile] = useState([])
+    const [profile, setProfile] = useState([])
     const { name } = useParams()
-
+    
     const iniciarSesion = (e) => {
         e.preventDefault()
+
         const perfileExistenteBorrar = localStorage.getItem("nombres")
         if(perfileExistenteBorrar){
             localStorage.removeItem("nombres")
@@ -40,25 +41,17 @@ const Inicio = () => {
         guardarLocal("nombres",nombre)
         const contra = e.target.password.value
 
-
         const nombreGuardado = JSON.parse(localStorage.getItem(` Ruta${nombre}`))
         if(nombreGuardado){
             const perfileExistente = nombreGuardado?.filter((element) => element.name === nombre && element.password === contra)
             if (perfileExistente && perfileExistente.length > 0) {
                 setNameInicio(perfileExistente[0]?.name)
                 setIniciarSesion(true)
-                console.log(perfileExistente)
-                console.log("si existe")
-            } else {
+                } else {
                 setIniciarSesion(false)
-                console.log("no existe")
-                console.log(perfileExistente)
     
             }
-        }else{
-            console.log("errir")
         }
-
     }
 
     const crearPerfil = (e) => {
@@ -113,7 +106,26 @@ setProfile(info)
 
 
     }, []);
+
+
     const contador = fotos[cont]
+
+
+    useEffect(() => {
+        const element = document.querySelector(".registrarteContainer");
+        const element2 = document.querySelector(".registrarteContainer-in");
+
+        if (element) {
+            element?.classList?.remove("registrarteContainer");
+            element?.classList?.add("registrarteContainer-in");
+        }
+
+
+        if (element2) {
+            element2?.classList?.remove("registrarteContainer-in")
+            element2?.classList?.add("registrarteContainer")
+        }
+    }, [contador]);
     useEffect(() => {
 
         setTimeout(() => {
@@ -126,6 +138,35 @@ setProfile(info)
         }, 4000);
     }, [cont, Estado]);
 
+    const cambiarClase = (e) => {
+        e.preventDefault()
+        const ubicacionNombre = document.querySelector(".nombrelabel")
+        const ubicacionPasswrod = document.querySelector(".contra")
+        if(ubicacionNombre && ubicacionPasswrod){
+            if(e.target.id === "inputContraseña"){
+                ubicacionPasswrod?.classList?.add("ActivoLabel")
+                ubicacionPasswrod?.classList?.remove("label")
+                console.log(ubicacionPasswrod)
+            }else if(e.target.id === "inputNombre"){
+                ubicacionNombre?.classList?.add("ActivoLabel")
+                ubicacionNombre?.classList?.remove("label")
+            }
+
+
+
+            if(e?.target?.name === "username"){
+                if(e?.target?.value.length < 1){
+                    ubicacionNombre?.classList?.remove("ActivoLabel")
+                    ubicacionNombre?.classList?.add("label")
+                }
+            }else if(e?.target?.name === "password"){
+                if(e?.target?.value.length < 1){
+                    ubicacionPasswrod?.classList?.remove("ActivoLabel")
+                    ubicacionPasswrod?.classList?.add("label")
+                }
+            }
+        }
+    }
     return (
         <div>
             {
@@ -154,35 +195,40 @@ setProfile(info)
 
                     ?
                     <div className='divIniciarSesion'>
-                        <div className='insideDivIniciar'>
+                        <div>
                             {
                                 IniciarSesion === false
 
                                     ?
-                                    <>
+                                    <div className='insideDivIniciar'>
                                         <h2>Iniciar sesion</h2>
                                         <form onSubmit={iniciarSesion}>
                                             <div className='username'>
-                                                <input name='username'></input>
-                                                <label>Nombre del usuario</label>
+                                                <input onChange={cambiarClase} id='inputNombre' name='username'></input>
+                                                <label className='label nombrelabel' id="nombreLabel">Nombre del usuario</label>
                                             </div>
                                             <div className="lastname">
-                                                <input name='password' type='password'></input>
-                                                <label>Contraseña</label>
+                                                <input onChange={cambiarClase} id='inputContraseña' name='password' type='password'></input>
+                                                <label className='label contra' id="contraseñaLabel">Contraseña</label>
                                             </div>
                                             <div className="opcionContraseña">
-                                                <span>Olvidaste tu contraseña??</span>
-                                            </div>
-                                            <div className="opcionRegistrarte">
-                                                <span onClick={() => setEstado(2)}>Registarte aqui</span>
+                                                <span className='span1'>Olvidaste tu contraseña??</span>
+                                                <span className='span2' onClick={() => setEstado(2)}>Registarte aqui</span>
                                             </div>
                                             <div className="posicionBton">
                                                 <button type='submit' className="button">Iniciar</button>
                                             </div>
                                         </form>
-                                    </>
+                                    </div>
                                     :
+                                    <>  
+                                    <div className="containerCarga">
+                                        <div className='one'></div>
+                                        <div className='two'></div>
+                                        <div className='third'></div>
+                                    </div>
                                     <NavLink to={`/ruta/${nameInicio}`} className="irAPerfiles" type="submit">Iniciar</NavLink>
+                                    </>
 
                             }
                         </div>
@@ -231,6 +277,7 @@ setProfile(info)
                                                 <label>Ingresa tu Email</label>
                                             </div>
                                             <button className="irAPerfiles" type="submit">Registrate</button>
+                                                <span onClick={() => setEstado(1)}>Ya tienes una cuenta? Inicia sesion</span>
                                         </form>
                                     </>
                             }

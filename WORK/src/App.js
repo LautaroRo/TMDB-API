@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route, Router } from 'react-router-dom'
 import Perfiles from './Components/Perfiles';
 import Peilculas from './Components/Peliculas';
 import Perfil from "./Context/Perfil";
+import Series from "./Components/Series"
+import Filtros from './Components/Filtros';
 function App() {
   return (
     <Perfil>
@@ -17,6 +19,8 @@ function App() {
             <Route path="/ruta/:name" element={<Perfiles />} />
             <Route path='/inicio' element={<Main />} />
             <Route path='/Pelicula/:name' element={<Peilculas />} />
+            <Route path='/Series/:name' element={<Series />} />
+            <Route path='/Filtros' element={<Filtros/>}></Route>
           </Routes>
         </div>
       </BrowserRouter>

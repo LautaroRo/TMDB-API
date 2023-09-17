@@ -33,9 +33,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     width: 100%;
-    height: 30em;
+    height: 30%;
     position: relative;
 }
 @keyframes perfiles {
@@ -52,10 +51,19 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 2em;
+    width: 13em;
     position: relative;
+    height: 60%;
+    transition: all .5s;
 }
 
+
+.cardPelis:hover{
+    transform: scale(1.2);
+}
+.perfil:hover{
+    background:linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%);
+}
 
 
 .divCreatePerfil {
@@ -79,7 +87,6 @@
     width: 2em;
     height: 2em;
     background-color: black;
-    border-radius: 100px;
 }
 
 .CreatePerfil button{
@@ -193,12 +200,12 @@
     background: linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%);
     border: 0;
     color: white;
-    cursor: pointer;
 }
 
 .btonCard:hover{
     background:linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.50) 100%);
     border: 4px solid white;
+    cursor: pointer;
 }
 
 .btonCard:hover .iconPencil{
@@ -274,8 +281,6 @@ display: none;
 
 }
 
-.iconX{
-}
 
 .btonCardX{
     position: absolute;
@@ -291,7 +296,18 @@ display: none;
 }
 
 
-
+.administrarPerfiles{
+    border-radius: 100px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    transition: all .5s;
+    cursor: pointer;
+}
+.administrarPerfiles:hover{
+    background-color: white;
+    color: black;
+}
 
 .imgCrear{
     transition: all .5s;
@@ -303,4 +319,23 @@ display: none;
 .btonsdiv{
     display: flex;
     animation: inicio linear 2s;
+}
+
+.btonSubir{
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    padding: 1em 5em;
+    outline: none;
+    border: 1px solid white;
+    transition: all .5s;
+    cursor: pointer;
+}
+
+.btonSubir:hover{
+    background-color: white;
+    color: black;
+}
+.CreatePerfil{
+    border-radius: 100%;
 }

@@ -39,7 +39,6 @@ const Perfiles = () => {
         const perfilesCreados = JSON.parse(localStorage.getItem(`Perfiles${urlNombre}`));
         const perfiles = []
         for (let i = 0; perfilesCreados.length > i; i++) {
-
             if (perfilesCreados[i].nombre !== NombreEditar.nombre) {
                 perfiles.push({ nombre: perfilesCreados[i].nombre, imagen: perfilesCreados[i].imagen })
             } else {
@@ -70,7 +69,6 @@ const Perfiles = () => {
 
 
     const Delete = (e) => {
-        console.log(e.target.id)
         const urlNombre = JSON.parse(localStorage.getItem("nombres"));
         const perfilesCreados = JSON.parse(localStorage.getItem(`Perfiles${urlNombre}`));
 
@@ -152,7 +150,7 @@ const Perfiles = () => {
         }
     };
 
-    const SubirPerfil  = (e) => {
+    const SubirPerfil = (e) => {
         const urlNombre = JSON.parse(localStorage.getItem("nombres"));
         const perfilesCreados = JSON.parse(localStorage.getItem(`Perfiles${urlNombre}`));
 
@@ -182,12 +180,12 @@ const Perfiles = () => {
                                     ?
 
                                     <div className={Estado === false ? 'cardPelis' : 'FalsecardPelis'}>
-                                        <NavLink onClick={SubirPerfil}  to={`/inicio`} className="perfil" id={perfil.nombre} style={{
+                                        <NavLink onClick={SubirPerfil} to={`/inicio`} className="perfil" id={perfil.nombre} style={{
                                             background: `url(${perfil?.imagen}) center/ cover no-repeat`,
-                                            width: "12em",
-                                            height: "12em",
+                                            width: "11em",
+                                            height: "15em",
                                             display: "flex",
-                                            borderRadius: "100px",
+                                            borderRadius: "100%",
                                             justifyContent: "center",
                                             alignItems: "center"
                                         }}></NavLink>
@@ -197,16 +195,17 @@ const Perfiles = () => {
                                     :
 
                                     <div className={Estado === false ? 'cardPelis' : 'FalsecardPelis'}>
-                                        <div className="perfil"id={perfil.nombre} style={{
+                                        <div className="perfil" id={perfil.nombre} style={{
                                             background: `url(${perfil?.imagen}) center/ cover no-repeat`,
-                                            width: "12em",
-                                            height: "12em",
+                                            borderRadius: "100%",
+                                            width: "11em",
+                                            height: "15em",
                                             display: "flex",
-                                            borderRadius: "100px",
+                                            transition: "all .5s",
                                             justifyContent: "center",
                                             alignItems: "center"
                                         }}>
-                                            <button className='btonCardX'id={perfil.nombre} onClick={Delete}><FontAwesomeIcon className='iconX' icon={faX} /></button>
+                                            <button className='btonCardX' id={perfil.nombre} onClick={Delete}><FontAwesomeIcon className='iconX' icon={faX} /></button>
                                             <button className='btonCard' onClick={() => showFormulario(perfil)}><FontAwesomeIcon className='iconPencil' icon={faPencil} /></button>
                                         </div>
                                         {perfil.nombre}
@@ -277,12 +276,12 @@ const Perfiles = () => {
 
                                 ?
                                 <>
-                            <button className='administrarPerfiles' onClick={() => setEstadoMain(true)}>Administrar Perfiles</button>
-                                <div className="divCreatePerfil">
-                                <div onClick={() => setEstado(true)} className="CreatePerfil">
-                                    <button><FontAwesomeIcon className='icon' icon={faPlus} /></button>
-                                </div>
-                            </div>
+                                    <button className='administrarPerfiles' onClick={() => setEstadoMain(true)}>Administrar Perfiles</button>
+                                    <div className="divCreatePerfil">
+                                        <div onClick={() => setEstado(true)} className="CreatePerfil">
+                                            <button><FontAwesomeIcon className='icon' icon={faPlus} /></button>
+                                        </div>
+                                    </div>
 
                                 </>
                                 :
@@ -431,7 +430,7 @@ const Perfiles = () => {
                                     borderRadius: "10px"
                                 }} />
                             </div>
-                            <button type='submit'>Subir</button>
+                            <button className='btonSubir' type='submit'>Subir</button>
                         </form>
                     </div>
 

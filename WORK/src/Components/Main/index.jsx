@@ -8,15 +8,17 @@ import Header from '../Header'
 import NavBar from '../NavBar'
 import { Use } from '../../Context/Perfil'
 const Main = () => {
-    const { PeliBuscar, change } = useContext(Use)
+    const { PeliBuscar, change, vaciar } = useContext(Use)
     const [Movies, setMovies] = useState([])
     const [Movies2, setMovies2] = useState([])
     const [Series, setSeries] = useState([])
     const [Series2, setSeries2] = useState([])
     const [show, setShow] = useState(null)
     const [Estado, setEstado] = useState(null)
+    const [PelisGuardadas, setPelisGuardadas] = useState([])
     const API = "https://api.themoviedb.org/3";
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
+
 
     const { name } = useParams()
     const traerTodasPeliculas = async () => {
@@ -94,6 +96,7 @@ const Main = () => {
         }
     }
 
+
     const traerTodaslasSeries = async () => {
         try {
             let info = []
@@ -156,7 +159,13 @@ const Main = () => {
     useEffect(() => {
         traerTodasPeliculas()
         traerTodaslasSeries()
-        console.log(PeliBuscar)
+        const perfilIniciado = JSON.parse(localStorage.getItem("Perfil-Iniciado"))
+
+        const pelisFav = JSON.parse(localStorage.getItem(`PelisGuardadas-${perfilIniciado[0]?.nombre}`))
+        if (pelisFav) {
+            setPelisGuardadas(pelisFav)
+            console.log(pelisFav)
+        }
     }, [])
 
 
@@ -193,6 +202,15 @@ const Main = () => {
             }
         } else if (e?.target?.className === "mas4") {
             const divScroll = document.querySelector(".sectiondiv4")
+
+            try {
+                divScroll.scrollLeft += 300
+            }
+            catch {
+                divScroll.scrollLeft += 300
+            }
+        }  else if (e?.target?.className === "mas5") {
+            const divScroll = document.querySelector(".sectiondiv5")
 
             try {
                 divScroll.scrollLeft += 300
@@ -242,6 +260,15 @@ const Main = () => {
             catch {
                 divScroll.scrollLeft -= 300
             }
+        } else if (e?.target?.className === "menos5") {
+            const divScroll = document.querySelector(".sectiondiv5")
+
+            try {
+                divScroll.scrollLeft -= 300
+            }
+            catch {
+                divScroll.scrollLeft -= 300
+            }
         }
 
 
@@ -253,7 +280,6 @@ const Main = () => {
     const guardarInfo = (e) => {
 
         const nombre = e.target.id
-
         if (nombre.length < 1) {
             console.log("error")
             e.preventDefault()
@@ -440,7 +466,7 @@ const Main = () => {
                                                                         </span>
                                                                         <p>{serie.critic}/10</p>
                                                                     </div>
-                                                                    <NavLink id={serie.id} onClick={guardarInfo} to={`/Pelicula/${serie.name}`}>
+                                                                    <NavLink id={serie.id} onClick={guardarInfo} to={`/Series/${serie.name}`}>
                                                                         <FontAwesomeIcon id={serie.id} onClick={guardarInfo} className='icono' icon={faPlay} />
                                                                     </NavLink>
                                                                 </div>
@@ -501,7 +527,7 @@ const Main = () => {
                                                                         </span>
                                                                         <p>{serie.critic}/10</p>
                                                                     </div>
-                                                                    <NavLink id={serie.id} onClick={guardarInfo} to={`/Pelicula/${serie.name}`}>
+                                                                    <NavLink id={serie.id} onClick={guardarInfo} to={`/Series/${serie.name}`}>
                                                                         <FontAwesomeIcon id={serie.id} onClick={guardarInfo} className='icono' icon={faPlay} />
                                                                     </NavLink>
                                                                 </div>
@@ -519,11 +545,82 @@ const Main = () => {
                                     +
                                 </button>
                             </section>
+                            {
+                                PelisGuardadas.length > 0
+
+                                    ?
+                                    <section>
+                                        <div className='divTitlePeliculas'>
+                                            <h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                        </div>
+                                        <button className='menos5' onClick={menos}>
+                                            -
+                                        </button>
+                                        <div className='sectiondiv5'>
+                                            <div className="containerMoviesTodas">
+                                                <div className='MoviesTodas'>
+
+                                                    {PelisGuardadas.map((peli) => {
+                                                        return (
+                                                            <div
+
+                                                                className={show === null ? "ContainerCards" : "ContainerActive"}
+                                                                key={peli.id}
+                                                                onMouseLeave={() => setShow(null)}
+                                                                style={{
+                                                                    background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${peli?.img2}) center top / cover no-repeat`,
+                                                                    width: "100%",
+                                                                    height: "100%"
+                                                                }}
+                                                            >
+                                                                <div className="divInside">
+                                                                    <img
+                                                                        className={show === peli.id ? "imgactive" : "img"}
+                                                                        src={peli.img1}
+                                                                        onMouseEnter={() => setShow(peli.id)}
+                                                                        alt={peli.name}
+                                                                    />
+                                                                </div>
+                                                                <div className="p">
+                                                                    {show === peli.id && (
+                                                                        <div className="Show">
+                                                                            <h2>{peli.name}</h2>
+                                                                            <div className="showdiv">
+                                                                                <span>
+                                                                                    <img src={pop} alt="Popularity" />
+                                                                                </span>
+                                                                                <p>{peli.critic}/10</p>
+                                                                            </div>
+                                                                            <NavLink id={peli.id} onClick={guardarInfo} to={`/Series/${peli.name}`}>
+                                                                                <FontAwesomeIcon id={peli.id} onClick={guardarInfo} className='icono' icon={faPlay} />
+                                                                            </NavLink>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+
+                                                        )
+                                                    })}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button className='mas5' onClick={mas}>
+                                            +
+                                        </button>
+                                    </section>
+                                    :
+                                    
+                                    null
+                            }
                         </main>
                     </>
                     :
                     <div className='container_Buscador'>
-                        <h1>{change}</h1>
+                        <div className='h1AndDelete'>
+                            <h1>{change}</h1><button className='deleteBuscador' onClick={vaciar}>Delete</button>
+                        </div>
+
                         <div className='container_pelisBuscadas'>
                             {PeliBuscar.map((pelis) => {
                                 return (
@@ -531,18 +628,23 @@ const Main = () => {
                                         <div onMouseEnter={() => setEstado(pelis.id)} className='pelisBuscadas' style={{
                                             background: `url(${pelis?.imagen}) center / cover no-repeat`,
                                             margin: "10px",
-                                            position:"relative",
-                                            zIndex:"1"
+                                            position: "relative",
+                                            zIndex: "1"
                                         }}>
 
-                                            {Estado === pelis.id
+                                            {Estado !== pelis.id
 
                                                 ?
-                                                <div onMouseLeave={() => setEstado(null)} className='pelisBuscadasEnter' style={{ background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%),url(${pelis?.imagen}) center / cover no-repeat` }}>
-                                                    <h1>{pelis.name}</h1>
-                                                </div>
-                                                :
                                                 null
+                                                :
+                                                <div onMouseLeave={() => setEstado(null)} className='pelisBuscadasEnter' style={{ background: `linear-gradient(rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.80) 100%),url(${pelis?.imagen}) center / cover no-repeat` }}>
+                                                    <h3 className='nombre'>{pelis.name}</h3>
+                                                    <span><img className='pop' src={pop}></img>{pelis.voto}</span>
+                                                    <NavLink className="navlink123" id={pelis?.id} onClick={guardarInfo} to={`/${pelis.tipo}/${pelis.name}`}>
+                                                        <FontAwesomeIcon id={pelis.id} onClick={guardarInfo} className='icono' icon={faPlay} />
+                                                    </NavLink>
+
+                                                </div>
                                             }
 
                                         </div>

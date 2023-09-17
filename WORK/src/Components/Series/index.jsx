@@ -1,22 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from "./../NavBar"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faLocationPinLock, faPlus } from '@fortawesome/free-solid-svg-icons'
-import "./estilos.css"
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { guardarLocal } from '../Helper'
-import { Use } from '../../Context/Perfil'
 const Peilculas = () => {
-    const {peliBuscar} = useContext(Use)
     const [IDPelicula, setIDPelicula] = useState(0)
     const [Pelicula, setPelicula] = useState([])
     const [PeliBack, setPeliBack] = useState([])
     const [Categoria, setCagoria] = useState([])
     const [Almacenar, setAlmacenar] = useState([])
     const [Estado, setEstado] = useState(true)
-    const [PerfilIniciado, setPerfilIniciado] = useState([])
     const [info, setInfo] = useState();
     const [guardado, setGuardado] = useState();
-
+    const [PerfilIniciado, setPerfilIniciado] = useState([])
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
 
     // Fetch info and guardado from local storage on component mount
@@ -29,7 +25,6 @@ const Peilculas = () => {
             setGuardado(guardadoData);
         }
     }, []);
-
     const mostrar = (e) => {
         e.preventDefault()
 
@@ -37,10 +32,10 @@ const Peilculas = () => {
         if (almacenados) {
             const actualizados = Almacenar.filter((element) => element !== PeliBack)
             setAlmacenar(actualizados)
-            localStorage.setItem(`PelisGuardadas-${PerfilIniciado[0]?.nombre}`, JSON.stringify(PeliBack))
+            localStorage.setItem(`SeriesGuardadas-${PerfilIniciado[0]?.nombre}`, JSON.stringify(PeliBack))
         } else {
             setAlmacenar([...Almacenar, PeliBack])
-            guardarLocal(`PelisGuardadas-${PerfilIniciado[0]?.nombre}`, PeliBack)
+            guardarLocal(`SeriesGuardadas-${PerfilIniciado[0]?.nombre}`, PeliBack)
         }
         setEstado(!Estado)
     }
@@ -48,49 +43,52 @@ const Peilculas = () => {
 
     useEffect(() => {
         const buscarPelicula = async () => {
-            if (IDPelicula) {
-                const Buscar = await fetch(`https://api.themoviedb.org/3/movie/${IDPelicula}?api_key=${API_KEY}&append_to_response=credits`)
-                const peliculaEncontrada = await Buscar.json()
-                let infoaAlmacenada = []
-                for (let i = 0; i < 6; i++) {
+            const Buscar = await fetch(`https://api.themoviedb.org/3/tv/${IDPelicula}?api_key=${API_KEY}&append_to_response=credits`)
+            const peliculaEncontrada = await Buscar.json()
+            let infoaAlmacenada = []
+            for (let i = 0; 6 > i; i++) {
 
-                    let infoGuarda = {
-                        name: peliculaEncontrada?.credits?.cast[i]?.original_name,
-                        img: peliculaEncontrada?.credits?.cast[i]?.profile_path,
-                        personaje: peliculaEncontrada?.credits?.cast[i]?.character,
-                    }
-
-                    if (infoGuarda.img !== null) {
-                        infoaAlmacenada.push(infoGuarda)
-                    }
+                let infoGuarda = {
+                    name: peliculaEncontrada?.credits?.cast[i]?.original_name,
+                    img: peliculaEncontrada?.credits?.cast[i]?.profile_path,
+                    personaje: peliculaEncontrada?.credits?.cast[i]?.character,
                 }
 
-                setPelicula([...Pelicula, ...infoaAlmacenada])
-
-
-                let InfoBack = {
-                    img1: `https://image.tmdb.org/t/p/original${peliculaEncontrada?.poster_path}`,
-                    img2:`https://image.tmdb.org/t/p/original${peliculaEncontrada?.backdrop_path}`,
-                    name: peliculaEncontrada?.title,
-                    description: peliculaEncontrada?.overview,
-                    fecha: peliculaEncontrada?.release_date,
-                    id: peliculaEncontrada?.id,
-                    critic:peliculaEncontrada?.vote_average
+                if (infoGuarda.img !== null) {
+                    infoaAlmacenada.push(infoGuarda)
                 }
-
-                setPeliBack(InfoBack)
-
-                let category = []
-                for (let i = 0; peliculaEncontrada?.genres?.length > i; i++) {
-                    let infoCategoria = { name: peliculaEncontrada?.genres[i]?.name }
-                    category.push(infoCategoria)
-                }
-
-                setCagoria(category)
             }
+
+            setPelicula([...Pelicula, ...infoaAlmacenada])
+
+            console.log(peliculaEncontrada)
+            let InfoBack = {
+                img: `https://image.tmdb.org/t/p/original${peliculaEncontrada?.backdrop_path}`,
+                name: peliculaEncontrada?.name,
+                description: peliculaEncontrada?.overview,
+                poster: `https://image.tmdb.org/t/p/w500/${peliculaEncontrada?.poster_path}`,
+                fecha: peliculaEncontrada?.first_air_date,
+                fechaFinal: peliculaEncontrada?.last_air_date
+
+            }
+            setPeliBack(InfoBack)
+
+            let category = []
+            for (let i = 0; peliculaEncontrada?.genres?.length > i; i++) {
+                let infoCategoria = { name: peliculaEncontrada?.genres[i]?.name }
+                category.push(infoCategoria)
+            }
+
+            setCagoria(category)
         }
         buscarPelicula()
     }, [IDPelicula > 0])
+
+    useEffect(() => {
+        const info = JSON.parse(localStorage.getItem("Pelicula-Seleccionada"))
+        setIDPelicula(info)
+    }, [])
+
 
     useEffect(() => {
         // Only proceed if both info and guardado are available
@@ -98,7 +96,7 @@ const Peilculas = () => {
             setPerfilIniciado(guardado);
             setIDPelicula(info);
 
-            const guardadoLocal = JSON.parse(localStorage.getItem(`PelisGuardadas-${guardado[0]?.nombre}`));
+            const guardadoLocal = JSON.parse(localStorage.getItem(`SeriesGuardadas-${guardado[0]?.nombre}`));
 
             if (guardadoLocal) {
                 let ID = [];
@@ -121,7 +119,7 @@ const Peilculas = () => {
             <NavBar />
             <div>
                 <div style={{
-                    background: `linear-gradient(rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.90) 100%),url(${PeliBack?.img2})center / cover no-repeat`,
+                    background: `linear-gradient(rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.90) 100%),url(${PeliBack?.img})center / cover no-repeat`,
                     width: "100%",
                     height: "100vh",
                     display: "flex",
@@ -138,7 +136,7 @@ const Peilculas = () => {
                         position: "relative",
                         top: "50px"
                     }}>
-                        <img className='imgPoster' src={PeliBack?.img1}></img>
+                        <img className='imgPoster' src={PeliBack?.poster}></img>
                     </div>
 
                     <div className='containerInformacion'>
@@ -199,6 +197,7 @@ const Peilculas = () => {
 
                         <FontAwesomeIcon onClick={mostrar} className='iconoCorazonCompleted' icon={faHeart} />
                     }
+                    
                 </div>
             </div>
         </>

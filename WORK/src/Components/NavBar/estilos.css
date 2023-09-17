@@ -30,6 +30,7 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .imagenPerfil{
@@ -108,4 +109,105 @@ input{
     100%{
         width: 100%;
     }
+}
+
+
+.perfilesMain{
+    background-color: black;
+    height: 26em;
+    width: 20em;
+    position: fixed;
+    top:85px;
+    right: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    border: 1px solid white;
+    border-radius: 30px 0px 30px 30px;
+}
+
+.dentroPerfiles{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin: .2em;
+}
+.dentroPerfiles img{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 7em;
+    border-radius: 10%;
+    height: 5.5em;
+}
+
+.dentroPerfiles span{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.CerrarSesion{
+    height: 100%;
+    border-top: 1px solid white;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LinkCerrar{
+    position: relative;
+    bottom: 5px;
+    text-decoration: none;
+    font-size: 1.2em;
+    color: white;
+}
+
+.LinkCerrar::after{
+    content: "";
+    display: block;
+    border: 1px solid white;
+    transform: scale(0);
+    width: 100%;
+    transition: all .5s;
+}
+
+.LinkCerrar:hover::after{
+    transform: scale(1);
+}
+
+.iconoTrash{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2em;
+    position: relative;
+}
+
+.iconoTrash:hover{
+    color: red;
+}
+
+.iconoArrow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.buttonFlecha{
+    position: relative;
+    left: 40px;
+}
+.iconoArrow:hover{
+    color: green;
 }

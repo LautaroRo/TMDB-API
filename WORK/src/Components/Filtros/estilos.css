@@ -1,0 +1,212 @@
+.Container-Filtros{
+    display: flex;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    margin: 5em 0em;
+}
+
+.posicionButtonOut{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.Muestra{
+    background-color: black;
+    height: 100%;
+    margin: 0;
+    padding: 0px 0px 0px 0px;
+    justify-content: center;
+}
+
+.PosicionButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    height: 100%;
+    z-index: 2;
+}
+.buttonFiltros{
+    margin: 0.2em;
+    transition: all .5s;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 4em;
+    font-weight: bold;
+    border: 0;
+    outline: none;
+    color: white;
+}
+
+.buttonFiltros:hover{
+    transform: translateX(30px);
+}
+
+.buttonFiltrosOut{
+    cursor: pointer;
+    margin: 0.5em;
+    transition: all .5s;
+    border-radius: 10px;
+    color: white;
+    font-size: 2em;
+}
+.buttonFiltrosOut:hover{
+    transform: scale(1.2);
+}
+
+
+.FiltroBuscar{
+    background-color: black;
+    display: flex;
+    position: fixed;
+    width: 30em;
+    animation: enter linear .5s;
+    justify-content: center;
+    align-items: center;
+    top: 200px;
+    left: 50px;
+    z-index: 2;
+    border-radius: 20px;
+    border: 1px solid white;
+    flex-direction: column;
+}
+
+.FiltroBuscarOut{
+    background-color: black;
+    display: flex;
+    position: fixed;
+    z-index: 2;
+    width: 30em;
+    animation: out linear .5s;
+    justify-content: center;
+    align-items: center;
+    top: 200px;
+    border-radius: 20px;
+    left: 50px;
+    flex-direction: column;
+}
+
+h4{
+    color: white;
+    font-size: 1.2em;
+    position: relative;
+}
+
+h4::after{
+    content: "";
+    width: 100%;
+    border: 1px solid white;
+    position: absolute;
+    display: block;
+}
+@keyframes enter{
+    0%{
+        transform: translateX(-600px);
+    }
+    100%{
+        transform: translateX(0px);
+    }
+}
+@keyframes out{
+    0%{
+        transform: translatex(0);
+    }
+    100%{
+        transform: translateX(-50em);
+    }
+}
+
+.containerints{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.containerints div{
+    height: 100%;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.posicionSeleccion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonsFiltros, .buttonGeneros{
+    background-color: black;
+    outline: none;
+    border: 1px solid white;
+    margin: 1em;
+    padding: 1.6em;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+.containerints .PosicionFiltrosDeGenero{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+
+
+.Muestra,
+.containerPeliFiltradas{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.ContainerTodos{
+    display: flex;
+    margin: 1em;
+}
+
+.ContainerTodos img{
+    width: 16em;
+    border-radius: 10px;
+    height: 18em;
+    background-size: cover;
+}
+
+.activoBttons{
+    background-color: red;
+}
+.activoGeneros{
+    background-color: green;
+}
+
+.PelisFiltradas{
+    margin: 1em;
+}
+
+.PelisFiltradas img{
+    width: 16em;
+    border-radius: 10px;
+    height: 18em;
+    background-size: cover;
+}
+
+.MainFiltrados{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.pelisFiltrar{
+    height: 25em;
+    width: 18em;
+    border-radius: 10px;
+    margin: 1em 10px;
+}

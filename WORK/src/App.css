@@ -2,3 +2,6 @@
     background-color: rgba(0, 0, 0, 0.849);
     height: 100%;
 }
+body {
+    border-radius: 0;
+}
