@@ -1,5 +1,4 @@
-
-.ulPelis{
+.ulPelis {
     display: flex;
     flex-direction: row;
     position: absolute;
@@ -8,8 +7,15 @@
     bottom: 270px;
 }
 
+.ContainerBusqueda {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100vh;
+    justify-content: end;
+}
 
-.divUl ul li{
+.divUl ul li {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +27,8 @@
     text-align: center;
     border: 1px solid white;
 }
-.perfiles{
+
+.perfiles {
     position: relative;
     width: 10em;
     height: 15em;
@@ -30,6 +37,7 @@
     align-items: center;
     margin: 0 1em;
 }
+
 .card {
     position: absolute;
     width: 10em;
@@ -64,53 +72,58 @@
     justify-content: center;
 }
 
-.perfiles:hover .frente{
+.perfiles:hover .frente {
     transform: rotateY(180deg);
 }
 
-.perfiles:hover .back{
-    transform:  rotateY(360deg);
+.perfiles:hover .back {
+    transform: rotateY(360deg);
 }
 
 
 
 
-.nombreActor{
+.nombreActor {
     font-weight: 600;
 }
 
-.personaje{
+.personaje {
     color: rgb(182, 175, 175);
 }
 
-.imgPoster{
+.imgPoster,
+.imgPoster1 {
     width: 20em;
     height: 100%;
     background-size: cover;
     border-radius: 20px;
     margin: 4em;
 }
-.containerInformacion{
+.imgPoster{
+    display: none;
+}
+
+.containerInformacion {
     display: flex;
     flex-direction: column;
     align-items: start;
     height: 70%;
-    width:100%;
+    width: 100%;
     position: relative;
 }
 
-span{
+span {
     color: rgb(187, 183, 183);
     margin: 1em;
 }
 
-.divUl{
+.divUl {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.divUl ul{
+.divUl ul {
     position: relative;
     bottom: 20px;
     display: flex;
@@ -121,7 +134,7 @@ span{
 }
 
 
-.iconoCorazon{
+.iconoCorazon {
     margin: 1.4em 0em;
     cursor: pointer;
     border-radius: 100%;
@@ -131,23 +144,29 @@ span{
     color: white;
     padding: 3em 3em;
 }
-.iconoCorazonCompleted{
+
+.iconoCorazonCompleted {
     margin: 1.4em 0em;
     border-radius: 100%;
     color: green;
     border: 1px solid white;
     padding: 3em 3em;
 }
-.iconoCorazon:hover,.iconoCorazonCompleted:hover{
+
+.iconoCorazon:hover,
+.iconoCorazonCompleted:hover {
     cursor: pointer;
 }
 
-.iconoCorazon:hover{
+.iconoCorazon:hover {
     color: green;
 }
 
+.PosicionesBotonesFav2 {
+    display: none;
+}
 
-.Actores{
+.Actores {
     margin-top: 5%;
     display: flex;
     justify-content: start;
@@ -156,7 +175,7 @@ span{
     flex-flow: row wrap;
 }
 
-.PosicionesBotonesFav{
+.PosicionesBotonesFav {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -165,4 +184,101 @@ span{
     right: 0;
     top: 0;
     bottom: 0;
+}
+
+.Description {
+    color: white;
+    position: relative;
+    top: 30px;
+    margin: 1em;
+    text-align: start;
+    width: 60%;
+    font-size: 1.4em;
+    font-family: serif;
+    letter-spacing: 3px
+}
+
+@media screen and (max-width:1620px) {
+
+    .containerInformacion {
+        align-items: center;
+    }
+
+    .Description {
+        width: 90%;
+        top: 0px;
+    }
+
+    .PosicionesBotonesFav {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: start;
+    }
+
+    .perfiles {
+        margin: 1em;
+    }
+
+}
+
+@media screen and (max-width:1230px) {
+    .Actores {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width:1039px) {
+    .PosicionesBotonesFav {
+        display: none;
+    }
+
+    .PosicionesBotonesFav2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.363);
+        border-radius: 20px;
+    }
+
+    .ContainerBusqueda {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        height: 100%;
+    }
+
+    .Description {
+        text-align: center;
+    }
+
+    .divUl ul {
+        padding: 0px 0px 0px 0px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .ImgBoton {
+        width: 20em;
+        height: 100%;
+        border-radius: 20px;
+    }
+    .imgPoster1{
+        display: none;
+    }
+
+    .imgPoster {
+        margin: 0;
+        display: flex;
+    }
+
+    .MediaFoto {
+        margin: 4em;
+    }
 }

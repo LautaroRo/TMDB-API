@@ -35,6 +35,7 @@
     align-items: center;
     width: 100%;
     height: 30%;
+    flex-flow: row wrap;
     position: relative;
 }
 @keyframes perfiles {
@@ -55,17 +56,25 @@
     position: relative;
     height: 60%;
     transition: all .5s;
+    margin: 1em 0em;
 }
 
 
-.cardPelis:hover{
-    transform: scale(1.2);
-}
+
 .perfil:hover{
     background:linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%);
 }
 
+.btonCardX:hover{
+    transform: scale(1.2);
+}
+.perfil{
+    transition: all .5s;
+}
 
+.perfil:hover{
+    transform: scale(1.1);
+}
 .divCreatePerfil {
     display: flex;
     flex-direction: column;
@@ -118,7 +127,9 @@
 
 
 
-
+#card2{
+    height: 72%;
+}
 .formCreate{
     display: flex;
     justify-content: center;
@@ -194,23 +205,21 @@
 
 
 .btonCard{
-    width: 100%;
-    height: 100%;
+    padding: 1em 2em;
     border-radius: 100%;
     background: linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%);
     border: 0;
     color: white;
+    transition: all .5s;
 }
 
 .btonCard:hover{
     background:linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.50) 100%);
-    border: 4px solid white;
     cursor: pointer;
+    border: 1px solid white;
 }
 
-.btonCard:hover .iconPencil{
-    font-size: 2.5em;
-}
+
 .iconPencil{
     font-size: 2em;
 }
@@ -240,6 +249,10 @@ display: none;
     align-items: center;
 }
 
+#div2{
+    display: none;
+}
+
 .divContainerEditar img{
     width: 10em;
     height: 10em;
@@ -256,7 +269,20 @@ display: none;
     align-items: center;
     width: 100%;
 }
+.ContainerFotos div{
+    width: 8em;
+    height: 8em;
+}
+.Check{
+    padding: .5em 4em;
+    transition: all .5s;
+}
 
+
+.Check:hover{
+    background-color: color;
+    color: white;
+}
 .changeFoto{
     display: flex;
     margin: 0;
@@ -278,7 +304,6 @@ display: none;
 .changeFoto img:hover{
     transform: scale(1.2);
     z-index: 3;
-
 }
 
 
@@ -338,4 +363,188 @@ display: none;
 }
 .CreatePerfil{
     border-radius: 100%;
+}
+.perfil{
+    width: 11em;
+    height: 15em;
+    display: "flex";
+    border-radius: 100%;
+    justify-content: "center";
+    align-items: "center"
+}
+.button2{
+    display: none;
+}
+.button1{
+    display: flex;
+    top: 50px;
+    padding: .3em 4em;
+    transition: all .5s;
+    right: 70px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.button1:hover{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
+.iconVolver{
+    color: white;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.iconVolver:hover{
+    transform: scale(1.2);
+}
+@media screen and (max-width:623px){
+    .Perfiles{
+        display: flex;
+        flex-flow: column;
+        height: 25%;
+    }
+    #cardP{
+        margin: 2em;
+    }
+}
+@media screen and (max-width:832px){
+    #div2{
+        display: flex;
+        position: fixed;
+        bottom: 100px;
+    }
+    #div1{
+        display: none;
+    }
+}
+
+@media screen and (max-width:623px){
+    #div2{
+        display: flex;
+        position: relative;
+        bottom: 0;
+    }
+}
+@media screen and (max-width:960px){
+    .perfil{
+        width: 9em;
+    }
+}
+
+@media screen and (max-width:1260px){
+    .changeFoto img{
+        width: 8em;
+        height: 8em;
+        border-radius: 100%;
+    }
+    .divContainerEditar img {
+        width: 8em;
+        height: 8em;
+        border-radius: 100%;
+    }
+}
+
+@media screen and (max-width:456px){
+    .Perfiles{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+        .cardPelis{
+        height: 8em;
+        margin-top: 20px;
+    }
+    #cardP{
+        height: 15%;
+    }
+
+    #cardP a{
+        height: 10em;
+    }
+    .btonCard{
+    height: 0;
+    padding: 2em 3em;
+    width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    #card2{
+        height: 12em;
+    }
+}
+@media screen and (max-width:960px){
+    #div1 .divBtonsCheck .Check{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 70px;
+        width: 10%;
+    }
+
+    #div1 .divBtonsCheck{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width:650px){
+    .ContainerFotos div{
+        width: 6em;
+        height: 5em;
+    }
+}
+@media screen and (max-width:575px){
+    .changeFoto img{
+        width: 6em;
+        height: 6em;
+        border-radius: 100%;
+        margin: 0.4em;
+    }
+    .divContainerEditar img {
+        width: 6em;
+        height: 6em;
+        border-radius: 100%;
+    }
+    .inputNombre{
+        margin: 2em 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .changeFoto{
+        position: relative;
+        top: -20px;
+    }
+    .button2{
+        display: flex;
+        position: absolute;
+        top: 50px;
+        padding: .3em 4em;
+        transition: all .5s;
+        right: 70px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    .button2:hover{
+        background-color: black;
+        border: 1px solid white;
+        color: white;
+    }
+    .button1{
+        display: none;
+    }
 }

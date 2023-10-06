@@ -6,7 +6,7 @@ import "./estilos.css"
 import { guardarLocal } from '../Helper'
 import { Use } from '../../Context/Perfil'
 const Peilculas = () => {
-    const {peliBuscar} = useContext(Use)
+    const { peliBuscar } = useContext(Use)
     const [IDPelicula, setIDPelicula] = useState(0)
     const [Pelicula, setPelicula] = useState([])
     const [PeliBack, setPeliBack] = useState([])
@@ -16,10 +16,11 @@ const Peilculas = () => {
     const [PerfilIniciado, setPerfilIniciado] = useState([])
     const [info, setInfo] = useState();
     const [guardado, setGuardado] = useState();
+    const [Imagen, setImagen] = useState(false)
 
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
 
-    // Fetch info and guardado from local storage on component mount
+
     useEffect(() => {
         const infoData = JSON.parse(localStorage.getItem("Pelicula-Seleccionada"));
         const guardadoData = JSON.parse(localStorage.getItem("Perfil-Iniciado"));
@@ -52,31 +53,47 @@ const Peilculas = () => {
                 const Buscar = await fetch(`https://api.themoviedb.org/3/movie/${IDPelicula}?api_key=${API_KEY}&append_to_response=credits`)
                 const peliculaEncontrada = await Buscar.json()
                 let infoaAlmacenada = []
-                for (let i = 0; i < 6; i++) {
 
-                    let infoGuarda = {
-                        name: peliculaEncontrada?.credits?.cast[i]?.original_name,
-                        img: peliculaEncontrada?.credits?.cast[i]?.profile_path,
-                        personaje: peliculaEncontrada?.credits?.cast[i]?.character,
+                if( peliculaEncontrada?.credits?.cast?.length < 7){
+                    for (let i = 0; i < peliculaEncontrada?.credits?.cast?.length ; i++) {
+    
+                        let infoGuarda = {
+                            name: peliculaEncontrada?.credits?.cast[i]?.original_name,
+                            img: peliculaEncontrada?.credits?.cast[i]?.profile_path,
+                            personaje: peliculaEncontrada?.credits?.cast[i]?.character,
+                        }
+        
+                        if (infoGuarda.img !== null) {
+                            infoaAlmacenada.push(infoGuarda)
+                        }
                     }
-
-                    if (infoGuarda.img !== null) {
-                        infoaAlmacenada.push(infoGuarda)
+                }else{
+                    for (let i = 0; i < 6 ; i++) {
+    
+                        let infoGuarda = {
+                            name: peliculaEncontrada?.credits?.cast[i]?.original_name,
+                            img: peliculaEncontrada?.credits?.cast[i]?.profile_path,
+                            personaje: peliculaEncontrada?.credits?.cast[i]?.character,
+                        }
+        
+                        if (infoGuarda.img !== null) {
+                            infoaAlmacenada.push(infoGuarda)
+                        }
                     }
                 }
-
                 setPelicula([...Pelicula, ...infoaAlmacenada])
 
 
                 let InfoBack = {
                     img1: `https://image.tmdb.org/t/p/original${peliculaEncontrada?.poster_path}`,
-                    img2:`https://image.tmdb.org/t/p/original${peliculaEncontrada?.backdrop_path}`,
+                    img2: `https://image.tmdb.org/t/p/original${peliculaEncontrada?.backdrop_path}`,
                     name: peliculaEncontrada?.title,
                     description: peliculaEncontrada?.overview,
                     fecha: peliculaEncontrada?.release_date,
                     id: peliculaEncontrada?.id,
-                    critic:peliculaEncontrada?.vote_average
+                    critic: peliculaEncontrada?.vote_average
                 }
+                console.log(InfoBack)
 
                 setPeliBack(InfoBack)
 
@@ -120,30 +137,46 @@ const Peilculas = () => {
         <>
             <NavBar />
             <div>
-                <div style={{
+                <div className='ContainerBusqueda' style={{
                     background: `linear-gradient(rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.90) 100%),url(${PeliBack?.img2})center / cover no-repeat`,
                     width: "100%",
-                    height: "100vh",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "end",
-                    flexDirection: "row",
                     borderRadius: "0px",
                     position: "relative",
                 }}>
 
-                    <div style={{
+                    <div className='MediaFoto' style={{
                         display: "flex",
                         justifyContent: "end",
                         position: "relative",
                         top: "50px"
                     }}>
-                        <img className='imgPoster' src={PeliBack?.img1}></img>
+                        <img className='imgPoster1' src={PeliBack?.img1}></img>
+                        <img onMouseEnter={() => setImagen(true)} className={Imagen === true ? 'ImgBoton' : 'imgPoster'} src={PeliBack?.img1}></img>
+                        {
+                            Imagen === true
+
+                                ?
+
+                                <div onMouseLeave={() => setImagen(false)}  className='PosicionesBotonesFav2'>
+                                    {Estado === true
+                                        ?
+
+                                        <FontAwesomeIcon onClick={mostrar} className='iconoCorazon' icon={faHeart} />
+
+                                        :
+
+                                        <FontAwesomeIcon onClick={mostrar} className='iconoCorazonCompleted' icon={faHeart} />
+                                    }
+                                </div>
+                                :
+                                null
+                        }
+
                     </div>
 
                     <div className='containerInformacion'>
                         <h2 style={{
-                            margin: "2em",
+                            margin: "2em 0em",
                             position: "relative",
                             bottom: "10px",
                             color: "white"
@@ -158,17 +191,7 @@ const Peilculas = () => {
                             </ul>
 
                         </div>
-                        <p style={{
-                            color: "white",
-                            position: "relative",
-                            top: "30px",
-                            margin: "0 5%",
-                            textAlign: "start",
-                            width: "60%",
-                            fontSize: "1.4em",
-                            fontFamily: "serif",
-                            letterSpacing: "3px"
-                        }}>
+                        <p className='Description'>
                             {PeliBack?.description}
                         </p>
                         <div className="Actores">

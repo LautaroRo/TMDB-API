@@ -23,7 +23,7 @@ nav h2{
     position: relative;
 }
 
-ul {
+.activoul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -121,33 +121,50 @@ input{
     right: 100px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: center;
+    align-items: center;
     border: 1px solid white;
     border-radius: 30px 0px 30px 30px;
+    padding: 0px 0px 0px 0px;
+    margin: 0 auto;
 }
 
 .dentroPerfiles{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     flex-direction: row;
     margin: .2em;
+    width: 100%;
+    transition: all .5s;
+}
+.dentroPerfiles:hover .dentroPerfiles img{
+    opacity: -1;
+}
+
+.dentroPerfiles:hover .adentroNombres{
+    opacity: 1;
+}
+
+.adentroNombres{
+    position:absolute ;
+    height: 100%;
+    width: 50%;
+    opacity: -1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: all .5s;
+    cursor: pointer;
 }
 .dentroPerfiles img{
     margin-top: 10px;
-    margin-left: 10px;
-    width: 7em;
-    border-radius: 10%;
+    width: 50%;
+    cursor: pointer;
     height: 5.5em;
 }
 
-.dentroPerfiles span{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-}
 
 .CerrarSesion{
     height: 100%;
@@ -180,34 +197,132 @@ input{
     transform: scale(1);
 }
 
-.iconoTrash{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
+
+.perfilesMainMedia{
+    display: none;
+}
+.bar{
+    display: none;
+}
+#check{
+    display: none;
+}
+
+@media screen and (max-width:600px){
+    .containerInformacion h2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+@media screen and (max-width:700px){
+
+    .activoul{
+        display: none;
+    }
+    .bar {
+        display: flex;
+        height: 30px;
+    }
+    
+    .checkbtn {
+        display: flex;
+        z-index: 3000;
+        color: white;
+        cursor: pointer;
+        margin: 0 auto;
+        right: 0;
+        padding: 0 .5em;
+    }
+    
+    #check:checked  ~  .activoul {
+        opacity: 1;
+        width: 40%;
+        background-color: rgba(22, 22, 24, 0.712);
+        border: 1px solid white;
+        border-radius: 10px;
+        height: 15%;
+        position: fixed;
+        right: 10px;
+        top: 120px;
+        z-index: 10000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        transition: all .8s;
+    }
+
+    #check:checked  ~  .activoul li{
+        margin: 0.6em;
+    }
+}
+@media screen and (max-width:900px) {
+    .imagenPerfil{
+        position: fixed;
+        bottom: 30px;
+        width: 6em;
+        height: 6em;
+        z-index: 100;
+    }
+
+
+
+    .perfilesMain{
+        display: none;
+    }
+    .perfilesMainMedia{
+        background-color: black;
+        height: 16em;
+        position: fixed;
+        left: 0;
+        right: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        bottom: 0;
+        z-index: 200;
+        border-radius: 10px 10px 0 0;
+    }
+    .organizarPerfiles{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 80%;
+    }
+    .perfilesMainMedia .organizarPerfiles .dentroPerfiles img{
+        margin: 1em 1em;
+        height: 6em;
+        width: 6em;
+        transition: all .5s;
+        cursor: pointer;
+    }
+    
+    .perfilesMainMedia .organizarPerfiles .dentroPerfiles img:hover{
+        transform: scale(1.2);
+    }
+
+    .CerrarSesionMedia{
+        height: 20%;
+        border-top: none;
+    }
+
+}
+
+.x{
+    position: absolute;
+    top: -20px;
     cursor: pointer;
-    font-size: 1.2em;
-    position: relative;
-}
-
-.iconoTrash:hover{
-    color: red;
-}
-
-.iconoArrow{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    right: 20px;
+    background: none;
+    font-size: 2em;
     color: white;
-    position: relative;
-    font-size: 1.5em;
-    cursor: pointer;
+    transition: all .5s;
 }
-
-.buttonFlecha{
-    position: relative;
-    left: 40px;
-}
-.iconoArrow:hover{
-    color: green;
+.x:hover{
+    transform: scale(1.2);
 }

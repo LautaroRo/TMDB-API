@@ -44,7 +44,7 @@ const Filtos = () => {
                 }
             }
 
-            // Obtener todas las series
+
             for (let j = 5; j < 10; j++) {
                 let url = `${API}/tv/top_rated?api_key=${API_KEY}&page=${j}`
                 const urlFetch = await fetch(url)
@@ -63,8 +63,6 @@ const Filtos = () => {
                     Peliculas.push(infoGuardad)
                 }
             }
-
-            console.log(Peliculas)
             setTodo(Peliculas)
         } catch {
             console.log("error")
@@ -88,7 +86,7 @@ const Filtos = () => {
             try {
                 if (Seleccion === "Peliculas" || Seleccion === null) {
                     let Peliculas = []
-                        setFiltrados([])
+                    setFiltrados([])
                     for (let i = 0; Contador > i; i++) {
                         const traerlasPeliculas = `${API}/movie/top_rated?api_key=${API_KEY}&page=${i}`
                         const traerLasPelisFetch = await fetch(traerlasPeliculas)
@@ -104,7 +102,9 @@ const Filtos = () => {
                                     voto: pelisUrl?.results[j]?.vote_average,
                                     tipo: "Peliculas"
                                 }
-                                Peliculas.push(info)
+                                if (info?.imagen !== null && info?.imagen !== undefined && info?.imagen) {
+                                    Peliculas.push(info)
+                                }
                             } else if (filtrar) {
                                 let info = {
                                     name: pelisUrl?.results[j]?.title,
@@ -114,7 +114,9 @@ const Filtos = () => {
                                     tipo: "Pelicula",
                                     generos: pelisUrl?.results[j]?.genre_ids
                                 }
-                                Peliculas.push(info)
+                                if (info?.imagen !== null && info?.imagen !== undefined && info?.imagen) {
+                                    Peliculas.push(info)
+                                }
                             }
                         }
 
@@ -139,7 +141,9 @@ const Filtos = () => {
                                     voto: pelisUrl?.results[j]?.vote_average,
                                     tipo: "Series"
                                 }
-                                Peliculas.push(info)
+                                if (info?.imagen !== null && info?.imagen !== undefined && info?.imagen) {
+                                    Peliculas.push(info)
+                                }
                             } else if (filtrar) {
                                 let info = {
                                     name: pelisUrl?.results[j]?.name,
@@ -149,7 +153,9 @@ const Filtos = () => {
                                     tipo: "Series",
                                     generos: pelisUrl?.results[j]?.genre_ids
                                 }
-                                Peliculas.push(info)
+                                if (info?.imagen !== null && info?.imagen !== undefined && info?.imagen) {
+                                    Peliculas.push(info)
+                                }
                             }
                         }
                     }
@@ -180,7 +186,9 @@ const Filtos = () => {
                                     tipo: "Series",
                                     generos: seriesUrl?.results[j]?.genre_ids
                                 }
-                                Peliculas.push(info)
+                                if (info?.imagen !== null && info?.imagen !== undefined && info?.imagen) {
+                                    Peliculas.push(info)
+                                }
                             } else if (pelisUrl && filtrarPelis) {
                                 let info = {
                                     name: pelisUrl?.results[j]?.title,
@@ -190,7 +198,9 @@ const Filtos = () => {
                                     tipo: "Pelicula",
                                     generos: pelisUrl?.results[j]?.genre_ids
                                 }
-                                Peliculas.push(info)
+                                if (info?.imagen !== null && info?.imagen !== undefined && info?.imagen) {
+                                    Peliculas.push(info)
+                                }
                             }
                         }
                     }
@@ -298,7 +308,7 @@ const Filtos = () => {
                                             <button id='Peliculas' onClick={seleccion} className='buttonsFiltros'>Peliculas</button><button className='buttonsFiltros' id='Series' onClick={seleccion}>Series</button>
                                         </div>
                                         <div>
-                                        <h4>Seleccione los generos</h4>
+                                            <h4>Seleccione los generos</h4>
                                         </div>
                                         <div className='PosicionFiltrosDeGenero'>
                                             <button className='buttonGeneros' onClick={generos} id="27">Terror</button>
@@ -366,7 +376,6 @@ const Filtos = () => {
                                                             <NavLink className="navlink123" id={fil?.id} onClick={guardarInfo} to={`/${fil.tipo}/${fil.name}`}>
                                                                 <FontAwesomeIcon id={fil.id} onClick={guardarInfo} className='icono' icon={faPlay} />
                                                             </NavLink>
-
                                                         </div>
                                                         :
                                                         null

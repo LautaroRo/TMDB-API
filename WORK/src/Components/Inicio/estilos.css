@@ -66,7 +66,7 @@
     animation: 4s linear third .4s;
 }
 
-.irAPerfiles{
+.irAPerfilesFirst{
     text-decoration: none;
     color: white;
     cursor: pointer;
@@ -74,7 +74,7 @@
     position: relative;
     transition: all .5s;
 }
-.irAPerfiles::after{
+.irAPerfilesFirst::after{
     content: "";
     position: absolute;
     display: block;
@@ -84,7 +84,7 @@
     border: 1px solid white;
 }
 
-.irAPerfiles:hover::after{
+.irAPerfilesFirst:hover::after{
     transform: scale(1);
 }
 @keyframes third{
@@ -258,6 +258,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: iniciarSesion linear 1.5s;
+}
+@keyframes iniciarSesion{
+    0%{
+        opacity: -1;
+    }
+    100%{
+        opacity: 1;
+    }
 }
 
 

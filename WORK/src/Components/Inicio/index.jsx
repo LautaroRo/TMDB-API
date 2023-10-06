@@ -227,7 +227,7 @@ setProfile(info)
                                         <div className='two'></div>
                                         <div className='third'></div>
                                     </div>
-                                    <NavLink to={`/ruta/${nameInicio}`} className="irAPerfiles" type="submit">Iniciar</NavLink>
+                                    <NavLink to={`/ruta/${nameInicio}`} className="irAPerfilesFirst" type="submit">Iniciar</NavLink>
                                     </>
 
                             }

@@ -3,7 +3,7 @@ import { NavLink, json, useParams } from 'react-router-dom'
 import pop from "./../../Assets/pop.png"
 import "./estilos.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faCircle,faStar} from '@fortawesome/free-solid-svg-icons'
 import Header from '../Header'
 import NavBar from '../NavBar'
 import { Use } from '../../Context/Perfil'
@@ -299,7 +299,7 @@ const Main = () => {
                         <main>
                             <section>
                                 <div className='divTitlePeliculas'>
-                                    <h2 className='titlePeliculas'>Peliculas mas populares del momento</h2>
+                                <span><FontAwesomeIcon icon={faCircle}/></span><h2 className='titlePeliculas'>Peliculas mas populares del momento</h2>
                                 </div>
                                 <button className='menos' onClick={menos}>
                                     -
@@ -366,7 +366,7 @@ const Main = () => {
 
                             <section>
                                 <div className='divTitlePeliculas'>
-                                    <h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                <span><FontAwesomeIcon icon={faCircle}/></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
                                 </div>
                                 <button className='menos2' onClick={menos}>
                                     -
@@ -427,7 +427,7 @@ const Main = () => {
 
                             <section>
                                 <div className='divTitlePeliculas'>
-                                    <h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                    <span><FontAwesomeIcon icon={faCircle}/></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
                                 </div>
                                 <button className='menos3' onClick={menos}>
                                     -
@@ -488,7 +488,7 @@ const Main = () => {
 
                             <section>
                                 <div className='divTitlePeliculas'>
-                                    <h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                <span><FontAwesomeIcon icon={faCircle}/></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
                                 </div>
                                 <button className='menos4' onClick={menos}>
                                     -
@@ -551,7 +551,7 @@ const Main = () => {
                                     ?
                                     <section>
                                         <div className='divTitlePeliculas'>
-                                            <h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                        <span><FontAwesomeIcon icon={faStar}/></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
                                         </div>
                                         <button className='menos5' onClick={menos}>
                                             -

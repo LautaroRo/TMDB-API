@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faTrash, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faTrash, faArrowAltCircleRight, faBars } from '@fortawesome/free-solid-svg-icons'
 import "./estilos.css"
 import { Use } from '../../Context/Perfil'
 import { NavLink } from 'react-router-dom'
@@ -12,6 +12,7 @@ const NavBar = () => {
     const [Estado, setEstado] = useState(false)
     const [Mostar, setMostrar] = useState(false)
     const [Perfiles, setPerfiles] = useState([])
+    const [isChecked, setIsChecked] = useState(false);
     const API = "https://api.themoviedb.org/3";
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
 
@@ -40,7 +41,7 @@ const NavBar = () => {
         const buscar = Perfiles.filter((element) => element.nombre === e.target.id)
         localStorage.setItem("Perfil-Iniciado", JSON.stringify(buscar))
         setPerfil(buscar)
-        if(buscar){
+        if (buscar) {
             window.location.reload()
         }
     }
@@ -68,7 +69,7 @@ const NavBar = () => {
         const urlSerie = `${API}/search/tv?api_key=${API_KEY}&query=${pelicula}`;
         const responseSerie = await fetch(urlSerie);
         const dataSerie = await responseSerie.json();
-        for (let i = 0; i < 6 ; i++) {
+        for (let i = 0; i < 6; i++) {
             if (dataSerie?.results[i]?.poster_path !== undefined && dataSerie.results[i].poster_path !== null) {
                 const votos = dataSerie?.results[i]?.vote_average
                 const votoFinal = votos.toFixed(1)
@@ -76,10 +77,10 @@ const NavBar = () => {
                     name: dataSerie?.results[i]?.name,
                     imagen: `https://image.tmdb.org/t/p/w500/${dataSerie?.results[i]?.poster_path}`,
                     id: dataSerie?.results[i]?.id,
-                    tipo:"Series",
+                    tipo: "Series",
                     voto: votoFinal
                 }
-                informacion.push(info)            
+                informacion.push(info)
             }
         }
         setPeliBuscar(informacion)
@@ -87,24 +88,6 @@ const NavBar = () => {
 
     }
 
-    const Delete = (e) => {
-        const urlNombre = JSON.parse(localStorage.getItem("nombres"));
-        const perfilesCreados = JSON.parse(localStorage.getItem(`Perfiles${urlNombre}`));
-        const perfiles = []
-
-        for (let i = 0; perfilesCreados?.length > i; i++) {
-            if (perfilesCreados[i].nombre !== e.target.id) {
-                let info = {
-                    nombre: perfilesCreados[i].nombre,
-                    imagen: perfilesCreados[i].imagen
-                }
-                perfiles.push(info)
-            }
-        }
-        setPerfiles(perfiles)
-        localStorage.setItem(`Perfiles${urlNombre}`, JSON.stringify(perfiles))
-        localStorage.removeItem(`PelisGuardadas-${e.target.id}`)
-    };
 
     const buscar = (e) => {
         e.preventDefault()
@@ -117,45 +100,75 @@ const NavBar = () => {
 
 
     }
+    const handleCheckboxClick = () => {
+        setIsChecked(!isChecked);
+    }
     return (
         <header className={scrolled ? "navbar scrolled" : "navbar"}>
             <nav>
+                <input type="checkbox" id="check" checked={isChecked} onChange={handleCheckboxClick} />
                 <h2>Pelis</h2>
-                <ul>
+                <ul className='activoul'>
                     <li><NavLink className='links' to="/inicio">Inicio</NavLink></li>
-                    <li><a className='links' href="#">Acerca</a></li>
                     <li><NavLink className='links' to="/Filtros">Filtros</NavLink></li>
                 </ul>
-
                 <div className='divRight'>
+                    <label htmlFor="check" className='checkbtn'>
+                        <FontAwesomeIcon className='bar' icon={faBars}></FontAwesomeIcon>
+                    </label>
                     {
                         Estado === false
 
                             ?
                             <FontAwesomeIcon onClick={() => setEstado(true)} icon={faMagnifyingGlass} className='iconoSearch'></FontAwesomeIcon>
                             :
-                            <input onBlur={() => setEstado(false)}  onChange={buscar} type="search" className='input' placeholder={"Titulo" || change} />
+                            <input onBlur={() => setEstado(false)} onChange={buscar} type="search" className='input' placeholder={"Titulo" || change} />
 
                     }
-                    <img className='imagenPerfil' src={Perfil[0]?.imagen}  onMouseEnter={() => setMostrar(true)} alt="" />
+                    <img className='imagenPerfil' src={Perfil[0]?.imagen} onMouseEnter={() => setMostrar(true)} alt="" />
                     {
                         Mostar === true
 
-                        ?
-                        <div className='perfilesMain' onMouseLeave={() => setMostrar(false)}>
-                            {Perfiles.map((perfil)=>{
-                                return(
-                                    <div className='dentroPerfiles'>
-                                        <img src={perfil?.imagen}></img> <span>{perfil?.nombre}</span><button onClick={Delete} id={perfil?.nombre}><FontAwesomeIcon onClick={Delete} id={perfil?.nombre} className='iconoTrash' icon={faTrash}/></button><button className='buttonFlecha' onClick={CambiarPerfil} id={perfil?.nombre}><FontAwesomeIcon id={perfil?.nombre} onClick={CambiarPerfil} className='iconoArrow' icon={faArrowAltCircleRight}/></button>
+                            ?
+                            <>
+                                <div className='perfilesMain' onMouseLeave={() => setMostrar(false)}>
+                                    {Perfiles.map((perfil) => {
+                                        return (
+                                            <div className='dentroPerfiles'>
+                                                <img src={perfil?.imagen}></img>
+                                                <div onClick={CambiarPerfil} id={perfil?.nombre} className='adentroNombres' style={{ 
+                                                    background: `linear-gradient(rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.90) 100%),url(${perfil?.imagen})center / cover no-repeat` 
+                                                }}>
+                                                    <h2>{perfil?.nombre}</h2>
+                                                </div>
+                                            </div>
+
+                                        )
+                                    })}
+                                    <div className='CerrarSesion'>
+                                        <NavLink className="LinkCerrar" to="/">Cerrar Sesion</NavLink>
                                     </div>
-                                )
-                            })}
-                            <div className='CerrarSesion'>
-                                <NavLink className="LinkCerrar" to="/">Cerrar Sesion</NavLink>
-                            </div>
-                        </div>
-                        :
-                        null
+                                </div>
+                                <div className='perfilesMainMedia' >
+                                    <h1 className='x' onClick={() => setMostrar(false)}>X</h1>
+                                    <div className="organizarPerfiles">
+
+                                        {Perfiles.map((perfil) => {
+                                            return (
+                                                <div className='dentroPerfiles'>
+                                                    <img onClick={CambiarPerfil} id={perfil?.nombre} src={perfil?.imagen}></img>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+
+                                    <div className='CerrarSesionMedia'>
+                                        <NavLink className="LinkCerrar" to="/">Cerrar Sesion</NavLink>
+                                    </div>
+                                </div>
+                            </>
+                            :
+                            null
                     }
                 </div>
             </nav>

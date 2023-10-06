@@ -93,19 +93,24 @@ button:hover{
 }
 .mas5,
 .menos5{
-    top:3317px;
+    top: 3355px;
+}
+
+.mas,
+.menos{
+    top: 1130px
 }
 .mas4,
 .menos4{
-    top:2822px;
+    top: 2802px;
 }
 .mas2,
 .menos2{
-    top: 1699px;
+    top: 1689px;
 }
 .mas3,
 .menos3{
-    top: 2263px;
+    top: 2245px;
 }
 .divInside{
     display: flex;
@@ -230,9 +235,16 @@ button:hover{
     margin-left: 1em;
 }
 
+.divTitlePeliculas span{
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+}
+
 .titlePeliculas{
     color: white;
     position: relative;
+    font-family: auto;
 }
 
 .titlePeliculas::after{
@@ -353,4 +365,41 @@ html{
     display: flex;
     justify-content: space-between;
     margin: 0em 1em;
+}
+
+@media screen and (max-width:850px){
+    .mas{
+        width: 8%;
+        top: 1135px;
+        background-color: black;
+    }
+    .menos{
+        width: 8%;
+        top: 1135px;
+        background-color: black;
+    }
+}
+
+
+@media screen and (max-width:624px){
+    .mas,
+    .mas2,
+    .mas3,
+    .mas4,
+    .mas5{
+        width: 8%;
+    }
+    .menos, .menos2, .menos3, .menos4, .menos5{
+        width: 8%;
+    }
+}
+@media screen and (max-width:650px){
+    .divTitlePeliculas{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .divTitlePeliculas span{
+        display: none;
+    }
 }
