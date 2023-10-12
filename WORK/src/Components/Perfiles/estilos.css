@@ -107,6 +107,7 @@
     outline: none;
     transition: all .5s;
     cursor: pointer;
+    animation: ocultar linear 3s;
 }
 
 .icon{
@@ -275,6 +276,8 @@ display: none;
 }
 .Check{
     padding: .5em 4em;
+    border-radius: 10px;
+    border:none;
     transition: all .5s;
 }
 
@@ -328,6 +331,19 @@ display: none;
     color: white;
     transition: all .5s;
     cursor: pointer;
+    animation: ocultar linear 3s;
+}
+
+@keyframes ocultar {
+    0%{
+        opacity: -1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }
 .administrarPerfiles:hover{
     background-color: white;
@@ -367,10 +383,10 @@ display: none;
 .perfil{
     width: 11em;
     height: 15em;
-    display: "flex";
-    border-radius: 100%;
-    justify-content: "center";
-    align-items: "center"
+    display: flex;
+    border-radius: 10%;
+    justify-content: center;
+    align-items: center
 }
 .button2{
     display: none;
@@ -396,12 +412,24 @@ display: none;
     color: white;
     position: absolute;
     top: 50px;
-    left: 20px;
+    right: 20px;
     font-size: 1.5em;
     cursor: pointer;
     transition: all .5s;
 }
-
+.iconVolverCreate{
+    font-size: 1.2em;
+    color: white;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 1;
+    transition: all .5s;
+}
+.iconVolverCreate:hover{
+    transform: scale(1.5);
+}
 .iconVolver:hover{
     transform: scale(1.2);
 }
@@ -465,6 +493,7 @@ display: none;
     }
     #cardP{
         height: 15%;
+        margin: 1em;
     }
 
     #cardP a{
@@ -503,6 +532,42 @@ display: none;
     .ContainerFotos div{
         width: 6em;
         height: 5em;
+    }
+}
+
+@media screen and (max-width:420px){
+    .ContainerFotos div{
+        width: 3.7em;
+        height: 4em;
+    }
+
+    .iconPencil{
+        font-size: 1em;
+    }
+
+    .btonCard {
+        padding: 1.3em 1.5em;
+    }
+    .btonCardX{
+        width: 2em;
+        height: 2em;
+        right: 28px;
+    }
+
+    .divBtonsCheck{
+        position: relative;
+        top: -5px;
+    }
+    .Check {
+        padding: .2em 3em;
+        transition: all .5s;
+    }
+
+    #card2 {
+        height: 7.5em;
+    }
+    .perfil{
+        width: 6em;
     }
 }
 @media screen and (max-width:575px){
@@ -546,5 +611,18 @@ display: none;
     }
     .button1{
         display: none;
+    }
+}
+
+@media screen and (max-width:380px){
+
+    .divContainerEditar img {
+        width: 5em;
+        height: 5em;
+        border-radius: 100%;
+    }
+    
+    .divContainerEditar .changeFoto{
+        top: 0px;
     }
 }

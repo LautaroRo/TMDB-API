@@ -3,7 +3,7 @@ import { NavLink, json, useParams } from 'react-router-dom'
 import pop from "./../../Assets/pop.png"
 import "./estilos.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faCircle,faStar} from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faCircle, faStar } from '@fortawesome/free-solid-svg-icons'
 import Header from '../Header'
 import NavBar from '../NavBar'
 import { Use } from '../../Context/Perfil'
@@ -176,47 +176,47 @@ const Main = () => {
             const divScroll = document.querySelector(".sectiondiv")
 
             try {
-                divScroll.scrollLeft += 300
+                divScroll.scrollLeft += 200
             }
             catch {
-                divScroll.scrollLeft += 300
+                divScroll.scrollLeft += 200
             }
 
         } else if (e?.target?.className === "mas2") {
             const divScroll = document.querySelector(".sectiondiv2")
 
             try {
-                divScroll.scrollLeft += 300
+                divScroll.scrollLeft += 200
             }
             catch {
-                divScroll.scrollLeft += 300
+                divScroll.scrollLeft += 200
             }
         } else if (e?.target?.className === "mas3") {
             const divScroll = document.querySelector(".sectiondiv3")
 
             try {
-                divScroll.scrollLeft += 300
+                divScroll.scrollLeft += 200
             }
             catch {
-                divScroll.scrollLeft += 300
+                divScroll.scrollLeft += 200
             }
         } else if (e?.target?.className === "mas4") {
             const divScroll = document.querySelector(".sectiondiv4")
 
             try {
-                divScroll.scrollLeft += 300
+                divScroll.scrollLeft += 200
             }
             catch {
-                divScroll.scrollLeft += 300
+                divScroll.scrollLeft += 200
             }
-        }  else if (e?.target?.className === "mas5") {
+        } else if (e?.target?.className === "mas5") {
             const divScroll = document.querySelector(".sectiondiv5")
 
             try {
-                divScroll.scrollLeft += 300
+                divScroll.scrollLeft += 200
             }
             catch {
-                divScroll.scrollLeft += 300
+                divScroll.scrollLeft += 200
             }
         }
     }
@@ -299,15 +299,11 @@ const Main = () => {
                         <main>
                             <section>
                                 <div className='divTitlePeliculas'>
-                                <span><FontAwesomeIcon icon={faCircle}/></span><h2 className='titlePeliculas'>Peliculas mas populares del momento</h2>
+                                    <span><FontAwesomeIcon icon={faCircle} /></span><h2 className='titlePeliculas'>Peliculas mas populares del momento</h2>
                                 </div>
-                                <button className='menos' onClick={menos}>
-                                    -
-                                </button>
                                 <div className='sectiondiv'>
                                     <div className="containerMoviesTodas">
                                         <div className='MoviesTodas'>
-
                                             {Movies.map((pelis) => {
                                                 return (
                                                     <div
@@ -316,7 +312,6 @@ const Main = () => {
                                                         onMouseLeave={() => setShow(null)}
                                                         style={{
                                                             background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${pelis?.img2}) center top / cover no-repeat`,
-                                                            width: "100%",
                                                             height: "100%"
                                                         }}
                                                     >
@@ -352,11 +347,10 @@ const Main = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <button className='mas' onClick={mas}>
-                                    +
-                                </button>
-
-
+                                <div className="divisionesbotones">
+                                    <button className='menos'>-</button>
+                                    <button className='mas' onClick={mas}>+</button>
+                                </div>
                             </section>
 
 
@@ -366,11 +360,8 @@ const Main = () => {
 
                             <section>
                                 <div className='divTitlePeliculas'>
-                                <span><FontAwesomeIcon icon={faCircle}/></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                    <span><FontAwesomeIcon icon={faCircle} /></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
                                 </div>
-                                <button className='menos2' onClick={menos}>
-                                    -
-                                </button>
                                 <div className='sectiondiv2'>
                                     <div className="containerMoviesTodas">
                                         <div className='MoviesTodas'>
@@ -383,7 +374,6 @@ const Main = () => {
                                                         onMouseLeave={() => setShow(null)}
                                                         style={{
                                                             background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${pelis?.img2}) center top / cover no-repeat`,
-                                                            width: "100%",
                                                             height: "100%"
                                                         }}
                                                     >
@@ -419,19 +409,17 @@ const Main = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <button className='mas2' onClick={mas}>
-                                    +
-                                </button>
+                                <div className="divisionesbotones">
+                                    <button className='menos2' onClick={menos}>-</button>
+                                    <button className='mas2' onClick={mas}>+</button>
+                                </div>
                             </section>
 
 
                             <section>
                                 <div className='divTitlePeliculas'>
-                                    <span><FontAwesomeIcon icon={faCircle}/></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                    <span><FontAwesomeIcon icon={faCircle} /></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
                                 </div>
-                                <button className='menos3' onClick={menos}>
-                                    -
-                                </button>
                                 <div className='sectiondiv3'>
                                     <div className="containerMoviesTodas">
                                         <div className='MoviesTodas'>
@@ -444,7 +432,6 @@ const Main = () => {
                                                         onMouseLeave={() => setShow(null)}
                                                         style={{
                                                             background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${serie?.img2}) center top / cover no-repeat`,
-                                                            width: "100%",
                                                             height: "100%"
                                                         }}
                                                     >
@@ -480,19 +467,18 @@ const Main = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <button className='mas3' onClick={mas}>
-                                    +
-                                </button>
+                                <div className="divisionesbotones">
+                                    <button className='menos3' onClick={menos}>-</button>
+                                    <button className='mas3' onClick={mas}>+</button>
+                                </div>
                             </section>
 
 
                             <section>
                                 <div className='divTitlePeliculas'>
-                                <span><FontAwesomeIcon icon={faCircle}/></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                    <span><FontAwesomeIcon icon={faCircle} /></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
                                 </div>
-                                <button className='menos4' onClick={menos}>
-                                    -
-                                </button>
+
                                 <div className='sectiondiv4'>
                                     <div className="containerMoviesTodas">
                                         <div className='MoviesTodas'>
@@ -505,7 +491,6 @@ const Main = () => {
                                                         onMouseLeave={() => setShow(null)}
                                                         style={{
                                                             background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${serie?.img2}) center top / cover no-repeat`,
-                                                            width: "100%",
                                                             height: "100%"
                                                         }}
                                                     >
@@ -541,9 +526,10 @@ const Main = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <button className='mas4' onClick={mas}>
-                                    +
-                                </button>
+                                <div className="divisionesbotones">
+                                    <button className='menos4' onClick={menos}>-</button>
+                                    <button className='mas4' onClick={mas}>+</button>
+                                </div>
                             </section>
                             {
                                 PelisGuardadas.length > 0
@@ -551,11 +537,8 @@ const Main = () => {
                                     ?
                                     <section>
                                         <div className='divTitlePeliculas'>
-                                        <span><FontAwesomeIcon icon={faStar}/></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                            <span><FontAwesomeIcon icon={faStar} /></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
                                         </div>
-                                        <button className='menos5' onClick={menos}>
-                                            -
-                                        </button>
                                         <div className='sectiondiv5'>
                                             <div className="containerMoviesTodas">
                                                 <div className='MoviesTodas'>
@@ -569,7 +552,6 @@ const Main = () => {
                                                                 onMouseLeave={() => setShow(null)}
                                                                 style={{
                                                                     background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${peli?.img2}) center top / cover no-repeat`,
-                                                                    width: "100%",
                                                                     height: "100%"
                                                                 }}
                                                             >
@@ -605,12 +587,13 @@ const Main = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <button className='mas5' onClick={mas}>
-                                            +
-                                        </button>
+                                        <div className="divisionesbotones">
+                                            <button className='menos5' onClick={menos}>-</button>
+                                            <button className='mas5' onClick={mas}>+</button>
+                                        </div>
                                     </section>
                                     :
-                                    
+
                                     null
                             }
                         </main>

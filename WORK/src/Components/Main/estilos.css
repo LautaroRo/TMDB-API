@@ -22,6 +22,10 @@ main{
     margin: 100px auto;
 }
 
+.ContainerCards,.ContainerActive{
+    width:100%;
+}
+
 .MoviesTodas{
     display: flex;
     flex-wrap: nowrap;
@@ -56,13 +60,10 @@ button:hover{
 .mas3,
 .mas4,
 .mas5{
-    right: 0px;
-    position: absolute;
     border: none;
     background: rgba(27, 23, 23, 0.644);
     font-size: 40px;
     height: 30%;
-    top: 1140px;
     line-height: 40px;
     width: 4.74%;
     color: #fff;
@@ -71,25 +72,31 @@ button:hover{
     transition: .2s ease all;
 }
 
-
+section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.MoviesTodas{
+    position: relative;
+    top: -33px;
+    z-index: 300;
+}
 .menos,
 .menos2,
 .menos3,
 .menos4,
 .menos5{
-    position: absolute;
     border: none;
     background: rgba(27, 23, 23, 0.644);
     font-size: 40px;
     height: 30%;
-    top: 1140px;
     line-height: 40px;
     width: 4.74%;
     color: #fff;
     cursor: pointer;
     z-index: 500;
     transition: .2s ease all;
-    left: 0px;
 }
 .mas5,
 .menos5{
@@ -366,16 +373,22 @@ html{
     justify-content: space-between;
     margin: 0em 1em;
 }
+.divisionesbotones{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    justify-content: space-between;
+    align-items: center;
+}
 
 @media screen and (max-width:850px){
     .mas{
         width: 8%;
-        top: 1135px;
         background-color: black;
     }
     .menos{
         width: 8%;
-        top: 1135px;
         background-color: black;
     }
 }
@@ -402,4 +415,41 @@ html{
     .divTitlePeliculas span{
         display: none;
     }
+}
+
+@media screen and (max-width:480px){
+    .divTitlePeliculas{
+        margin: 0 auto;
+    }
+
+    .divTitlePeliculas h2{
+        font-size: 1.2em;
+    }
+
+    .MoviesTodas .ContainerActive{
+        width: 60%;
+    }
+
+    .mas,
+    .mas2,
+    .mas3,
+    .mas4,
+    .mas5,
+    .menos, .menos2, .menos3, .menos4, .menos5{
+        height: 5%;
+        border-radius: 100%;
+        border: 1px solid white;
+        padding: .2em .6em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .sectiondiv,
+.sectiondiv2,
+.sectiondiv3,
+.sectiondiv4,
+.sectiondiv5{
+    width: 100%;
+}
+
 }

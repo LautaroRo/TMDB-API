@@ -156,7 +156,7 @@ const NavBar = () => {
                                         {Perfiles.map((perfil) => {
                                             return (
                                                 <div className='dentroPerfiles'>
-                                                    <img onClick={CambiarPerfil} id={perfil?.nombre} src={perfil?.imagen}></img>
+                                                    <img className='imagen' onClick={CambiarPerfil} id={perfil?.nombre} src={perfil?.imagen}></img>
                                                 </div>
                                             )
                                         })}

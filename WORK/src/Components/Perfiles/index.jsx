@@ -125,7 +125,6 @@ const Perfiles = () => {
         e.preventDefault();
         const crearNombre = e.target.nombre.value
         const fotos = Foto[ElegirFoto]
-        console.log(fotos)
 
 
         if (ElegirFoto > -1) {
@@ -136,7 +135,7 @@ const Perfiles = () => {
             for (let i = 0; perfilesCreados?.length > i; i++) {
                 perfil.push(perfilesCreados[i].nombre)
             }
-            if (perfil?.includes(crearNombre) || Perfil.length > 4) {
+            if (perfil?.includes(crearNombre) || Perfil.length > 3) {
                 console.log("error: el perfil ya existe");
             } else {
                 setEstado(false);
@@ -179,7 +178,7 @@ const Perfiles = () => {
 
                                     ?
 
-                                    <div id="cardP" className={Estado === false ? 'cardPelis' : 'FalsecardPelis'}>
+                                    <div id="cardP" className={Estado === false ? 'cardPelis' : 'FalsecardPelis'} style={{color: "white"}}>
                                         <NavLink onClick={SubirPerfil} to={`/inicio`} className="perfil" id={perfil.nombre} style={{
                                             background: `url(${perfil?.imagen}) center/ cover no-repeat`
                                         }}></NavLink>
@@ -191,7 +190,7 @@ const Perfiles = () => {
                                     <div id='card2' className={Estado === false ? 'cardPelis' : 'FalsecardPelis'}>
                                         <div className="perfil" id={perfil.nombre} style={{
                                             background: `url(${perfil?.imagen}) center/ cover no-repeat`,
-                                            borderRadius: "100%"
+                                            borderRadius: "10px"
                                         }}>
                                         </div>
                                         {perfil.nombre}
@@ -229,10 +228,11 @@ const Perfiles = () => {
                     </div>
                     :
                     <div className="formCreate" style={{
-                        background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${fotoMar}) center / cover no-repeat`,
+                        background: `linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%), url(${fotoMar}) center / cover no-repeat`,
                         width: "100%",
                         height: "105vh"
                     }}>
+                        <button onClick={() => EstadoMain(false)} className='iconVolverCreate'>X</button>
                         <form className='Formulario' onSubmit={crearPerfil}>
                             <div className="inputNombre">
                                 <input name='nombre' type="text" required minLength={4} />
@@ -457,6 +457,7 @@ const Perfiles = () => {
                         width: "100%",
                         height: "105vh"
                     }}>
+                        <FontAwesomeIcon onClick={() => setEstado(false)} className='iconVolverCreate' icon={faX}/>
                         <form className='Formulario' onSubmit={crearPerfil}>
                             <div className="inputNombre">
                                 <input name='nombre' type="text" required minLength={4} />

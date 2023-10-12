@@ -195,7 +195,7 @@ setProfile(info)
 
                     ?
                     <div className='divIniciarSesion'>
-                        <div>
+                        <div className='divIniciarSesionunder'>
                             {
                                 IniciarSesion === false
 
