@@ -183,8 +183,7 @@ section{
     position: relative;right: 10px;
 }
 .Show img{
-    width: 70%;
-    height: 90%;
+    height: 2em;
 }
 
 .showdiv p{

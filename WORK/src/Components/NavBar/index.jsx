@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faTrash, faArrowAltCircleRight, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faBars } from '@fortawesome/free-solid-svg-icons'
 import "./estilos.css"
 import { Use } from '../../Context/Perfil'
 import { NavLink } from 'react-router-dom'
@@ -51,8 +51,9 @@ const NavBar = () => {
         const response = await fetch(url);
         const data = await response.json();
         let informacion = []
+        if(data?.results){
         for (let i = 0; i < 6; i++) {
-            if (data.results[i].original_language === "en" && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null) {
+            if  (data?.results[i] && data.results[i].original_language === "en" && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null) {
                 const votos = data?.results[i]?.vote_average
                 const votoFinal = votos.toFixed(1)
                 let info = {
@@ -65,12 +66,16 @@ const NavBar = () => {
                 informacion.push(info)
             }
         }
+        }
 
         const urlSerie = `${API}/search/tv?api_key=${API_KEY}&query=${pelicula}`;
         const responseSerie = await fetch(urlSerie);
         const dataSerie = await responseSerie.json();
+        if(dataSerie?.results){
+
+        
         for (let i = 0; i < 6; i++) {
-            if (dataSerie?.results[i]?.poster_path !== undefined && dataSerie.results[i].poster_path !== null) {
+            if (data.results[i] && data.results[i].original_language === "en" && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null && data.results[i].original_language){
                 const votos = dataSerie?.results[i]?.vote_average
                 const votoFinal = votos.toFixed(1)
                 let info = {
@@ -83,8 +88,8 @@ const NavBar = () => {
                 informacion.push(info)
             }
         }
+    }
         setPeliBuscar(informacion)
-
 
     }
 

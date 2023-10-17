@@ -40,12 +40,17 @@
 }
 
 .DivName a{
-    width: 10%;
+    width: 15%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: .8em .3em;
+    transition: all .5s;
     background-color: white;
+}
+
+.DivName a .icono{
+    transition: all .5s;
 }
 
 .DivName a img{
@@ -80,6 +85,14 @@
     animation: fade2 1s linear;
 }
 
+.DivName a:hover .icono{
+    color: white;
+}
+
+.DivName a:hover{
+    background-color: black;
+    border: .2px solid white;
+}
 
 @media screen and (max-width:750px){
     .DivName{
@@ -90,6 +103,9 @@
         text-align: center;
         flex-direction: column;
         width: 100%;
+    }
+    .DivName a{
+        width: 30%;
     }
     .DivName h1{
         font-size: 1.7em;

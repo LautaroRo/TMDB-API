@@ -1,6 +1,6 @@
-import React, {useEffect, useState, } from 'react'
+import React, { useEffect, useState, } from 'react'
 import "./estilos.css"
-import { NavLink,useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import foto1 from "./../../Assets/foto1.jpeg"
 import foto2 from "./../../Assets/foto2.jpeg"
 import foto3 from "./../../Assets/foto3.jpeg"
@@ -13,6 +13,7 @@ import foto9 from "./../../Assets/foto9.jpeg"
 import foto10 from "./../../Assets/foto10.jpeg"
 import foto11 from "./../../Assets/foto11.jpeg"
 import foto12 from "./../../Assets/foto12.jpeg"
+import netflix from "./../../Assets/netflix.png"
 import { guardarLocal } from '../Helper'
 
 
@@ -26,30 +27,33 @@ const Inicio = () => {
     const [IniciarSesion, setIniciarSesion] = useState(false)
     const [nameInicio, setNameInicio] = useState()
     const [profile, setProfile] = useState([])
+    const [pelisBuscadas, setPeliBuscadas] = useState([])
     const { name } = useParams()
-    
+
+    const API = "https://api.themoviedb.org/3";
+    const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
     const iniciarSesion = (e) => {
         e.preventDefault()
 
         const perfileExistenteBorrar = localStorage.getItem("nombres")
-        if(perfileExistenteBorrar){
+        if (perfileExistenteBorrar) {
             localStorage.removeItem("nombres")
-        }else{
+        } else {
             console.log("no habia")
         }
         const nombre = e.target.username.value
-        guardarLocal("nombres",nombre)
+        guardarLocal("nombres", nombre)
         const contra = e.target.password.value
 
         const nombreGuardado = JSON.parse(localStorage.getItem(` Ruta${nombre}`))
-        if(nombreGuardado){
+        if (nombreGuardado) {
             const perfileExistente = nombreGuardado?.filter((element) => element.name === nombre && element.password === contra)
             if (perfileExistente && perfileExistente.length > 0) {
                 setNameInicio(perfileExistente[0]?.name)
                 setIniciarSesion(true)
-                } else {
+            } else {
                 setIniciarSesion(false)
-    
+
             }
         }
     }
@@ -65,7 +69,7 @@ const Inicio = () => {
             password: password,
             email: email
         }
-setProfile(info)
+        setProfile(info)
         let nombreNull = e.target.user
         let passwordNull = e.target.pas
         let emailNull = e.target.email
@@ -83,7 +87,7 @@ setProfile(info)
             console.log("god")
         } else {
             console.log("error")
-            guardarLocal(` Ruta${nombre}` , info)
+            guardarLocal(` Ruta${nombre}`, info)
             setProfileCreate(true)
         }
     }
@@ -137,30 +141,71 @@ setProfile(info)
             }
         }, 4000);
     }, [cont, Estado]);
+    const buscar = async (e) => {
+        e.preventDefault()
+
+        const url = `${API}/search/movie?api_key=${API_KEY}&query=${e.target.value}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        let informacion = []
+        if(data?.results){
+            for (let i = 0; i < 6; i++) {
+                if (data?.results[i]  && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null) {
+                    let info = {
+                        name: data?.results[i]?.title,
+                        id: data?.results[i]?.id,
+                        tipo: "Pelicula",
+                    }
+                    informacion.push(info)
+                }
+            }
+            setPeliBuscadas(informacion)
+        }
+
+        const urlSerie = `${API}/search/tv?api_key=${API_KEY}&query=${e.target.value}`;
+        const responseSerie = await fetch(urlSerie);
+        const dataSerie = await responseSerie.json();
+        if(dataSerie?.results){
+
+        
+        for (let i = 0; i < 6; i++) {
+            if (data.results[i] && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null && data.results[i].original_language){
+                let info = {
+                    name: dataSerie?.results[i]?.name,
+                    id: dataSerie?.results[i]?.id,
+                    tipo: "Series",
+                }
+                informacion.push(info)
+            }
+        }
+    }
+    setPeliBuscadas(informacion)
+    console.log(informacion)
+    }
 
     const cambiarClase = (e) => {
         e.preventDefault()
         const ubicacionNombre = document.querySelector(".nombrelabel")
         const ubicacionPasswrod = document.querySelector(".contra")
-        if(ubicacionNombre && ubicacionPasswrod){
-            if(e.target.id === "inputContraseña"){
+        if (ubicacionNombre && ubicacionPasswrod) {
+            if (e.target.id === "inputContraseña") {
                 ubicacionPasswrod?.classList?.add("ActivoLabel")
                 ubicacionPasswrod?.classList?.remove("label")
                 console.log(ubicacionPasswrod)
-            }else if(e.target.id === "inputNombre"){
+            } else if (e.target.id === "inputNombre") {
                 ubicacionNombre?.classList?.add("ActivoLabel")
                 ubicacionNombre?.classList?.remove("label")
             }
 
 
 
-            if(e?.target?.name === "username"){
-                if(e?.target?.value.length < 1){
+            if (e?.target?.name === "username") {
+                if (e?.target?.value.length < 1) {
                     ubicacionNombre?.classList?.remove("ActivoLabel")
                     ubicacionNombre?.classList?.add("label")
                 }
-            }else if(e?.target?.name === "password"){
-                if(e?.target?.value.length < 1){
+            } else if (e?.target?.name === "password") {
+                if (e?.target?.value.length < 1) {
                     ubicacionPasswrod?.classList?.remove("ActivoLabel")
                     ubicacionPasswrod?.classList?.add("label")
                 }
@@ -169,20 +214,47 @@ setProfile(info)
     }
     return (
         <div>
+            <nav className='navLogo'>
+                <img src={netflix}></img>
+
+                {
+                    Estado === 1
+
+                    ?
+                    null
+                    :
+                    <button className='IniciarSesion' onClick={() => setEstado(1)}>Iniciar Sesion</button>
+                }
+
+            </nav>
             {
                 Estado === 0
                     ?
                     <div className='Inicio'>
                         <div className="IniciarSecion">
-                            <h1>Bienvenido a Pelis</h1>
+                            <h2>Las mejores Peliculas,Series</h2>
+                            <h3>Shows, Documentales</h3>
+                            <p>La mejor pagina de streaming donde encontraras tus peliculas favoritas</p>
                             <div className="Btons">
-                                <button className='IniciarSesion' onClick={() => setEstado(1)}>Iniciar Sesion</button>
-                                <button className="Registrarse" onClick={() => setEstado(2)}>Registar</button>
+                                <input placeholder='Busca tus peliculas favoritas y descubre si estan en nuestra plaforma' onChange={buscar} className='buscadorInicial' type="text" /><button className="Registrarse" onClick={() => setEstado(2)}>Registrarse</button>
                             </div>
-                        </div>
-
-                        <div className="fondo">
-
+                            <div className='Filtradas'>
+                            {
+                                pelisBuscadas?.length > 0
+                                    ?
+                                    <>
+                                        {pelisBuscadas.map((pelis) => {
+                                            return (
+                                                <div className='DivPelisFiltradas'>
+                                                    <p>{pelis.name}</p>
+                                                </div>
+                                            )
+                                        })}
+                                    </>
+                                    :
+                                    null
+                            }
+                            </div>
                         </div>
                     </div>
 
@@ -221,13 +293,13 @@ setProfile(info)
                                         </form>
                                     </div>
                                     :
-                                    <>  
-                                    <div className="containerCarga">
-                                        <div className='one'></div>
-                                        <div className='two'></div>
-                                        <div className='third'></div>
-                                    </div>
-                                    <NavLink to={`/ruta/${nameInicio}`} className="irAPerfilesFirst" type="submit">Iniciar</NavLink>
+                                    <>
+                                        <div className="containerCarga">
+                                            <div className='one'></div>
+                                            <div className='two'></div>
+                                            <div className='third'></div>
+                                        </div>
+                                        <NavLink to={`/ruta/${nameInicio}`} className="irAPerfilesFirst" type="submit">Iniciar</NavLink>
                                     </>
 
                             }
@@ -277,7 +349,7 @@ setProfile(info)
                                                 <label>Ingresa tu Email</label>
                                             </div>
                                             <button className="irAPerfiles" type="submit">Registrate</button>
-                                                <span onClick={() => setEstado(1)}>Ya tienes una cuenta? Inicia sesion</span>
+                                            <span onClick={() => setEstado(1)}>Ya tienes una cuenta? Inicia sesion</span>
                                         </form>
                                     </>
                             }

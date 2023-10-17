@@ -273,6 +273,23 @@ input{
     .perfilesMain{
         display: none;
     }
+    @keyframes mainmedia{
+        0%{
+            height: 0em;
+        }
+        25%{
+            height: 4em;
+        }
+        50%{
+            height: 8em;
+        }
+        75%{
+            height: 12em;
+        }
+        100%{
+            height: 16em;
+        }
+    }
     .perfilesMainMedia{
         background-color: black;
         height: 16em;
@@ -287,6 +304,7 @@ input{
         bottom: 0;
         z-index: 200;
         border-radius: 10px 10px 0 0;
+        animation: mainmedia linear .5s;
     }
     .organizarPerfiles{
         display: flex;
@@ -323,7 +341,14 @@ input{
         cursor: pointer;
     }
 }
-
+nav h2{
+    color: white;
+    position: relative;
+    right: 30px;
+}
+.input{
+    padding: 1em .1em;
+}
 .x{
     position: absolute;
     top: -20px;

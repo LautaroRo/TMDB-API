@@ -6,18 +6,114 @@
     width: 100%;
 }
 
+.navLogo{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px 0px 0px 0px;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    align-items: center;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0);
+    
+}
 
+.navLogo button,
+.Registrarse{
+    margin: 0 3em;
+    padding: 1em 1em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: rgb(219, 6, 6);
+    color: white;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.navLogo button:hover{
+    background-color: black;
+}
+.buscadorInicial{
+    background-color: white;
+    border: 1px solid black;
+    padding: .3em 5em;
+    margin: 1.2em;
+    color: black;
+    display: flex;
+    border-radius: 10px;
+    align-items: start;
+    justify-content: start;
+}
+.Registrarse{
+    padding: 0 2em;
+    height: 50%;
+    margin: 0 0;
+    cursor: pointer;
+}
+.Btons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Filtradas{
+    overflow-x: auto;
+    height: 12em;
+    width: 100%;
+    max-width: 30em;
+}
+.DivPelisFiltradas{
+    text-align: center;
+    width: 100%;
+    background-color: red;
+    border-radius: 10px;
+    margin: .5em 0;
+}
+.navLogo img{
+    margin: 0 3em;
+    height:30%;
+    width: 40%;
+    max-width: 10em;
+}
+.IniciarSecion h2{
+    color: white;
+    font-size: 3em;
+    letter-spacing: 1px;
+    font-family: math;
+    text-align: center;
+    margin: .3em auto;
+}
+.IniciarSecion h3{
+    color: white;
+    font-family: math;
+    letter-spacing: 1px;
+    font-size: 2em;
+    text-align: center;
+    margin: .3em auto;
+}
+
+.IniciarSecion p{
+    color: white;
+    margin: .3em auto;
+    margin-top: 30px;
+    text-align: center;
+}
 .insideDivIniciar h2{
     color: white;
 }
+
 .IniciarSecion{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 36%;
-    background-color: rgb(6, 27, 10);
-
+    background: linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 100%),url("https://www.notebookcheck.org/fileadmin/Notebooks/News/_nc3/netflixteaser.png");
+    background-position: center;
+    background-size: cover;
+    width: 100%;
 }
 
 .IniciarSecion h1{
@@ -25,10 +121,7 @@
     color: white;
 }
 
-.Btons{
-    display: flex;
-    gap: 4em;
-}
+
 
 .containerCarga{
     display: flex;
@@ -53,6 +146,7 @@
     width: 30px;
     margin: 1em 1em;
 }
+
 
 .one{
     animation: 4s linear one;
@@ -230,19 +324,9 @@
 
 }
 
-.Btons button{
-    padding: .9em 1.7em;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-}
 
-.fondo{
-    background: linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 100%),url("https://www.notebookcheck.org/fileadmin/Notebooks/News/_nc3/netflixteaser.png");
-    background-position: center;
-    background-size: cover;
-    width: 64%;
-}
+
+
 
 
 
@@ -555,6 +639,12 @@ form .ActivoLabel{
     transform: scale(1.1);
 }
 
+@media screen and (max-width: 430px){
+    .DivPelisFiltradas{
+        margin: 1em 0;
+    }
+}
+
 @media screen and (max-width: 700px){
     .divIniciarSesionunder{
         display: flex;
@@ -562,22 +652,168 @@ form .ActivoLabel{
         align-items: center;
         width: 100%;
     }
-    .insideDivIniciar{
-        width: 80%;
+}
+@media screen and (max-width: 480px){
+    .navLogo img{
+        position: relative;
+        right: 20px;
     }
 }
-
 @media screen and (max-width: 860px){
     .containerformRegis{
         width: 35em;
     }
-}
 
+}
+@media screen and (max-width: 590px){
+    .IniciarSecion{
+        width: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 100%),url(https://www.notebookcheck.org/fileadmin/Notebooks/News/_nc3/netflixteaser.png);
+    }
+    .fondo{
+        display: none;
+    }
+    .navLogo img {
+        margin: 0 3em;
+        height: 30%;
+        position: relative;
+        width: 40%;
+        top: -35px;
+        max-width: 10em;
+    }
+
+}
+@media screen and (max-width: 420px){
+    .insideDivIniciar h2{
+        height: 3em;
+    }
+}
+@media screen and (max-width: 600px){
+    .containerformRegis{
+        width: 80%;
+    }
+    .containerformRegis span{
+        display: flex;
+        right: 10px;
+        right: 0px;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 450px){
+    .containerformRegis{
+        height: 73%;
+    }
+    .insideDivIniciar h2 {
+        height: 3em;
+        top: 40px;
+    }
+    .navLogo img {
+        position: relative;
+        right: 0px;
+        top: 5px;
+    }
+}
 @media screen and (max-width: 390px){
     .insideDivIniciar{
-        width: 100%;
-        height: 100vh;
-        border-radius: 0px;
-        border: none;
+        width: 80%;
     }
+    .navLogo img {
+        position: relative;
+        right: 0px;
+        top: 44px;
+    }
+
+}
+
+@media screen and (max-width: 530px){
+    .Filtradas{
+        width: 20em;
+    }
+    .buscadorInicial{
+        padding: .3em 2em;
+    }
+}
+
+@media screen and (max-width: 430px){
+    .buscadorInicial{
+        padding: .3em 1em;
+    }
+    .IniciarSecion p{
+        margin: 0 1em;
+    }
+    .IniciarSecion h3{
+        font-size: 1.6em;
+    }
+    .IniciarSecion h2{
+        font-size: 2.5em;
+    }
+    .Registrarse{
+        padding: 0 1em;
+    }
+}
+@media screen and (max-width: 300px){
+    .insideDivIniciar{
+        width: 90%;
+    }
+
+    .navLogo img {
+        position: relative;
+        right: 0px;
+        top: 10px;
+    }
+
+    .opcionContraseña {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+    }
+    .opcionContraseña span{
+        width: 80%;
+    }
+    .containerformRegis form .irAPerfiles{
+        top: -40px;
+    }
+    .containerformRegis span{
+        width: 86%;
+        text-align: center;
+    }
+
+    .navLogo img {
+        margin: 0 1.8em;
+        width: 30%;
+    }
+    .IniciarSecion h2 {
+        font-size: 2em;
+    }
+    .IniciarSecion h3 {
+        font-size: 1.5em;
+    }
+    .IniciarSecion p {
+        margin: 0 1em;
+        font-size: .9em;
+    }
+    .buscadorInicial {
+        padding: .3em .1em;
+        width: 50%;
+    }
+    .Filtradas {
+        width: 15em;
+        height: 12em;
+    }
+    .Registrarse{
+        position: relative;
+        right: 5px;
+    }
+    .navLogo img {
+        position: relative;
+        right: 0px;
+    }
+}
+
+.Filtradas::-webkit-scrollbar{
+    width: 8px;
+    height: 20%
 }
