@@ -81,7 +81,9 @@
 }
 
 
-
+.error{
+    color: red;
+}
 
 .nombreActor {
     font-weight: 600;
@@ -230,7 +232,9 @@ span {
     }
 }
 
-@media screen and (max-width:1039px) {
+
+
+@media screen and (max-width:1160px) {
     .PosicionesBotonesFav {
         display: none;
     }
@@ -262,6 +266,8 @@ span {
         padding: 0px 0px 0px 0px;
         width: 100%;
         margin: 0 auto;
+        display: flex;
+        flex-flow: row wrap;
     }
 
     .ImgBoton {
@@ -280,5 +286,12 @@ span {
 
     .MediaFoto {
         margin: 4em;
+    }
+    .containerInformacion h2{
+        font-size: 1.3em;
+    }
+
+    .containerInformacion span{
+        font-size: 1em;
     }
 }

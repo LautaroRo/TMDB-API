@@ -6,6 +6,7 @@
     background-color: transparent;
     transition: background-color 0.3s;
     z-index: 30000;
+    height: 6.5em;
 }
 
 .navbar.scrolled {
@@ -15,11 +16,18 @@
 nav {
     display: flex;
     margin: 0.5em 4em;
+    position: relative;
+    top: -30px;
     align-items: center;
 }
 
-nav h2{
-    color: white;
+nav img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10em;
+    height: 100%;
+    right: 10px;
     position: relative;
 }
 
@@ -30,7 +38,7 @@ nav h2{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 80%;
 }
 
 .imagenPerfil{
@@ -81,11 +89,9 @@ li {
 
 .divRight{
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
-    position: absolute;
-    right: 0;
-    margin: 2em;
+
 }
 
 
@@ -148,9 +154,10 @@ input{
 }
 
 .adentroNombres{
-    position:absolute ;
-    height: 100%;
-    width: 50%;
+    position: absolute;
+    height: 90%;
+    width: 56%;
+    margin-top: 10px;
     opacity: -1;
     justify-content: center;
     align-items: center;
@@ -208,16 +215,9 @@ input{
     display: none;
 }
 
-@media screen and (max-width:600px){
-    .containerInformacion h2{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-}
 
-@media screen and (max-width:700px){
+
+@media screen and (max-width:740px){
 
     .activoul{
         display: none;
@@ -269,7 +269,10 @@ input{
     }
 
 
-
+    .divRight{
+        position: absolute;
+        right: 0;
+    }
     .perfilesMain{
         display: none;
     }
@@ -331,7 +334,22 @@ input{
     }
 
 }
+@media screen and (max-width: 1300px){
+    .activoul{
+        width: 60%;
+    }
+}
+@media screen and (max-width: 1000px){
+    .activoul{
+        width: 50%;
+    }
+}
 @media screen and (max-width: 450px){
+
+    .divRight{
+        position: absolute;
+        right: -50px;
+    }
 
     .perfilesMainMedia .organizarPerfiles .dentroPerfiles img{
         margin: 1em 1em;
@@ -361,4 +379,37 @@ nav h2{
 }
 .x:hover{
     transform: scale(1.2);
+}
+
+@media screen and (max-width:600px){
+    .containerInformacion h2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+}
+@media screen and (max-width:550px){
+    .input{
+        width: 18.25em;
+    }
+    .divRight{
+        margin: 1em;
+    }
+}
+@media screen and (max-width: 300px){
+    .imgLogo{
+        width: 8em;
+        right: 40px;
+    }
+    nav{
+        top: -15px;
+    }
+    .iconoSearch{
+        padding: .4em;
+    }
+    .input{
+        width: 10.1em;
+    }
 }

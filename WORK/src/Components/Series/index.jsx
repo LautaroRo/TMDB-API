@@ -10,10 +10,12 @@ const Peilculas = () => {
     const [Categoria, setCagoria] = useState([])
     const [Almacenar, setAlmacenar] = useState([])
     const [Estado, setEstado] = useState(true)
-    const [info, setInfo] = useState();
-    const [guardado, setGuardado] = useState();
     const [PerfilIniciado, setPerfilIniciado] = useState([])
+    const [info, setInfo] = useState();
+    const [boton, setBoton] = useState("iconoCorazon")
+    const [guardado, setGuardado] = useState();
     const [Imagen, setImagen] = useState(false)
+
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
 
 
@@ -25,21 +27,40 @@ const Peilculas = () => {
             setInfo(infoData);
             setGuardado(guardadoData);
         }
+
     }, []);
+
+
     const mostrar = (e) => {
         e.preventDefault()
+        const nombre = JSON.parse(localStorage.getItem("nombres"))
 
-        const almacenados = Almacenar.some((Almacen) => Almacen.name === PeliBack.name)
-        if (almacenados) {
-            const actualizados = Almacenar.filter((element) => element !== PeliBack)
-            setAlmacenar(actualizados)
-            localStorage.setItem(`SeriesGuardadas-${PerfilIniciado[0]?.nombre}`, JSON.stringify(PeliBack))
-        } else {
-            setAlmacenar([...Almacenar, PeliBack])
-            guardarLocal(`SeriesGuardadas-${PerfilIniciado[0]?.nombre}`, PeliBack)
-        }
-        setEstado(!Estado)
+            const buscar = JSON.parse(localStorage.getItem(`SeriesGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`))
+            if(buscar === null){
+                guardarLocal(`SeriesGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`, PeliBack)
+                setAlmacenar(PeliBack)
+                setEstado(!Estado) 
+                setBoton("iconoCorazonCompleted")
+            }else{
+                const almacenados = buscar.some((Almacen) => Almacen.name === PeliBack.name)
+
+                if (almacenados) {
+                    const actualizados = buscar.filter((element) => element.name !== PeliBack.name)
+                    setAlmacenar(actualizados)
+                    localStorage.setItem(`SeriesGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`, JSON.stringify(actualizados))
+                    setBoton("iconoCorazon")
+                } else {
+                    setAlmacenar([...Almacenar, PeliBack])
+                    guardarLocal(`SeriesGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`, PeliBack)
+                    setBoton("iconoCorazonCompleted")
+                }
+            }
+            setEstado(!Estado) 
+        
+
+
     }
+
 
 
     useEffect(() => {
@@ -47,6 +68,7 @@ const Peilculas = () => {
             const Buscar = await fetch(`https://api.themoviedb.org/3/tv/${IDPelicula}?api_key=${API_KEY}&append_to_response=credits`)
             const peliculaEncontrada = await Buscar.json()
             let infoaAlmacenada = []
+            console.log(peliculaEncontrada)
 
             if( peliculaEncontrada?.credits?.cast?.length < 7){
                 for (let i = 0; i < peliculaEncontrada?.credits?.cast?.length ; i++) {
@@ -77,25 +99,30 @@ const Peilculas = () => {
             }
 
             setPelicula([...Pelicula, ...infoaAlmacenada])
+            const voto = peliculaEncontrada?.vote_average?.toFixed(1)
 
-            let InfoBack = {
-                img2: `https://image.tmdb.org/t/p/original${peliculaEncontrada?.backdrop_path}`,
-                name: peliculaEncontrada?.name,
-                description: peliculaEncontrada?.overview,
-                img1: `https://image.tmdb.org/t/p/original${peliculaEncontrada?.poster_path}`,
-                fecha: peliculaEncontrada?.first_air_date,
-                fechaFinal: peliculaEncontrada?.last_air_date
+                let InfoBack = {
+                    img2: `https://image.tmdb.org/t/p/original${peliculaEncontrada?.backdrop_path}`,
+                    name: peliculaEncontrada?.name,
+                    description: peliculaEncontrada?.overview,
+                    img1: `https://image.tmdb.org/t/p/original${peliculaEncontrada?.poster_path}`,
+                    fecha: peliculaEncontrada?.first_air_date,
+                    fechaFinal: peliculaEncontrada?.last_air_date,
+                    id:peliculaEncontrada?.id,
+                    critic: voto
+    
+                }
+                setPeliBack(InfoBack)
 
-            }
-            setPeliBack(InfoBack)
+                let category = []
+                for (let i = 0; peliculaEncontrada?.genres?.length > i; i++) {
+                    let infoCategoria = { name: peliculaEncontrada?.genres[i]?.name }
+                    category.push(infoCategoria)
+                }
+    
+                setCagoria(category)
+            
 
-            let category = []
-            for (let i = 0; peliculaEncontrada?.genres?.length > i; i++) {
-                let infoCategoria = { name: peliculaEncontrada?.genres[i]?.name }
-                category.push(infoCategoria)
-            }
-
-            setCagoria(category)
         }
         buscarPelicula()
     }, [IDPelicula > 0])
@@ -108,30 +135,37 @@ const Peilculas = () => {
 
     useEffect(() => {
 
-        if (info && guardado) {
-            setPerfilIniciado(guardado);
-            setIDPelicula(info);
 
-            const guardadoLocal = JSON.parse(localStorage.getItem(`SeriesGuardadas-${guardado[0]?.nombre}`));
+            const nombre = JSON.parse(localStorage.getItem("nombres"))
+            if (info && guardado) {
+                setPerfilIniciado(guardado);
+                setIDPelicula(info);
+                
+                const guardadoLocal = JSON.parse(localStorage.getItem(`SeriesGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`));
+                if (guardadoLocal !== null) {
+                    setAlmacenar(guardadoLocal)
+                    let ID = [];
+                    for (let i = 0; guardadoLocal.length > i; i++) {
+                        ID.push(guardadoLocal[i].id);
+                    }
+                    
 
-            if (guardadoLocal) {
-                let ID = [];
-                for (let i = 0; guardadoLocal.length > i; i++) {
-                    ID.push(guardadoLocal[i].id);
-                }
-
-                const confirmacion = ID.toString().includes(info.toString());
-                if (confirmacion) {
-                    const boton = document.querySelector(".iconoCorazon");
-                    boton.classList.add("iconoCorazonCompleted");
+                    const confirmacion = ID.toString().includes(info.toString());
+                    if (confirmacion) {
+                        const boton = document.querySelector(".iconoCorazon");
+                        boton?.classList?.add("iconoCorazonCompleted");
+                        setBoton("iconoCorazonCompleted")
+                    }
+                    
                 }
             }
-        }
+
+
     }, [info, PerfilIniciado]);
 
     useEffect(()=>{
-        console.log(PeliBack)
-    },[PeliBack])
+
+    },[])
     return (
         <>
             <NavBar />
@@ -160,11 +194,11 @@ const Peilculas = () => {
                                     {Estado === true
                                         ?
 
-                                        <FontAwesomeIcon onClick={mostrar} className='iconoCorazon' icon={faHeart} />
+                                        <FontAwesomeIcon onClick={mostrar} className={boton} icon={faHeart} />
 
                                         :
 
-                                        <FontAwesomeIcon onClick={mostrar} className='iconoCorazonCompleted' icon={faHeart} />
+                                        <FontAwesomeIcon onClick={mostrar} className={boton} icon={faHeart} />
                                     }
                                 </div>
                                 :
@@ -213,7 +247,9 @@ const Peilculas = () => {
                     </div>
                 </div>
                 <div className='PosicionesBotonesFav'>
-                    {Estado === true
+
+
+                {Estado === true
                         ?
 
                         <FontAwesomeIcon onClick={mostrar} className='iconoCorazon' icon={faHeart} />
@@ -222,6 +258,8 @@ const Peilculas = () => {
 
                         <FontAwesomeIcon onClick={mostrar} className='iconoCorazonCompleted' icon={faHeart} />
                     }
+
+
                 </div>
             </div>
         </>

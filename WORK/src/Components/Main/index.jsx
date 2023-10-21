@@ -8,7 +8,7 @@ import Header from '../Header'
 import NavBar from '../NavBar'
 import { Use } from '../../Context/Perfil'
 const Main = () => {
-    const { PeliBuscar, change, vaciar } = useContext(Use)
+    const { PeliBuscar, change, vaciar, } = useContext(Use)
     const [Movies, setMovies] = useState([])
     const [Movies2, setMovies2] = useState([])
     const [Series, setSeries] = useState([])
@@ -16,11 +16,14 @@ const Main = () => {
     const [show, setShow] = useState(null)
     const [Estado, setEstado] = useState(null)
     const [PelisGuardadas, setPelisGuardadas] = useState([])
+    const [SeriesGuardadas, setSeriesGuardadas] = useState([])
     const API = "https://api.themoviedb.org/3";
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
 
 
     const { name } = useParams()
+
+
     const traerTodasPeliculas = async () => {
         try {
 
@@ -160,15 +163,22 @@ const Main = () => {
         traerTodasPeliculas()
         traerTodaslasSeries()
         const perfilIniciado = JSON.parse(localStorage.getItem("Perfil-Iniciado"))
-
-        const pelisFav = JSON.parse(localStorage.getItem(`PelisGuardadas-${perfilIniciado[0]?.nombre}`))
+        const nombre = JSON.parse(localStorage.getItem("nombres"))
+        const pelisFav = JSON.parse(localStorage.getItem(`PelisGuardadas${nombre}+${perfilIniciado[0]?.nombre}`))
         if (pelisFav) {
             setPelisGuardadas(pelisFav)
-            console.log(pelisFav)
+
         }
     }, [])
 
-
+    useEffect(() => {
+        const perfilIniciado = JSON.parse(localStorage.getItem("Perfil-Iniciado"))
+        const nombre = JSON.parse(localStorage.getItem("nombres"))
+        const seriesFav = JSON.parse(localStorage.getItem(`SeriesGuardadas${nombre}+${perfilIniciado[0]?.nombre}`))
+        if (seriesFav) {
+            setSeriesGuardadas(seriesFav)
+        }
+    }, [])
     const mas = (e) => {
         e.preventDefault()
 
@@ -186,37 +196,46 @@ const Main = () => {
             const divScroll = document.querySelector(".sectiondiv2")
 
             try {
-                divScroll.scrollLeft += 200
+                divScroll.scrollLeft += 150
             }
             catch {
-                divScroll.scrollLeft += 200
+                divScroll.scrollLeft += 150
             }
         } else if (e?.target?.className === "mas3") {
             const divScroll = document.querySelector(".sectiondiv3")
 
             try {
-                divScroll.scrollLeft += 200
+                divScroll.scrollLeft += 150
             }
             catch {
-                divScroll.scrollLeft += 200
+                divScroll.scrollLeft += 150
             }
         } else if (e?.target?.className === "mas4") {
             const divScroll = document.querySelector(".sectiondiv4")
 
             try {
-                divScroll.scrollLeft += 200
+                divScroll.scrollLeft += 150
             }
             catch {
-                divScroll.scrollLeft += 200
+                divScroll.scrollLeft += 150
             }
         } else if (e?.target?.className === "mas5") {
             const divScroll = document.querySelector(".sectiondiv5")
 
             try {
-                divScroll.scrollLeft += 200
+                divScroll.scrollLeft += 150
             }
             catch {
-                divScroll.scrollLeft += 200
+                divScroll.scrollLeft += 150
+            }
+        } else if (e?.target?.className === "mas6") {
+            const divScroll = document.querySelector(".sectiondiv6")
+
+            try {
+                divScroll.scrollLeft += 150
+            }
+            catch {
+                divScroll.scrollLeft += 150
             }
         }
     }
@@ -227,47 +246,56 @@ const Main = () => {
             const divScroll = document.querySelector(".sectiondiv")
 
             try {
-                divScroll.scrollLeft -= 300
+                divScroll.scrollLeft -= 150
             }
             catch {
-                divScroll.scrollLeft -= 300
+                divScroll.scrollLeft -= 150
             }
 
         } else if (e?.target?.className === "menos2") {
             const divScroll = document.querySelector(".sectiondiv2")
 
             try {
-                divScroll.scrollLeft -= 300
+                divScroll.scrollLeft -= 150
             }
             catch {
-                divScroll.scrollLeft -= 300
+                divScroll.scrollLeft -= 150
             }
         } else if (e?.target?.className === "menos3") {
             const divScroll = document.querySelector(".sectiondiv3")
 
             try {
-                divScroll.scrollLeft -= 300
+                divScroll.scrollLeft -= 150
             }
             catch {
-                divScroll.scrollLeft -= 300
+                divScroll.scrollLeft -= 150
             }
         } else if (e?.target?.className === "menos4") {
             const divScroll = document.querySelector(".sectiondiv4")
 
             try {
-                divScroll.scrollLeft -= 300
+                divScroll.scrollLeft -= 150
             }
             catch {
-                divScroll.scrollLeft -= 300
+                divScroll.scrollLeft -= 150
             }
         } else if (e?.target?.className === "menos5") {
             const divScroll = document.querySelector(".sectiondiv5")
 
             try {
-                divScroll.scrollLeft -= 300
+                divScroll.scrollLeft -= 150
             }
             catch {
-                divScroll.scrollLeft -= 300
+                divScroll.scrollLeft -= 150
+            }
+        } else if (e?.target?.className === "menos6") {
+            const divScroll = document.querySelector(".sectiondiv6")
+
+            try {
+                divScroll.scrollLeft -= 150
+            }
+            catch {
+                divScroll.scrollLeft -= 150
             }
         }
 
@@ -573,7 +601,7 @@ const Main = () => {
                                                                                 </span>
                                                                                 <p>{peli.critic}/10</p>
                                                                             </div>
-                                                                            <NavLink id={peli.id} onClick={guardarInfo} to={`/Series/${peli.name}`}>
+                                                                            <NavLink id={peli.id} onClick={guardarInfo} to={`/Pelicula/${peli.name}`}>
                                                                                 <FontAwesomeIcon id={peli.id} onClick={guardarInfo} className='icono' icon={faPlay} />
                                                                             </NavLink>
                                                                         </div>
@@ -590,6 +618,71 @@ const Main = () => {
                                         <div className="divisionesbotones">
                                             <button className='menos5' onClick={menos}>-</button>
                                             <button className='mas5' onClick={mas}>+</button>
+                                        </div>
+                                    </section>
+                                    :
+
+                                    null
+                            }
+                            {
+                                SeriesGuardadas.length > 0
+
+                                    ?
+                                    <section>
+                                        <div className='divTitlePeliculas'>
+                                            <span><FontAwesomeIcon icon={faStar} /></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                        </div>
+                                        <div className='sectiondiv6'>
+                                            <div className="containerMoviesTodas">
+                                                <div className='MoviesTodas'>
+
+                                                    {SeriesGuardadas.map((peli) => {
+                                                        return (
+                                                            <div
+
+                                                                className={show === null ? "ContainerCards" : "ContainerActive"}
+                                                                key={peli.id}
+                                                                onMouseLeave={() => setShow(null)}
+                                                                style={{
+                                                                    background: `linear-gradient(rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%), url(${peli?.img2}) center top / cover no-repeat`,
+                                                                    height: "100%"
+                                                                }}
+                                                            >
+                                                                <div className="divInside">
+                                                                    <img
+                                                                        className={show === peli.id ? "imgactive" : "img"}
+                                                                        src={peli.img1}
+                                                                        onMouseEnter={() => setShow(peli.id)}
+                                                                        alt={peli.name}
+                                                                    />
+                                                                </div>
+                                                                <div className="p">
+                                                                    {show === peli.id && (
+                                                                        <div className="Show">
+                                                                            <h2>{peli.name}</h2>
+                                                                            <div className="showdiv">
+                                                                                <span>
+                                                                                    <img src={pop} alt="Popularity" />
+                                                                                </span>
+                                                                                <p>{peli.critic}/10</p>
+                                                                            </div>
+                                                                            <NavLink id={peli.id} onClick={guardarInfo} to={`/Series/${peli.name}`}>
+                                                                                <FontAwesomeIcon id={peli.id} onClick={guardarInfo} className='icono' icon={faPlay} />
+                                                                            </NavLink>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+
+                                                        )
+                                                    })}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="divisionesbotones">
+                                            <button className='menos6' onClick={menos}>-</button>
+                                            <button className='mas6' onClick={mas}>+</button>
                                         </div>
                                     </section>
                                     :
@@ -615,19 +708,19 @@ const Main = () => {
                                             zIndex: "1"
                                         }}>
 
-                                            {Estado !== pelis.id
+                                            {
+                                                Estado !== pelis.id
 
-                                                ?
-                                                null
-                                                :
-                                                <div onMouseLeave={() => setEstado(null)} className='pelisBuscadasEnter' style={{ background: `linear-gradient(rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.80) 100%),url(${pelis?.imagen}) center / cover no-repeat` }}>
-                                                    <h3 className='nombre'>{pelis.name}</h3>
-                                                    <span><img className='pop' src={pop}></img>{pelis.voto}</span>
-                                                    <NavLink className="navlink123" id={pelis?.id} onClick={guardarInfo} to={`/${pelis.tipo}/${pelis.name}`}>
-                                                        <FontAwesomeIcon id={pelis.id} onClick={guardarInfo} className='icono' icon={faPlay} />
-                                                    </NavLink>
-
-                                                </div>
+                                                    ?
+                                                    null
+                                                    :
+                                                    <div onMouseLeave={() => setEstado(null)} className='pelisBuscadasEnter' style={{ background: `linear-gradient(rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.80) 100%),url(${pelis?.imagen}) center / cover no-repeat` }}>
+                                                        <h3 className='nombre'>{pelis.name}</h3>
+                                                        <span><img className='pop' src={pop}></img>{pelis.voto}</span>
+                                                        <NavLink className="navlink123" id={pelis?.id} onClick={guardarInfo} to={`/${pelis.tipo}/${pelis.name}`}>
+                                                            <FontAwesomeIcon id={pelis.id} onClick={guardarInfo} className='icono' icon={faPlay} />
+                                                        </NavLink>
+                                                    </div>
                                             }
 
                                         </div>

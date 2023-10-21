@@ -353,7 +353,25 @@
     }
 }
 
+.DivConfetti{
+    animation: Confetti linear 5s;
+    transition: all .5s;
+}
 
+@keyframes Confetti{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 1;
+    }
+    70%{
+        opacity: 0;
+    }
+    100%{
+        opacity: -1;
+    }
+}
 
 .insideDivIniciar{
     display: flex;
@@ -486,6 +504,30 @@ form .ActivoLabel{
 
 /*--registrarte--*/
 
+
+.DivEnterRegistrado{
+    display: flex;
+    flex-direction: column;
+    height: 30em;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.DivEnterRegistrado h3{
+    font-size: 2em;
+    font-family: monospace;
+}
+
+.DivEnterRegistrado button{
+    background: none;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    width: 2.5em;
+}
 .containerformRegis{
     display: flex;
     background-color: rgba(13, 14, 14, 0.884);
@@ -576,14 +618,13 @@ form .ActivoLabel{
     top: 0px;
 }
 
-.containerformRegis form .IngresarUser label,
-.containerformRegis form .ingresarContra label,
+.containerformRegis form .IngresarUser .nombrelabel,
+.containerformRegis form .ingresarContra .contra,
 .containerformRegis form .email label{
     position: absolute;
     left: 0px;
     color: #adadad;
     font-size: 1em;
-    top: 0px;
     pointer-events: none;
     transition: all .5s;
 }
@@ -594,6 +635,22 @@ form .ActivoLabel{
 .containerformRegis form .ingresarContra input:focus ~ label,
 .containerformRegis form .email input:focus ~ label{
     top:-30px;
+    animation: entrar linear .5s;
+}
+
+@keyframes entrar{
+    0%{
+        top: 0px;
+    }
+    30%{
+        top: -10px;
+    }
+    60%{
+        top: -20px;
+    }
+    100%{
+        top: -30px;
+    }
 }
 .ActivoLabel{
     position: absolute;
@@ -652,6 +709,9 @@ form .ActivoLabel{
         align-items: center;
         width: 100%;
     }
+    .insideDivIniciar{
+        width: 80%;
+    }
 }
 @media screen and (max-width: 480px){
     .navLogo img{
@@ -678,7 +738,6 @@ form .ActivoLabel{
         height: 30%;
         position: relative;
         width: 40%;
-        top: -35px;
         max-width: 10em;
     }
 
@@ -709,11 +768,15 @@ form .ActivoLabel{
         height: 3em;
         top: 40px;
     }
-    .navLogo img {
-        position: relative;
-        right: 0px;
-        top: 5px;
+    .Registrarse{
+    position: relative;
+    top: 1px;
     }
+    .navLogo button,
+.Registrarse{
+    position: relative;
+    top: 10px;
+}
 }
 @media screen and (max-width: 390px){
     .insideDivIniciar{
@@ -735,7 +798,19 @@ form .ActivoLabel{
         padding: .3em 2em;
     }
 }
+@media screen and (max-width: 400px){
 
+    .navLogo img {
+        position: relative;
+        right: 0px; 
+        top: -14px;
+    }
+    .Registrarse {
+        padding: 0 1em;
+        position: relative;
+        top: 1px;
+    }
+}
 @media screen and (max-width: 430px){
     .buscadorInicial{
         padding: .3em 1em;
@@ -753,9 +828,15 @@ form .ActivoLabel{
         padding: 0 1em;
     }
 }
-@media screen and (max-width: 300px){
+@media screen and (max-width: 450px){
     .insideDivIniciar{
         width: 90%;
+        margin-top: 3em;
+    }
+
+    .insideDivIniciar h2{
+        height: 1em;
+        top: 0px;
     }
 
     .navLogo img {
@@ -780,7 +861,9 @@ form .ActivoLabel{
         width: 86%;
         text-align: center;
     }
-
+    .navLogo{
+        top: -20px;
+    }
     .navLogo img {
         margin: 0 1.8em;
         width: 30%;

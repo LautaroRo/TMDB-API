@@ -1,4 +1,5 @@
 import React, { useEffect, useState, } from 'react'
+import ReactConfetti from "react-confetti"
 import "./estilos.css"
 import { NavLink, useParams } from 'react-router-dom'
 import foto1 from "./../../Assets/foto1.jpeg"
@@ -28,8 +29,21 @@ const Inicio = () => {
     const [nameInicio, setNameInicio] = useState()
     const [profile, setProfile] = useState([])
     const [pelisBuscadas, setPeliBuscadas] = useState([])
+    const [windowDimension, setWindowDimension] = useState({ widht: window.innerWidth, height: window.innerHeight })
+    const [btn, setBtn] = useState(false)
     const { name } = useParams()
 
+    
+
+    const detectSize = () => {
+        setWindowDimension({ widht: window.innerWidth, height: window.innerHeight })
+    }
+    useEffect(() => {
+        window.addEventListener("resize", detectSize)
+        return () => {
+            window.removeEventListener("resize", detectSize)
+        }
+    }, [windowDimension])
     const API = "https://api.themoviedb.org/3";
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
     const iniciarSesion = (e) => {
@@ -61,8 +75,8 @@ const Inicio = () => {
     const crearPerfil = (e) => {
         e.preventDefault()
 
-        const nombre = e.target.user.value
-        const password = e.target.pas.value
+        const nombre = e.target.username.value
+        const password = e.target.password.value
         const email = e.target.email.value
         let info = {
             name: nombre,
@@ -70,8 +84,8 @@ const Inicio = () => {
             email: email
         }
         setProfile(info)
-        let nombreNull = e.target.user
-        let passwordNull = e.target.pas
+        let nombreNull = e.target.username
+        let passwordNull = e.target.password
         let emailNull = e.target.email
 
         nombreNull.value = ""
@@ -79,17 +93,37 @@ const Inicio = () => {
         emailNull.value = ""
 
 
-
-        const nombreGuardado = JSON.parse(localStorage.getItem(` Ruta${nombre}`)) || []
-
-
-        if (nombreGuardado?.length > 0 || nombreGuardado[0]?.email === email || nombreGuardado[0]?.nombre) {
-            console.log("god")
-        } else {
-            console.log("error")
-            guardarLocal(` Ruta${nombre}`, info)
-            setProfileCreate(true)
+        const datos = JSON.parse(localStorage.getItem("Datos")) || []
+        let datosRepetidos = []
+        for(let i = 0; datos.length > i; i++){
+            const emailsRepetidos = datos[i].email
+            const nombresRepetidos = datos[i].name
+            let infoRepetida = {
+                nombreRep: nombresRepetidos,
+                emailRep: emailsRepetidos
+            }
+            datosRepetidos.push(infoRepetida)
         }
+
+        let emailsYnombres = []
+        for(let i = 0; datosRepetidos.length > i; i++){
+            emailsYnombres.push(datosRepetidos[i].emailRep)
+        }
+        console.log(emailsYnombres)
+            if (emailsYnombres.includes(email)) {
+                console.log("god")
+            } else {
+                guardarLocal(` Ruta${nombre}`, info)
+                guardarLocal("Datos", info)
+                setProfileCreate(true)
+                setBtn(true)
+                setTimeout(() => {
+                    setBtn(false)
+                }, 4000);
+            }
+        
+
+
     }
     useEffect(() => {
         setFotos([
@@ -148,9 +182,9 @@ const Inicio = () => {
         const response = await fetch(url);
         const data = await response.json();
         let informacion = []
-        if(data?.results){
+        if (data?.results) {
             for (let i = 0; i < 6; i++) {
-                if (data?.results[i]  && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null) {
+                if (data?.results[i] && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null) {
                     let info = {
                         name: data?.results[i]?.title,
                         id: data?.results[i]?.id,
@@ -165,22 +199,22 @@ const Inicio = () => {
         const urlSerie = `${API}/search/tv?api_key=${API_KEY}&query=${e.target.value}`;
         const responseSerie = await fetch(urlSerie);
         const dataSerie = await responseSerie.json();
-        if(dataSerie?.results){
+        if (dataSerie?.results) {
 
-        
-        for (let i = 0; i < 6; i++) {
-            if (data.results[i] && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null && data.results[i].original_language){
-                let info = {
-                    name: dataSerie?.results[i]?.name,
-                    id: dataSerie?.results[i]?.id,
-                    tipo: "Series",
+
+            for (let i = 0; i < 6; i++) {
+                if (data.results[i] && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null && data.results[i].original_language) {
+                    let info = {
+                        name: dataSerie?.results[i]?.name,
+                        id: dataSerie?.results[i]?.id,
+                        tipo: "Series",
+                    }
+                    informacion.push(info)
                 }
-                informacion.push(info)
             }
         }
-    }
-    setPeliBuscadas(informacion)
-    console.log(informacion)
+        setPeliBuscadas(informacion)
+
     }
 
     const cambiarClase = (e) => {
@@ -191,7 +225,6 @@ const Inicio = () => {
             if (e.target.id === "inputContraseña") {
                 ubicacionPasswrod?.classList?.add("ActivoLabel")
                 ubicacionPasswrod?.classList?.remove("label")
-                console.log(ubicacionPasswrod)
             } else if (e.target.id === "inputNombre") {
                 ubicacionNombre?.classList?.add("ActivoLabel")
                 ubicacionNombre?.classList?.remove("label")
@@ -203,9 +236,11 @@ const Inicio = () => {
                 if (e?.target?.value.length < 1) {
                     ubicacionNombre?.classList?.remove("ActivoLabel")
                     ubicacionNombre?.classList?.add("label")
+                    console.log(true)
                 }
             } else if (e?.target?.name === "password") {
                 if (e?.target?.value.length < 1) {
+                    console.log(true)
                     ubicacionPasswrod?.classList?.remove("ActivoLabel")
                     ubicacionPasswrod?.classList?.add("label")
                 }
@@ -214,16 +249,31 @@ const Inicio = () => {
     }
     return (
         <div>
+            {
+                btn === true
+
+                    ?
+                    <div className='DivConfetti'>
+                        <ReactConfetti
+                            width={windowDimension.widht}
+                            height={windowDimension.height}
+                        ></ReactConfetti>
+                    </div>
+                    :
+
+                    null
+            }
+
             <nav className='navLogo'>
                 <img src={netflix}></img>
 
                 {
                     Estado === 1
 
-                    ?
-                    null
-                    :
-                    <button className='IniciarSesion' onClick={() => setEstado(1)}>Iniciar Sesion</button>
+                        ?
+                        null
+                        :
+                        <button className='IniciarSesion' onClick={() => setEstado(1)}>Iniciar Sesion</button>
                 }
 
             </nav>
@@ -239,21 +289,21 @@ const Inicio = () => {
                                 <input placeholder='Busca tus peliculas favoritas y descubre si estan en nuestra plaforma' onChange={buscar} className='buscadorInicial' type="text" /><button className="Registrarse" onClick={() => setEstado(2)}>Registrarse</button>
                             </div>
                             <div className='Filtradas'>
-                            {
-                                pelisBuscadas?.length > 0
-                                    ?
-                                    <>
-                                        {pelisBuscadas.map((pelis) => {
-                                            return (
-                                                <div className='DivPelisFiltradas'>
-                                                    <p>{pelis.name}</p>
-                                                </div>
-                                            )
-                                        })}
-                                    </>
-                                    :
-                                    null
-                            }
+                                {
+                                    pelisBuscadas?.length > 0
+                                        ?
+                                        <>
+                                            {pelisBuscadas.map((pelis) => {
+                                                return (
+                                                    <div className='DivPelisFiltradas'>
+                                                        <p>{pelis.name}</p>
+                                                    </div>
+                                                )
+                                            })}
+                                        </>
+                                        :
+                                        null
+                                }
                             </div>
                         </div>
                     </div>
@@ -321,27 +371,31 @@ const Inicio = () => {
                             justifyContent: "center",
                             alignItems: "center"
                         }}>
-                        <div className="containerformRegis">
+                        <>
                             {
                                 ProfileCreate === true
 
                                     ?
-                                    <div>
-                                        <h3>Bienvenido {profile.name}</h3>
-                                        <NavLink to={`/ruta/${profile?.name}`} className="irAPerfiles" type="submit">Registrate</NavLink>
+
+                                    <div className='DivEnterRegistrado'>
+                                        <div>
+                                            <h3>Bienvenido {profile.name}!!!!</h3>
+                                        </div>
+                                        <button onClick={() => setEstado(1)} className="irAPerfilesFirst" type="submit">Entrar</button>
                                     </div>
                                     :
-                                    <>
-                                        <h2>Registate</h2>
+
+                                    <div className="containerformRegis">
+                                        <h2>Registrate</h2>
                                         <form onSubmit={crearPerfil}>
                                             <div className="IngresarUser">
-                                                <input name='user' required type='text' />
-                                                <label>Ingresa tu nombre</label>
+                                                <input onChange={cambiarClase} id='inputNombre' name='username' required type='text' />
+                                                <label className='label nombrelabel' id="nombreLabel">Ingresa tu nombre</label>
                                             </div>
 
                                             <div className="ingresarContra">
-                                                <input name='pas' required type='password' />
-                                                <label>Ingresa tu contraseña</label>
+                                                <input onChange={cambiarClase} id='inputContraseña' name='password' required type='password' />
+                                                <label className='label contra' id="contraseñaLabel">Ingresa tu contraseña</label>
                                             </div>
 
                                             <div className="email">
@@ -351,9 +405,11 @@ const Inicio = () => {
                                             <button className="irAPerfiles" type="submit">Registrate</button>
                                             <span onClick={() => setEstado(1)}>Ya tienes una cuenta? Inicia sesion</span>
                                         </form>
-                                    </>
+                                    </div>
                             }
-                        </div>
+
+                        </>
+
                     </div>
                     :
                     null

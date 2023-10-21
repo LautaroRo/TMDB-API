@@ -8,7 +8,8 @@ main{
 .sectiondiv2,
 .sectiondiv3,
 .sectiondiv4,
-.sectiondiv5{
+.sectiondiv5,
+.sectiondiv6{
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -18,7 +19,7 @@ main{
     scroll-behavior: smooth;
 }
 .containerMoviesTodas{
-    width: 90%;
+    width: 100%;
     margin: 100px auto;
 }
 
@@ -59,7 +60,8 @@ button:hover{
 .mas2,
 .mas3,
 .mas4,
-.mas5{
+.mas5,
+.mas6{
     border: none;
     background: rgba(27, 23, 23, 0.644);
     font-size: 40px;
@@ -86,7 +88,8 @@ section{
 .menos2,
 .menos3,
 .menos4,
-.menos5{
+.menos5,
+.menos6{
     border: none;
     background: rgba(27, 23, 23, 0.644);
     font-size: 40px;
@@ -98,27 +101,7 @@ section{
     z-index: 500;
     transition: .2s ease all;
 }
-.mas5,
-.menos5{
-    top: 3355px;
-}
 
-.mas,
-.menos{
-    top: 1130px
-}
-.mas4,
-.menos4{
-    top: 2802px;
-}
-.mas2,
-.menos2{
-    top: 1689px;
-}
-.mas3,
-.menos3{
-    top: 2245px;
-}
 .divInside{
     display: flex;
     justify-content: center;
@@ -394,14 +377,19 @@ html{
 
 
 @media screen and (max-width:624px){
+    .DivName p {
+        max-width: 95%;
+        font-size: .9em;
+    }
     .mas,
     .mas2,
     .mas3,
     .mas4,
-    .mas5{
+    .mas5,
+    .mas6{
         width: 8%;
     }
-    .menos, .menos2, .menos3, .menos4, .menos5{
+    .menos, .menos2, .menos3, .menos4, .menos5, .menos6{
         width: 8%;
     }
 }
@@ -412,6 +400,41 @@ html{
         align-items: center;
     }
     .divTitlePeliculas span{
+        display: none;
+    }
+    .MoviesTodas .ContainerActive {
+        width: 45%;
+    }
+    
+
+    .MoviesTodas{
+        overflow-x: auto;
+    }
+
+    .MoviesTodas::-webkit-scrollbar-track{
+        background-color: transparent;
+    }
+    
+    .MoviesTodas::-webkit-scrollbar-thumb{
+        background-color: white;
+        border-radius: 10px ;
+    }
+    .MoviesTodas::-webkit-scrollbar{
+        width: 100%;
+        height: 15px
+    }
+    .MoviesTodas::-webkit-scrollbar-thumb:hover{
+        background-color: rgb(14, 137, 253);
+    }
+    .mas,
+    .mas2,
+    .mas3,
+    .mas4,
+    .mas5,
+    .mas6{
+        display: none;
+    }
+    .menos, .menos2, .menos3, .menos4, .menos5, .menos6{
         display: none;
     }
 }
@@ -425,30 +448,28 @@ html{
         font-size: 1.2em;
     }
 
-    .MoviesTodas .ContainerActive{
-        width: 60%;
-    }
 
-    .mas,
-    .mas2,
-    .mas3,
-    .mas4,
-    .mas5,
-    .menos, .menos2, .menos3, .menos4, .menos5{
-        height: 5%;
-        border-radius: 100%;
-        border: 1px solid white;
-        padding: .2em .6em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+
+
     .sectiondiv,
 .sectiondiv2,
 .sectiondiv3,
 .sectiondiv4,
-.sectiondiv5{
+.sectiondiv5,
+.sectiondiv6{
     width: 100%;
 }
 
 }
+@media screen and (max-width:300px){
+    .divTitlePeliculas h2 {
+        font-size: 1em;
+    }
+    .DivName h1 {
+        font-size: 1.2em;
+    }
+    .input {
+        padding: 1em 3.7em;
+    }
+}
+

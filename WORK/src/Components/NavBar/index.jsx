@@ -4,6 +4,7 @@ import { faMagnifyingGlass, faBars } from '@fortawesome/free-solid-svg-icons'
 import "./estilos.css"
 import { Use } from '../../Context/Perfil'
 import { NavLink } from 'react-router-dom'
+import netflix from "./../../Assets/netflix.png"
 const NavBar = () => {
 
     const { setPeliBuscar, setChange, change } = useContext(Use)
@@ -112,7 +113,7 @@ const NavBar = () => {
         <header className={scrolled ? "navbar scrolled" : "navbar"}>
             <nav>
                 <input type="checkbox" id="check" checked={isChecked} onChange={handleCheckboxClick} />
-                <h2>Pelis</h2>
+                <img className='imgLogo' src={netflix} alt="" />
                 <ul className='activoul'>
                     <li><NavLink className='links' to="/inicio">Inicio</NavLink></li>
                     <li><NavLink className='links' to="/Filtros">Filtros</NavLink></li>

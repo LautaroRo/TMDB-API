@@ -17,7 +17,7 @@ const Filtos = () => {
     const [Seleccion, setSeleccion] = useState([])
     const [Generos, setGeneros] = useState([])
     const [Filtrados, setFiltrados] = useState([])
-    const [Contador, setContador] = useState(10)
+    const [Contador, setContador] = useState(4)
     const API = "https://api.themoviedb.org/3";
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
 

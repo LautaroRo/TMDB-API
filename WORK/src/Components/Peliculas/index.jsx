@@ -6,7 +6,7 @@ import "./estilos.css"
 import { guardarLocal } from '../Helper'
 import { Use } from '../../Context/Perfil'
 const Peilculas = () => {
-    const { peliBuscar } = useContext(Use)
+    const { setPeliBuscar,Pelibuscar} = useContext(Use)
     const [IDPelicula, setIDPelicula] = useState(0)
     const [Pelicula, setPelicula] = useState([])
     const [PeliBack, setPeliBack] = useState([])
@@ -17,7 +17,7 @@ const Peilculas = () => {
     const [info, setInfo] = useState();
     const [guardado, setGuardado] = useState();
     const [Imagen, setImagen] = useState(false)
-
+    const [boton, setBoton] = useState("iconoCorazon")
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
 
 
@@ -33,19 +33,37 @@ const Peilculas = () => {
 
     const mostrar = (e) => {
         e.preventDefault()
+        const nombre = JSON.parse(localStorage.getItem("nombres"))
 
-        const almacenados = Almacenar.some((Almacen) => Almacen.name === PeliBack.name)
-        if (almacenados) {
-            const actualizados = Almacenar.filter((element) => element !== PeliBack)
-            setAlmacenar(actualizados)
-            localStorage.setItem(`PelisGuardadas-${PerfilIniciado[0]?.nombre}`, JSON.stringify(PeliBack))
-        } else {
-            setAlmacenar([...Almacenar, PeliBack])
-            guardarLocal(`PelisGuardadas-${PerfilIniciado[0]?.nombre}`, PeliBack)
-        }
-        setEstado(!Estado)
+            const buscar = JSON.parse(localStorage.getItem(`PelisGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`))
+            console.log(buscar)
+            let Almacenar = [];
+            if(buscar === null){
+                guardarLocal(`PelisGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`, PeliBack)
+                setAlmacenar(PeliBack)
+                setEstado(!Estado) 
+                setBoton("iconoCorazonCompleted")
+            }else{
+                const almacenados = buscar.some((Almacen) => Almacen.name === PeliBack.name)
+
+                if (almacenados) {
+                    const actualizados = buscar.filter((element) => element.name !== PeliBack.name)
+                    setAlmacenar(actualizados)
+                    localStorage.setItem(`PelisGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`, JSON.stringify(actualizados))
+                    setBoton("iconoCorazon")
+                } else {
+                    setAlmacenar([...Almacenar, PeliBack])
+                    guardarLocal(`PelisGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`, PeliBack)
+                    setBoton("iconoCorazonCompleted")
+                }
+            }
+            setEstado(!Estado) 
+        
+
+
     }
 
+    
 
     useEffect(() => {
         const buscarPelicula = async () => {
@@ -83,7 +101,8 @@ const Peilculas = () => {
                 }
                 setPelicula([...Pelicula, ...infoaAlmacenada])
 
-
+                    const voto = peliculaEncontrada?.vote_average?.toFixed(1)
+                    console.log(voto)
                 let InfoBack = {
                     img1: `https://image.tmdb.org/t/p/original${peliculaEncontrada?.poster_path}`,
                     img2: `https://image.tmdb.org/t/p/original${peliculaEncontrada?.backdrop_path}`,
@@ -91,7 +110,7 @@ const Peilculas = () => {
                     description: peliculaEncontrada?.overview,
                     fecha: peliculaEncontrada?.release_date,
                     id: peliculaEncontrada?.id,
-                    critic: peliculaEncontrada?.vote_average
+                    critic: voto
                 }
                 console.log(InfoBack)
 
@@ -110,29 +129,38 @@ const Peilculas = () => {
     }, [IDPelicula > 0])
 
     useEffect(() => {
-        // Only proceed if both info and guardado are available
+
+
+        const nombre = JSON.parse(localStorage.getItem("nombres"))
         if (info && guardado) {
             setPerfilIniciado(guardado);
             setIDPelicula(info);
-
-            const guardadoLocal = JSON.parse(localStorage.getItem(`PelisGuardadas-${guardado[0]?.nombre}`));
-
-            if (guardadoLocal) {
+            
+            const guardadoLocal = JSON.parse(localStorage.getItem(`PelisGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`));
+            if (guardadoLocal !== null) {
+                setAlmacenar(guardadoLocal)
                 let ID = [];
                 for (let i = 0; guardadoLocal.length > i; i++) {
                     ID.push(guardadoLocal[i].id);
                 }
+                
 
                 const confirmacion = ID.toString().includes(info.toString());
                 if (confirmacion) {
                     const boton = document.querySelector(".iconoCorazon");
-                    boton.classList.add("iconoCorazonCompleted");
+                    boton?.classList?.add("iconoCorazonCompleted");
+                    setBoton("iconoCorazonCompleted")
                 }
+                
             }
         }
-    }, [info, PerfilIniciado]);
 
 
+}, [info, PerfilIniciado]);
+
+    useEffect(()=>{
+
+    },[])
     return (
         <>
             <NavBar />
@@ -161,11 +189,11 @@ const Peilculas = () => {
                                     {Estado === true
                                         ?
 
-                                        <FontAwesomeIcon onClick={mostrar} className='iconoCorazon' icon={faHeart} />
+                                        <FontAwesomeIcon onClick={mostrar} className={boton} icon={faHeart} />
 
                                         :
 
-                                        <FontAwesomeIcon onClick={mostrar} className='iconoCorazonCompleted' icon={faHeart} />
+                                        <FontAwesomeIcon onClick={mostrar} className={boton} icon={faHeart} />
                                     }
                                 </div>
                                 :
@@ -213,14 +241,12 @@ const Peilculas = () => {
                     </div>
                 </div>
                 <div className='PosicionesBotonesFav'>
-                    {Estado === true
-                        ?
-
-                        <FontAwesomeIcon onClick={mostrar} className='iconoCorazon' icon={faHeart} />
-
-                        :
-
-                        <FontAwesomeIcon onClick={mostrar} className='iconoCorazonCompleted' icon={faHeart} />
+                    {
+                            Estado === true
+                            ?
+                            <FontAwesomeIcon onClick={mostrar} className='iconoCorazon' icon={faHeart} />
+                            :
+                            <FontAwesomeIcon onClick={mostrar} className='iconoCorazonCompleted' icon={faHeart} />
                     }
                 </div>
             </div>
