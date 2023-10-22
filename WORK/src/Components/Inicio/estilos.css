@@ -167,6 +167,7 @@
     font-size: 1.2em;
     position: relative;
     transition: all .5s;
+    animation: 6s linear iniciarPerfil;
 }
 .irAPerfilesFirst::after{
     content: "";
@@ -176,7 +177,10 @@
     width: 100%;
     transition: all .5s;
     border: 1px solid white;
+
 }
+
+
 
 .irAPerfilesFirst:hover::after{
     transform: scale(1);
@@ -614,13 +618,11 @@ form .ActivoLabel{
 .containerformRegis form .email input{
     width: 100%;
 }
-.containerformRegis form .email label{
-    top: 0px;
-}
+
 
 .containerformRegis form .IngresarUser .nombrelabel,
 .containerformRegis form .ingresarContra .contra,
-.containerformRegis form .email label{
+.containerformRegis form .email .emaiLv2{
     position: absolute;
     left: 0px;
     color: #adadad;
@@ -761,8 +763,8 @@ form .ActivoLabel{
     }
 }
 @media screen and (max-width: 450px){
-    .containerformRegis{
-        height: 73%;
+    .containerformRegis {
+        height: 38em;
     }
     .insideDivIniciar h2 {
         height: 3em;
@@ -889,6 +891,7 @@ form .ActivoLabel{
     .Registrarse{
         position: relative;
         right: 5px;
+        top: 0px;
     }
     .navLogo img {
         position: relative;
@@ -899,4 +902,28 @@ form .ActivoLabel{
 .Filtradas::-webkit-scrollbar{
     width: 8px;
     height: 20%
+}
+
+@media screen and (max-width: 400px){
+    .containerformRegis {
+        height: 30em;
+    }
+}
+
+@keyframes iniciarPerfil{
+    0%{
+        opacity: -1;
+    }
+    30%{
+        opacity: -1;
+    }
+    50%{
+        opacity: -1;
+    }
+    70%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }

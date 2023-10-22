@@ -221,6 +221,7 @@ const Inicio = () => {
         e.preventDefault()
         const ubicacionNombre = document.querySelector(".nombrelabel")
         const ubicacionPasswrod = document.querySelector(".contra")
+        const email = document.querySelector(".emaiLv2")
         if (ubicacionNombre && ubicacionPasswrod) {
             if (e.target.id === "inputContraseña") {
                 ubicacionPasswrod?.classList?.add("ActivoLabel")
@@ -236,13 +237,28 @@ const Inicio = () => {
                 if (e?.target?.value.length < 1) {
                     ubicacionNombre?.classList?.remove("ActivoLabel")
                     ubicacionNombre?.classList?.add("label")
-                    console.log(true)
                 }
             } else if (e?.target?.name === "password") {
                 if (e?.target?.value.length < 1) {
-                    console.log(true)
                     ubicacionPasswrod?.classList?.remove("ActivoLabel")
                     ubicacionPasswrod?.classList?.add("label")
+                }
+            }
+
+        } 
+        
+        
+        if(ProfileCreate === false ){
+
+            if(e.target.id === "inputEmail"){
+                email?.classList?.add("ActivoLabel")
+                email?.classList?.remove("label")
+            }
+
+            if(e?.target?.name === "email"){
+                if (e?.target?.value.length < 1) {
+                email?.classList?.remove("ActivoLabel")
+                email?.classList?.add("label")
                 }
             }
         }
@@ -399,8 +415,8 @@ const Inicio = () => {
                                             </div>
 
                                             <div className="email">
-                                                <input name='email' required type="email" />
-                                                <label>Ingresa tu Email</label>
+                                                <input onChange={cambiarClase}  name='email' id='inputEmail' required type="email" />
+                                                <label className='label emaiLv2'>Ingresa tu Email</label>
                                             </div>
                                             <button className="irAPerfiles" type="submit">Registrate</button>
                                             <span onClick={() => setEstado(1)}>Ya tienes una cuenta? Inicia sesion</span>
