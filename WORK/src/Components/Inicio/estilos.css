@@ -936,3 +936,30 @@ form .ActivoLabel{
         opacity: 1;
     }
 }
+
+@media screen and (max-height:630px){
+    .insideDivIniciar{
+        margin-top: 0em;
+        height: 30em;
+    }
+    .divIniciarSesion .insideDivIniciar form .username, .divIniciarSesion .insideDivIniciar form .lastname {
+        position: relative;
+        border-bottom: 2px solid #adadad;
+        margin: 3em 0;
+    }
+    .divIniciarSesionunder{
+        position: relative;
+    z-index: 1123123;
+    }
+    .navLogo{
+        opacity: 1;
+    }
+    .containerformRegis {
+        height: 34em;
+    }
+
+    span {
+        color: rgb(187, 183, 183);
+        margin: .8em;
+    }    
+}
