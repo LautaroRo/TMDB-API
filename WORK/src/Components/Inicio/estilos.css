@@ -954,16 +954,18 @@ form .ActivoLabel{
     .navLogo{
         opacity: 1;
     }
+    .registrarteContainer-in{
+        animation: none;
+    }
+    .registrarteContainer{
+        animation: none;
+    }
     .containerformRegis {
         background-color: black;
-        height: 105%;
         width: 95%;
         position: relative;
         z-index: 212;
-        height: 29em;
-    }
-    .containerformRegis {
-        height: 34em;
+        height:     30em;
     }
 
     span {
