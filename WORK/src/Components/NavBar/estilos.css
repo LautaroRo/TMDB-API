@@ -215,7 +215,31 @@ input{
     display: none;
 }
 
+.volverPerfiles{
+    color: white;
+    text-decoration: none;
+    font-family: cursive;
+}
 
+.dentroPerfilesVTwo{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.volverPerfiles::after{
+    content: "";
+    display: block;
+    width: 100%;
+    border: 1px solid white;
+    transform: scale(0);
+    transition: all .5s;
+}
+
+.volverPerfiles:hover::after{
+    transform: scale(1);
+}
 
 @media screen and (max-width:740px){
 

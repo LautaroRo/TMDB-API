@@ -17,6 +17,8 @@ const NavBar = () => {
     const API = "https://api.themoviedb.org/3";
     const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
 
+    const name = JSON.parse(localStorage.getItem("nombres"))
+
     useEffect(() => {
         const buscarPerfil = JSON.parse(localStorage.getItem("Perfil-Iniciado"));
         setPerfil(buscarPerfil)
@@ -52,44 +54,44 @@ const NavBar = () => {
         const response = await fetch(url);
         const data = await response.json();
         let informacion = []
-        if(data?.results){
-        for (let i = 0; i < 6; i++) {
-            if  (data?.results[i] && data.results[i].original_language === "en" && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null) {
-                const votos = data?.results[i]?.vote_average
-                const votoFinal = votos.toFixed(1)
-                let info = {
-                    name: data?.results[i]?.title,
-                    imagen: `https://image.tmdb.org/t/p/w500/${data?.results[i]?.poster_path}`,
-                    id: data?.results[i]?.id,
-                    tipo: "Pelicula",
-                    voto: votoFinal
+        if (data?.results) {
+            for (let i = 0; i < 6; i++) {
+                if (data?.results[i] && data.results[i].original_language === "en" && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null) {
+                    const votos = data?.results[i]?.vote_average
+                    const votoFinal = votos.toFixed(1)
+                    let info = {
+                        name: data?.results[i]?.title,
+                        imagen: `https://image.tmdb.org/t/p/w500/${data?.results[i]?.poster_path}`,
+                        id: data?.results[i]?.id,
+                        tipo: "Pelicula",
+                        voto: votoFinal
+                    }
+                    informacion.push(info)
                 }
-                informacion.push(info)
             }
-        }
         }
 
         const urlSerie = `${API}/search/tv?api_key=${API_KEY}&query=${pelicula}`;
         const responseSerie = await fetch(urlSerie);
         const dataSerie = await responseSerie.json();
-        if(dataSerie?.results){
+        if (dataSerie?.results) {
 
-        
-        for (let i = 0; i < 6; i++) {
-            if (data.results[i] && data.results[i].original_language === "en" && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null && data.results[i].original_language){
-                const votos = dataSerie?.results[i]?.vote_average
-                const votoFinal = votos.toFixed(1)
-                let info = {
-                    name: dataSerie?.results[i]?.name,
-                    imagen: `https://image.tmdb.org/t/p/w500/${dataSerie?.results[i]?.poster_path}`,
-                    id: dataSerie?.results[i]?.id,
-                    tipo: "Series",
-                    voto: votoFinal
+
+            for (let i = 0; i < 6; i++) {
+                if (data.results[i] && data.results[i].original_language === "en" && data.results[i]?.poster_path !== undefined && data.results[i]?.poster_path !== null && data.results[i].original_language) {
+                    const votos = dataSerie?.results[i]?.vote_average
+                    const votoFinal = votos.toFixed(1)
+                    let info = {
+                        name: dataSerie?.results[i]?.name,
+                        imagen: `https://image.tmdb.org/t/p/w500/${dataSerie?.results[i]?.poster_path}`,
+                        id: dataSerie?.results[i]?.id,
+                        tipo: "Series",
+                        voto: votoFinal
+                    }
+                    informacion.push(info)
                 }
-                informacion.push(info)
             }
         }
-    }
         setPeliBuscar(informacion)
 
     }
@@ -138,19 +140,31 @@ const NavBar = () => {
                             ?
                             <>
                                 <div className='perfilesMain' onMouseLeave={() => setMostrar(false)}>
-                                    {Perfiles.map((perfil) => {
-                                        return (
-                                            <div className='dentroPerfiles'>
-                                                <img src={perfil?.imagen}></img>
-                                                <div onClick={CambiarPerfil} id={perfil?.nombre} className='adentroNombres' style={{ 
-                                                    background: `linear-gradient(rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.90) 100%),url(${perfil?.imagen})center / cover no-repeat` 
-                                                }}>
-                                                    <h2>{perfil?.nombre}</h2>
-                                                </div>
-                                            </div>
+                                    {
+                                        Perfiles.length < 2
 
-                                        )
-                                    })}
+                                            ?
+                                            <div className='dentroPerfilesVTwo'>
+                                                <NavLink className="volverPerfiles" to={`/ruta/${name}`}>Crear Perfiles</NavLink>
+                                            </div>
+                                            :
+                                            <>
+                                                {Perfiles.map((perfil) => {
+                                                    return (
+                                                        <div  className='dentroPerfiles'>
+                                                            <img src={perfil?.imagen}></img>
+                                                            <div onClick={CambiarPerfil} id={perfil?.nombre} className='adentroNombres' style={{
+                                                                background: `linear-gradient(rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.90) 100%),url(${perfil?.imagen})center / cover no-repeat`
+                                                            }}>
+                                                                <h2>{perfil?.nombre}</h2>
+                                                            </div>
+                                                        </div>
+
+                                                    )
+                                                })}
+                                            </>
+                                    }
+
                                     <div className='CerrarSesion'>
                                         <NavLink className="LinkCerrar" to="/">Cerrar Sesion</NavLink>
                                     </div>
@@ -159,13 +173,25 @@ const NavBar = () => {
                                     <h1 className='x' onClick={() => setMostrar(false)}>X</h1>
                                     <div className="organizarPerfiles">
 
-                                        {Perfiles.map((perfil) => {
-                                            return (
+                                        {
+                                            Perfiles.length < 2
+
+                                                ?
                                                 <div className='dentroPerfiles'>
-                                                    <img className='imagen' onClick={CambiarPerfil} id={perfil?.nombre} src={perfil?.imagen}></img>
+                                                    <NavLink className="volverPerfiles" to={`/ruta/${name}`}>Crear Perfiles</NavLink>
                                                 </div>
-                                            )
-                                        })}
+                                                :
+                                                <>
+                                                    {Perfiles.map((perfil) => {
+                                                        return (
+                                                            <div className='dentroPerfiles'>
+                                                                <img className='imagen' onClick={CambiarPerfil} id={perfil?.nombre} src={perfil?.imagen}></img>
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </>
+                                        }
+
                                     </div>
 
                                     <div className='CerrarSesionMedia'>
