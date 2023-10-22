@@ -955,6 +955,14 @@ form .ActivoLabel{
         opacity: 1;
     }
     .containerformRegis {
+        background-color: black;
+        height: 105%;
+        width: 95%;
+        position: relative;
+        z-index: 212;
+        height: 29em;
+    }
+    .containerformRegis {
         height: 34em;
     }
 
