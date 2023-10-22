@@ -446,7 +446,7 @@ const Main = () => {
 
                             <section>
                                 <div className='divTitlePeliculas'>
-                                    <span><FontAwesomeIcon icon={faCircle} /></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                    <span><FontAwesomeIcon icon={faCircle} /></span><h2 className='titlePeliculas'>Series mas populares del momento</h2>
                                 </div>
                                 <div className='sectiondiv3'>
                                     <div className="containerMoviesTodas">
@@ -504,7 +504,7 @@ const Main = () => {
 
                             <section>
                                 <div className='divTitlePeliculas'>
-                                    <span><FontAwesomeIcon icon={faCircle} /></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                    <span><FontAwesomeIcon icon={faCircle} /></span><h2 className='titlePeliculas'>Series mas aclamadas por la critica</h2>
                                 </div>
 
                                 <div className='sectiondiv4'>
@@ -565,7 +565,7 @@ const Main = () => {
                                     ?
                                     <section>
                                         <div className='divTitlePeliculas'>
-                                            <span><FontAwesomeIcon icon={faStar} /></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                            <span><FontAwesomeIcon icon={faStar} /></span><h2 className='titlePeliculas'>Tus Peliculas favoritas</h2>
                                         </div>
                                         <div className='sectiondiv5'>
                                             <div className="containerMoviesTodas">
@@ -630,7 +630,7 @@ const Main = () => {
                                     ?
                                     <section>
                                         <div className='divTitlePeliculas'>
-                                            <span><FontAwesomeIcon icon={faStar} /></span><h2 className='titlePeliculas'>Peliculas mas aclamadas por la critica</h2>
+                                            <span><FontAwesomeIcon icon={faStar} /></span><h2 className='titlePeliculas'>Tus Series favoritas</h2>
                                         </div>
                                         <div className='sectiondiv6'>
                                             <div className="containerMoviesTodas">

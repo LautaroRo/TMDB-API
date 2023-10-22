@@ -350,7 +350,7 @@ const Inicio = () => {
                                                 <label className='label contra' id="contraseñaLabel">Contraseña</label>
                                             </div>
                                             <div className="opcionContraseña">
-                                                <span className='span1'>Olvidaste tu contraseña??</span>
+                                                <span className='span1' onClick={() => setEstado(0)}>Volver</span>
                                                 <span className='span2' onClick={() => setEstado(2)}>Registarte aqui</span>
                                             </div>
                                             <div className="posicionBton">

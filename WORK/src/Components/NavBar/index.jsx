@@ -113,7 +113,7 @@ const NavBar = () => {
         <header className={scrolled ? "navbar scrolled" : "navbar"}>
             <nav>
                 <input type="checkbox" id="check" checked={isChecked} onChange={handleCheckboxClick} />
-                <img className='imgLogo' src={netflix} alt="" />
+                <NavLink to="/"><img className='imgLogo' src={netflix} /></NavLink>
                 <ul className='activoul'>
                     <li><NavLink className='links' to="/inicio">Inicio</NavLink></li>
                     <li><NavLink className='links' to="/Filtros">Filtros</NavLink></li>

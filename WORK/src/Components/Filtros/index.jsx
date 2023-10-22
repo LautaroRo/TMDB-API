@@ -26,7 +26,7 @@ const Filtos = () => {
         try {
             let Peliculas = []
 
-            // Obtener todas las películas
+
             for (let i = 5; i < 8; i++) {
                 const traerlasPeliculas = `${API}/movie/top_rated?api_key=${API_KEY}&page=${i}`
                 const traerLasPelisFetch = await fetch(traerlasPeliculas)
@@ -45,7 +45,7 @@ const Filtos = () => {
             }
 
 
-            for (let j = 5; j < 10; j++) {
+            for (let j = 5; j < 8; j++) {
                 let url = `${API}/tv/top_rated?api_key=${API_KEY}&page=${j}`
                 const urlFetch = await fetch(url)
                 const urlJson = await urlFetch.json()
@@ -390,7 +390,7 @@ const Filtos = () => {
                                             ?
 
                                             <div>
-                                                <button onClick={Sumar}>Mostrar mas</button>
+                                                <button className='MostrarMas' onClick={Sumar}>Mostrar mas</button>
                                             </div>
 
                                             :

@@ -180,7 +180,9 @@
 
 }
 
-
+.divIniciarSesionunder{
+    position: fixed;
+}
 
 .irAPerfilesFirst:hover::after{
     transform: scale(1);
@@ -448,9 +450,6 @@ width: 100%;
     transform: scale(1.2);
     color: white;
 }
-form .ActivoLabel{
-    color:grey;
-}
 
 .divIniciarSesion .insideDivIniciar form .username input:focus ~ .label,
 .divIniciarSesion .insideDivIniciar form .lastname input:focus  ~ .label{
@@ -508,6 +507,10 @@ form .ActivoLabel{
 
 /*--registrarte--*/
 
+
+.containerformRegis{
+    position: fixed;
+}
 
 .DivEnterRegistrado{
     display: flex;
@@ -620,11 +623,12 @@ form .ActivoLabel{
 }
 
 
-.containerformRegis form .IngresarUser .nombrelabel,
-.containerformRegis form .ingresarContra .contra,
-.containerformRegis form .email .emaiLv2{
+.containerformRegis form .IngresarUser .label,
+.containerformRegis form .ingresarContra .label,
+.containerformRegis form .email .label{
     position: absolute;
     left: 0px;
+    top: 0;
     color: #adadad;
     font-size: 1em;
     pointer-events: none;
@@ -663,6 +667,11 @@ form .ActivoLabel{
     pointer-events: none;
     transition: all .5s;
 }
+
+form .ActivoLabel{
+    color:grey;
+}
+
 
 .containerformRegis form .irAPerfiles{
     width: 30%;

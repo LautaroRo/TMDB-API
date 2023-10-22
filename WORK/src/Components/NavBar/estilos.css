@@ -397,6 +397,11 @@ nav h2{
     .divRight{
         margin: 1em;
     }
+    .imgLogo{
+        right: 30px;
+        height: 10em;
+        width: 80%;
+    }
 }
 @media screen and (max-width: 300px){
     .imgLogo{
