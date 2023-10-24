@@ -917,6 +917,9 @@ form .ActivoLabel{
     .containerformRegis {
         height: 30em;
     }
+    .DivEnterRegistrado h3{
+        font-size:1.5em;
+    }
 }
 
 @keyframes iniciarPerfil{
