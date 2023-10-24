@@ -111,6 +111,7 @@ const NavBar = () => {
     const handleCheckboxClick = () => {
         setIsChecked(!isChecked);
     }
+    const nameInicio = localStorage.getItem("nombres")
     return (
         <header className={scrolled ? "navbar scrolled" : "navbar"}>
             <nav>
@@ -141,7 +142,7 @@ const NavBar = () => {
                             <>
                                 <div className='perfilesMain' onMouseLeave={() => setMostrar(false)}>
                                     {
-                                        Perfiles.length < 2
+                                        Perfiles.length < 1
 
                                             ?
                                             <div className='dentroPerfilesVTwo'>
@@ -167,6 +168,7 @@ const NavBar = () => {
 
                                     <div className='CerrarSesion'>
                                         <NavLink className="LinkCerrar" to="/">Cerrar Sesion</NavLink>
+                                        <NavLink className="LinkCerrar" to={`/ruta/${nameInicio}`}>Volver</NavLink>
                                     </div>
                                 </div>
                                 <div className='perfilesMainMedia' >
@@ -196,6 +198,7 @@ const NavBar = () => {
 
                                     <div className='CerrarSesionMedia'>
                                         <NavLink className="LinkCerrar" to="/">Cerrar Sesion</NavLink>
+                                        <NavLink className="LinkCerrar" to={`/ruta/${nameInicio}`}>Volver</NavLink>
                                     </div>
                                 </div>
                             </>

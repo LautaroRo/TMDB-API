@@ -2,6 +2,8 @@ import React, { useEffect, useState, } from 'react'
 import ReactConfetti from "react-confetti"
 import "./estilos.css"
 import { NavLink, useParams } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import foto1 from "./../../Assets/foto1.jpeg"
 import foto2 from "./../../Assets/foto2.jpeg"
 import foto3 from "./../../Assets/foto3.jpeg"
@@ -65,6 +67,17 @@ const Inicio = () => {
             if (perfileExistente && perfileExistente.length > 0) {
                 setNameInicio(perfileExistente[0]?.name)
                 setIniciarSesion(true)
+                toast.success(`Bienvenido ${perfileExistente[0]?.name}`, {
+                    position:"top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined
+                }
+
+                )
             } else {
                 setIniciarSesion(false)
 
@@ -109,7 +122,7 @@ const Inicio = () => {
         for(let i = 0; datosRepetidos.length > i; i++){
             emailsYnombres.push(datosRepetidos[i].emailRep)
         }
-        console.log(emailsYnombres)
+
             if (emailsYnombres.includes(email)) {
                 console.log("god")
             } else {
@@ -361,6 +374,7 @@ const Inicio = () => {
                                     :
                                     <>
                                         <div className="containerCarga">
+                                        <ToastContainer/>
                                             <div className='one'></div>
                                             <div className='two'></div>
                                             <div className='third'></div>

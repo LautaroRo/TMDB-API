@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import NavBar from "./../NavBar"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faLocationPinLock, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./estilos.css"
 import { guardarLocal } from '../Helper'
 import { Use } from '../../Context/Perfil'
@@ -51,10 +53,30 @@ const Peilculas = () => {
                     setAlmacenar(actualizados)
                     localStorage.setItem(`PelisGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`, JSON.stringify(actualizados))
                     setBoton("iconoCorazon")
+                    toast.warn("Se elimino de tus favoritos", {
+                    position:"bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined
+                    }
+                    )
                 } else {
                     setAlmacenar([...Almacenar, PeliBack])
                     guardarLocal(`PelisGuardadas${nombre}+${PerfilIniciado[0]?.nombre}`, PeliBack)
                     setBoton("iconoCorazonCompleted")
+                    toast.success("Se agrego a tus favoritos", {
+                        position:"bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined
+                        }
+                        )
                 }
             }
             setEstado(!Estado) 
@@ -164,6 +186,7 @@ const Peilculas = () => {
     return (
         <>
             <NavBar />
+            <ToastContainer></ToastContainer>
             <div>
                 <div className='ContainerBusqueda' style={{
                     background: `linear-gradient(rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.90) 100%),url(${PeliBack?.img2})center / cover no-repeat`,
