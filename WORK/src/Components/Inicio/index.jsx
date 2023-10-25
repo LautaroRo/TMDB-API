@@ -35,7 +35,7 @@ const Inicio = () => {
     const [btn, setBtn] = useState(false)
     const { name } = useParams()
 
-    
+
 
     const detectSize = () => {
         setWindowDimension({ widht: window.innerWidth, height: window.innerHeight })
@@ -62,13 +62,42 @@ const Inicio = () => {
         const contra = e.target.password.value
 
         const nombreGuardado = JSON.parse(localStorage.getItem(` Ruta${nombre}`))
-        if (nombreGuardado) {
+        if (!nombreGuardado) {
+
+            toast.warn(`Nombre incorrecta`, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined
+            }
+            )
+            setIniciarSesion(false)
+        }
+        if (nombreGuardado !== null) {
+
+            if (nombreGuardado[0]?.password !== contra) {
+                toast.warn(`Contraseña incorrecta`, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined
+                }
+                )
+                setIniciarSesion(false)
+            }
             const perfileExistente = nombreGuardado?.filter((element) => element.name === nombre && element.password === contra)
+
             if (perfileExistente && perfileExistente.length > 0) {
                 setNameInicio(perfileExistente[0]?.name)
                 setIniciarSesion(true)
                 toast.success(`Bienvenido ${perfileExistente[0]?.name}`, {
-                    position:"top-center",
+                    position: "top-center",
                     autoClose: 3000,
                     hideProgressBar: true,
                     closeOnClick: true,
@@ -78,9 +107,6 @@ const Inicio = () => {
                 }
 
                 )
-            } else {
-                setIniciarSesion(false)
-
             }
         }
     }
@@ -108,7 +134,7 @@ const Inicio = () => {
 
         const datos = JSON.parse(localStorage.getItem("Datos")) || []
         let datosRepetidos = []
-        for(let i = 0; datos.length > i; i++){
+        for (let i = 0; datos.length > i; i++) {
             const emailsRepetidos = datos[i].email
             const nombresRepetidos = datos[i].name
             let infoRepetida = {
@@ -119,22 +145,22 @@ const Inicio = () => {
         }
 
         let emailsYnombres = []
-        for(let i = 0; datosRepetidos.length > i; i++){
+        for (let i = 0; datosRepetidos.length > i; i++) {
             emailsYnombres.push(datosRepetidos[i].emailRep)
         }
 
-            if (emailsYnombres.includes(email)) {
-                console.log("god")
-            } else {
-                guardarLocal(` Ruta${nombre}`, info)
-                guardarLocal("Datos", info)
-                setProfileCreate(true)
-                setBtn(true)
-                setTimeout(() => {
-                    setBtn(false)
-                }, 4000);
-            }
-        
+        if (emailsYnombres.includes(email)) {
+            console.log("god")
+        } else {
+            guardarLocal(` Ruta${nombre}`, info)
+            guardarLocal("Datos", info)
+            setProfileCreate(true)
+            setBtn(true)
+            setTimeout(() => {
+                setBtn(false)
+            }, 4000);
+        }
+
 
 
     }
@@ -258,20 +284,20 @@ const Inicio = () => {
                 }
             }
 
-        } 
-        
-        
-        if(ProfileCreate === false ){
+        }
 
-            if(e.target.id === "inputEmail"){
+
+        if (ProfileCreate === false) {
+
+            if (e.target.id === "inputEmail") {
                 email?.classList?.add("ActivoLabel")
                 email?.classList?.remove("label")
             }
 
-            if(e?.target?.name === "email"){
+            if (e?.target?.name === "email") {
                 if (e?.target?.value.length < 1) {
-                email?.classList?.remove("ActivoLabel")
-                email?.classList?.add("label")
+                    email?.classList?.remove("ActivoLabel")
+                    email?.classList?.add("label")
                 }
             }
         }
@@ -352,6 +378,7 @@ const Inicio = () => {
 
                                     ?
                                     <div className='insideDivIniciar'>
+                                        <ToastContainer />
                                         <h2>Iniciar sesion</h2>
                                         <form onSubmit={iniciarSesion}>
                                             <div className='username'>
@@ -374,7 +401,7 @@ const Inicio = () => {
                                     :
                                     <>
                                         <div className="containerCarga">
-                                        <ToastContainer/>
+                                            <ToastContainer />
                                             <div className='one'></div>
                                             <div className='two'></div>
                                             <div className='third'></div>
@@ -429,7 +456,7 @@ const Inicio = () => {
                                             </div>
 
                                             <div className="email">
-                                                <input onChange={cambiarClase}  name='email' id='inputEmail' required type="email" />
+                                                <input onChange={cambiarClase} name='email' id='inputEmail' required type="email" />
                                                 <label className='label emaiLv2'>Ingresa tu Email</label>
                                             </div>
                                             <button className="irAPerfiles" type="submit">Registrate</button>
