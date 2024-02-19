@@ -554,31 +554,7 @@ width: 100%;
     border-bottom: 1px solid white;
     width: 100%;
 }
-.registrarteContainer{
-    animation: fade2 1s linear;
-}
-.registrarteContainer-in{
-    animation: fade 1s linear;
-}
-@keyframes fade {
-    0% {
-        opacity: -1;
-    }
 
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes fade2 {
-    0% {
-        opacity: -1;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
 
 .containerformRegis form{
     display: flex;

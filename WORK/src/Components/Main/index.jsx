@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { NavLink, json, useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import pop from "./../../Assets/pop.png"
 import "./estilos.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,156 +8,17 @@ import Header from '../Header'
 import NavBar from '../NavBar'
 import { Use } from '../../Context/Perfil'
 const Main = () => {
-    const { PeliBuscar, change, vaciar, } = useContext(Use)
-    const [Movies, setMovies] = useState([])
-    const [Movies2, setMovies2] = useState([])
-    const [Series, setSeries] = useState([])
-    const [Series2, setSeries2] = useState([])
+    const { PeliBuscar, change, vaciar, Movies, Movies2, traerTodasPeliculas,traerTodaslasSeries, Series, Series2} = useContext(Use)
+
     const [show, setShow] = useState(null)
     const [Estado, setEstado] = useState(null)
     const [PelisGuardadas, setPelisGuardadas] = useState([])
     const [SeriesGuardadas, setSeriesGuardadas] = useState([])
-    const API = "https://api.themoviedb.org/3";
-    const API_KEY = "4903e5c5c2225bad56aa53c4f91fd74b";
+
 
 
     const { name } = useParams()
 
-
-    const traerTodasPeliculas = async () => {
-        try {
-
-            let peliculas = []
-            let MejoresPeliculas = []
-            for (let j = 0; 5 > j; j++) {
-
-                let urlUltimasPelis = `${API}/movie/popular?api_key=${API_KEY}&page=${j}`;
-                const responseUltimasPelis = await fetch(urlUltimasPelis)
-                const dataUltimasPelis = await responseUltimasPelis.json()
-
-                for (let j = 0; dataUltimasPelis?.results?.length > j; j++) {
-                    let img = dataUltimasPelis.results[j].poster_path
-                    let img2 = dataUltimasPelis.results[j].backdrop_path
-
-                    const Imagenes = `https://image.tmdb.org/t/p/original${img}`;
-                    const Imagenes2 = `https://image.tmdb.org/t/p/original${img2}`;
-
-                    if (img) {
-                        let name = dataUltimasPelis.results[j].title
-                        let id = dataUltimasPelis.results[j].id;
-                        const critic = dataUltimasPelis.results[j].vote_average;
-                        let info = {
-                            name: name,
-                            id: id,
-                            img: Imagenes,
-                            img2: Imagenes2,
-                            critic: critic,
-                        }
-                        peliculas.push(info)
-
-                    }
-
-                }
-            }
-
-
-
-
-            for (let i = 0; 5 > i; i++) {
-                let urlMejoresPeliculas = `${API}/movie/top_rated?api_key=${API_KEY}&page=${i}`;
-                const responseMejoresPeliculas = await fetch(urlMejoresPeliculas)
-                const dataMejoresPeliculas = await responseMejoresPeliculas.json()
-
-                for (let j = 0; dataMejoresPeliculas?.results?.length > j; j++) {
-                    let img = dataMejoresPeliculas.results[j].poster_path
-                    let img2 = dataMejoresPeliculas.results[j].backdrop_path
-
-                    const Imagenes = `https://image.tmdb.org/t/p/original${img}`;
-                    const Imagenes2 = `https://image.tmdb.org/t/p/original${img2}`;
-                    const name = dataMejoresPeliculas.results[j].title
-                    let id = dataMejoresPeliculas.results[j].id;
-
-                    const critic = dataMejoresPeliculas.results[j].vote_average;
-                    let info = {
-                        name: name,
-                        img: Imagenes,
-                        img2: Imagenes2,
-                        critic: critic,
-                        id: id
-                    }
-
-                    MejoresPeliculas.push(info)
-                }
-            }
-
-            setMovies2([...Movies2, ...MejoresPeliculas])
-            setMovies([...Movies, ...peliculas])
-
-        }
-        catch {
-            console.log("error")
-        }
-    }
-
-
-    const traerTodaslasSeries = async () => {
-        try {
-            let info = []
-            let info2 = []
-            for (let j = 0; 5 > j; j++) {
-                let url = `${API}/tv/popular?api_key=${API_KEY}&page=${j}`
-                const urlFetch = await fetch(url)
-                const urlJson = await urlFetch.json()
-
-
-                for (let i = 0; urlJson?.results?.length > i; i++) {
-                    let img = urlJson?.results[i].poster_path
-                    let img2 = urlJson?.results[i].backdrop_path
-
-                    const Imagenes = `https://image.tmdb.org/t/p/original${img}`;
-                    const Imagenes2 = `https://image.tmdb.org/t/p/original${img2}`;
-                    const critic = urlJson?.results[i]?.vote_average;
-                    let infoGuardad = {
-                        name: urlJson?.results[i].name,
-                        img: Imagenes,
-                        img2: Imagenes2,
-                        id: urlJson?.results[i].id,
-                        critic: critic
-                    }
-                    info.push(infoGuardad)
-                }
-            }
-
-            for (let j = 0; 5 > j; j++) {
-                let url = `${API}/tv/top_rated?api_key=${API_KEY}&page=${j}`
-                const urlFetch = await fetch(url)
-                const urlJson = await urlFetch.json()
-
-
-                for (let i = 0; urlJson?.results?.length > i; i++) {
-                    let img = urlJson?.results[i].poster_path
-                    let img2 = urlJson?.results[i].backdrop_path
-
-                    const Imagenes = `https://image.tmdb.org/t/p/original${img}`;
-                    const Imagenes2 = `https://image.tmdb.org/t/p/original${img2}`;
-                    const critic = urlJson?.results[i]?.vote_average;
-                    let infoGuardad = {
-                        name: urlJson?.results[i].name,
-                        img: Imagenes,
-                        img2: Imagenes2,
-                        id: urlJson?.results[i].id,
-                        critic: critic
-                    }
-                    info2.push(infoGuardad)
-                }
-            }
-
-            setSeries([...Series, ...info])
-            setSeries2([...Series2, ...info2])
-        } catch {
-            console.log("error")
-        }
-    }
 
     useEffect(() => {
         traerTodasPeliculas()
@@ -309,9 +170,9 @@ const Main = () => {
 
         const nombre = e.target.id
         if (nombre.length < 1) {
-            console.log("error")
             e.preventDefault()
         } else {
+            localStorage.removeItem("Pelicula-Seleccionada")
             localStorage.setItem("Pelicula-Seleccionada", JSON.stringify(nombre))
         }
     }

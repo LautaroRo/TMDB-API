@@ -188,21 +188,7 @@ const Inicio = () => {
     const contador = fotos[cont]
 
 
-    useEffect(() => {
-        const element = document.querySelector(".registrarteContainer");
-        const element2 = document.querySelector(".registrarteContainer-in");
 
-        if (element) {
-            element?.classList?.remove("registrarteContainer");
-            element?.classList?.add("registrarteContainer-in");
-        }
-
-
-        if (element2) {
-            element2?.classList?.remove("registrarteContainer-in")
-            element2?.classList?.add("registrarteContainer")
-        }
-    }, [contador]);
     useEffect(() => {
 
         setTimeout(() => {
